@@ -3,13 +3,14 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const NavContainer = styled.nav`
-  background-color: #333;
-  color: #fff;
+  background-color: var(--nav-background);
+  color: var(--nav-color);
   padding: 10px;
 `;
 
 const NavList = styled.ul`
   list-style: none;
+  justify-content: flex-end;
   padding: 0;
   display: flex;
 `;
@@ -20,12 +21,12 @@ const NavItem = styled.li`
 
 const NavLink = styled(Link)`
   text-decoration: none;
-  color: #fff;
+  color: black;
   font-weight: bold;
   transition: color 0.3s;
 
   &:hover {
-    color: #ff9900;
+    color: var(--nav-hover-color);
   }
 `;
 

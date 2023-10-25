@@ -10,25 +10,27 @@ const Home = () => {
   return (
     <div data-testid={TEST_ID.container}>
       <h1>Welcome to the Home Page</h1>
-      <div className="container">
-        <div className="column">
-          <h2>Column 1</h2>
-          <div>
-            <MyProfile />
-            <MyFriends />
+      <div className="wrapper">
+        <div className="container homepage">
+          <div className="column">
+            <h2>Column 1</h2>
+            <div>
+              <MyProfile />
+              <MyFriends />
+            </div>
           </div>
-        </div>
-        <div className="column">
-          <h2>Column 2</h2>
-          <div>
-            <Nav />
-            <Feed />
+          <div className="middle-column">
+            <h2>Column 2</h2>
+            <div>
+              <Nav />
+              <Feed />
+            </div>
           </div>
-        </div>
-        <div className="column">
-          <h2>Column 3</h2>
-          <div>
-            <Events />
+          <div className="column">
+            <h2>Column 3</h2>
+            <div>
+              <Events />
+            </div>
           </div>
         </div>
       </div>
