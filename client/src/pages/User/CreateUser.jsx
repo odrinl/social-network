@@ -171,7 +171,7 @@ const Title = styled.div`
 `;
 const InputField = styled.div`
   margin: 10px auto 10px;
-  position:relative;
+  position: relative;
   display: flex;
   max-width: 100%;
   flex-direction: column;
@@ -187,7 +187,7 @@ const GuideList = styled.ul`
 `;
 const StyledInput = styled(Input)`
   height: 40px;
-  font-size:17px;
+  font-size: 17px;
   align-self: stretch;
   border-radius: 12px;
   border: 1px solid rgba(102, 102, 102, 0.35);
@@ -203,12 +203,12 @@ const StyledButton = styled.button`
   font-size: 20px;
   cursor: pointer;
   &:hover {
-  box-shadow: 0 0 10px 5px rgba(144, 70, 127, 0.5);
-  transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 10px 5px rgba(144, 70, 127, 0.5);
+    transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
   }
 `;
 const IconWrapper = styled.div`
-  position:absolute;
-  right:10px;
-  top:5px;
+  position: absolute;
+  right: 10px;
+  top: 5px;
 `;
