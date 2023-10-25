@@ -95,10 +95,9 @@ const CreateUser = () => {
                 backgroundColor:
                   password.trim() !== ""
                     ? isPasswordValid()
-                      ? "rgba(0, 255, 0, 0.5)"
-                      : "rgba(255, 0, 0, 0.5)"
+                      ? "rgba(217, 250, 190, 0.5)"
+                      : "rgba(255, 96, 82, 0.5)"
                     : "auto",
-                color: "white",
               }}
               data-testid={TEST_ID.emailInput}
             />
@@ -120,10 +119,9 @@ const CreateUser = () => {
                 backgroundColor:
                   confirmPassword.trim() !== ""
                     ? isPasswordConfirmValid()
-                      ? "rgba(0, 255, 0, 0.5)"
-                      : "rgba(255, 0, 0, 0.5)"
+                      ? "rgba(217, 250, 190, 0.5)"
+                      : "rgba(255, 96, 82, 0.5)"
                     : "auto",
-                color: "white",
               }}
               data-testid={TEST_ID.emailInput}
             />
@@ -160,6 +158,7 @@ const Container = styled.div`
   border: 1px solid #000;
 `;
 const Title = styled.div`
+  position: relative;
   margin: 0 auto;
   width: 348px;
   height: 86px;
@@ -172,6 +171,7 @@ const Title = styled.div`
 `;
 const InputField = styled.div`
   margin: 10px auto 10px;
+  position:relative;
   display: flex;
   max-width: 100%;
   flex-direction: column;
@@ -187,6 +187,7 @@ const GuideList = styled.ul`
 `;
 const StyledInput = styled(Input)`
   height: 40px;
+  font-size:17px;
   align-self: stretch;
   border-radius: 12px;
   border: 1px solid rgba(102, 102, 102, 0.35);
@@ -201,8 +202,13 @@ const StyledButton = styled.button`
   color: white;
   font-size: 20px;
   cursor: pointer;
+  &:hover {
+  box-shadow: 0 0 10px 5px rgba(144, 70, 127, 0.5);
+  transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  }
 `;
 const IconWrapper = styled.div`
-  position: relative;
-  cursor: pointer;
+  position:absolute;
+  right:10px;
+  top:5px;
 `;
