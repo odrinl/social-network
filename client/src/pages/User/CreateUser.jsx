@@ -14,13 +14,13 @@ const CreateUser = () => {
   const isPasswordValid = () => {
     const validPattern = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/;
     return validPattern.test(password);
-  }
+  };
   const isPasswordConfirmValid = () => {
     return confirmPassword === password && confirmPassword !== "";
-  }
-  const togglePasswordVisibility = ()=>{
-    setShowPassword(prevState=> !prevState);
-  }
+  };
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevState) => !prevState);
+  };
   const onSuccess = () => {
     setName("");
     setEmail("");
@@ -146,62 +146,62 @@ const CreateUser = () => {
 
 export default CreateUser;
 
-// Styled components 
+// Styled components
 const Container = styled.div`
-display: flex;
-flex-direction: column;
-text-align: center;
-max-width: 400px;
-margin: 0 auto;
-padding: 20px;
-width: 591px;
-height: auto;
-border-radius: 10px;
-border: 1px solid #000;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  width: 591px;
+  height: auto;
+  border-radius: 10px;
+  border: 1px solid #000;
 `;
 const Title = styled.div`
-margin: 0 auto;
-width: 348px;
-height: 86px;
-color: #90467F;
-font-family: Inter;
-font-size: 64px;
-font-style: normal;
-font-weight: 800;
-line-height: normal;
+  margin: 0 auto;
+  width: 348px;
+  height: 86px;
+  color: #90467f;
+  font-family: Inter;
+  font-size: 64px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
 `;
 const InputField = styled.div`
-margin: 10px auto 10px;
-display: flex;
-max-width: 100%;
-flex-direction: column;
-align-items: left;
-font-size:15px
+  margin: 10px auto 10px;
+  display: flex;
+  max-width: 100%;
+  flex-direction: column;
+  align-items: left;
+  font-size: 15px;
 `;
 const GuideList = styled.ul`
-margin:5px auto 5px 0px;
-display:flex;
-font-color:gray;
-color: gray;
-list-style: none;
-`
+  margin: 5px auto 5px 0px;
+  display: flex;
+  font-color: gray;
+  color: gray;
+  list-style: none;
+`;
 const StyledInput = styled(Input)`
-height: 40px;
-align-self: stretch;
-border-radius: 12px;
-border: 1px solid rgba(102, 102, 102, 0.35);
-padding:5px
-`
+  height: 40px;
+  align-self: stretch;
+  border-radius: 12px;
+  border: 1px solid rgba(102, 102, 102, 0.35);
+  padding: 5px;
+`;
 const StyledButton = styled.button`
-width: 185.867px;
-height: 54.5px;
-flex-shrink: 0;
-border-radius: 10px;
-background: #90467F;
-color: white;
-font-size: 20px;
-cursor: pointer;
-`
+  width: 185.867px;
+  height: 54.5px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: #90467f;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+`;
 const IconWrapper = styled.div`
   position: relative;
   cursor: pointer;
