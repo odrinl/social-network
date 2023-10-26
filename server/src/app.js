@@ -1,9 +1,9 @@
 import express from "express";
 import cors from "cors";
 
-import userRouter from "./routes/userRoutes.js";
-import authRouter from "./routes/authRoutes.js";
-import postRouter from "./routes/postRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
+import postRoutes from "./routes/postRoutes.js";
 
 // Create an express server
 const app = express();
