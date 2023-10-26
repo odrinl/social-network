@@ -1,12 +1,17 @@
 /* Define global variables */
 :root {
   --font-family: Roboto, Arial, sans-serif;
-  --homepage-border-color: #ccc;
-  --homepage-background-color: #f5f5f5;
-  --homepage-margin-padding: 10px;
   --nav-color: black;
   --nav-background: white;
   --nav-hover-color: #ff9900;
+  --homepage-border-color: #ccc;
+  --homepage-background-color: #f5f5f5;
+  --homepage-margin-padding: 10px;
+  --homepage-border-radius: 0.5rem;
+  --homepage-button-background-color: #f0f7ff;
+  --homepage-button-color: #f0f7ff;
+  --homepage-button-height: 1.9rem;
+  --homepage-button-height: 7.6rem;
 }
 
 * {
