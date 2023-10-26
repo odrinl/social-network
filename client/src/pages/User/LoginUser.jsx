@@ -1,13 +1,3 @@
-// The user sees the login form, which includes fields for email and password.
-
-// The user fills in their email and password and clicks the "Log In" button.
-
-// When the button is clicked, the handleLogin function is executed, sending a request to the server to log in the user. If the server responds with a successful login, the user is redirected to the home page.
-
-// If there's an issue with the login (e.g., incorrect email/password, server error), an error message is displayed.
-
-// The login logic is only executed when the user interacts with the login form by clicking the "Log In" button. It doesn't automatically log in the user without user interaction. This is the expected behavior for a login form.
-
 import React, { useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import styled from "styled-components";
