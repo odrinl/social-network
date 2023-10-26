@@ -4,7 +4,7 @@ import Home from "./pages/Home/Home";
 import CreateUser from "./pages/User/CreateUser";
 import UserList from "./pages/User/UserList";
 import Welcome from "./pages/Home/Welcome";
-import Login from "./pages/Home/Login";
+import LoginUser from "./pages/User/LoginUser";
 
 const App = () => {
   return (
@@ -13,7 +13,7 @@ const App = () => {
         <Route path="/" element={<Welcome />} />
         <Route path="/home" element={<Home />} />
         <Route path="/home/users" element={<UserList />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<LoginUser />} />
         <Route path="/register" element={<CreateUser />} />
       </Routes>
     </>
