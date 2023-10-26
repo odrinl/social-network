@@ -35,16 +35,16 @@ const Nav = () => {
     <NavContainer>
       <NavList>
         <NavItem>
-          <NavLink to="/my-profile">My Profile</NavLink>
+          <NavLink to="/home/my-profile">My Profile</NavLink>
         </NavItem>
         <NavItem>
-          <NavLink to="/events">Events</NavLink>
+          <NavLink to="/home/events">Events</NavLink>
         </NavItem>
         <NavItem>
-          <NavLink to="/news">News</NavLink>
+          <NavLink to="/home/news">News</NavLink>
         </NavItem>
         <NavItem>
-          <NavLink to="/friends">Friends</NavLink>
+          <NavLink to="/home/friends">Friends</NavLink>
         </NavItem>
       </NavList>
     </NavContainer>
