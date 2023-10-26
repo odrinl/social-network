@@ -105,8 +105,8 @@ const FormContainer = styled.div`
 `;
 
 const FormMain = styled.div`
-  width: 25vw;
-  height: 70vh;
+  width: 30%;
+  height: 70%;
   display: flex;
   flex-direction: column;
   align-items: center;
