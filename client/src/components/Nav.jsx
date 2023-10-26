@@ -1,18 +1,53 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 
-import TEST_ID from "./Nav.testid";
+const NavContainer = styled.nav`
+  background-color: var(--nav-background);
+  color: var(--nav-color);
+  padding: 10px;
+`;
+
+const NavList = styled.ul`
+  list-style: none;
+  justify-content: flex-end;
+  padding: 0;
+  display: flex;
+`;
+
+const NavItem = styled.li`
+  margin-right: 20px;
+`;
+
+const NavLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  transition: color 0.3s;
+
+  &:hover {
+    color: var(--nav-hover-color);
+  }
+`;
 
 const Nav = () => {
   return (
-    <ul>
-      <Link to="/" data-testid={TEST_ID.linkToHome}>
-        <li>Home</li>
-      </Link>
-      <Link to="/user" data-testid={TEST_ID.linkToUsers}>
-        <li>Users</li>
-      </Link>
-    </ul>
+    <NavContainer>
+      <NavList>
+        <NavItem>
+          <NavLink to="/home/my-profile">My Profile</NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink to="/home/events">Events</NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink to="/home/news">News</NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink to="/home/friends">Friends</NavLink>
+        </NavItem>
+      </NavList>
+    </NavContainer>
   );
 };
 

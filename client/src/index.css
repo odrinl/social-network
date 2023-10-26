@@ -1,0 +1,65 @@
+/* Define global variables */
+:root {
+  --font-family: Roboto, Arial, sans-serif;
+  --nav-color: black;
+  --nav-background: white;
+  --nav-hover-color: #ff9900;
+  --homepage-border-color: #ccc;
+  --homepage-background-color: #f5f5f5;
+  --homepage-margin-padding: 10px;
+  --homepage-border-radius: 0.5rem;
+  --homepage-button-background-color: #f0f7ff;
+  --homepage-button-color: #f0f7ff;
+  --homepage-button-height: 1.9rem;
+  --homepage-button-height: 7.6rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.container {
+  display: flex;
+}
+
+.homepage {
+  width: 1365px;
+}
+
+.column {
+  flex: 1;
+  padding: 20px;
+  border: 1px solid var(--homepage-border-color);
+  background-color: var(--homepage-background-color);
+  margin: var(--homepage-margin-padding);
+}
+
+.middle-column {
+  flex: 2;
+  padding: 20px;
+  border: 1px solid var(--homepage-border-color);
+  background-color: var(--homepage-background-color);
+  margin: var(--homepage-margin-padding);
+}
+
+/* Add media queries for responsiveness */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .column {
+    margin: var(--homepage-margin-padding) 0;
+  }
+}
