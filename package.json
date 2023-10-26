@@ -47,11 +47,12 @@
   "devDependencies": {
     "@types/jest": "^27.0.2",
     "axios": "^0.24.0",
-    "cypress": "^9.1.0",
+    "cypress": "^13.3.3",
     "husky": "^7.0.0",
     "prettier": "3.0.3"
   },
   "dependencies": {
-    "concurrently": "^6.4.0"
+    "concurrently": "^6.4.0",
+    "react-icons": "^4.11.0"
   }
 }
