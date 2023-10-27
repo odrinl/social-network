@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import styled from "styled-components";
+
+import "../../index.css";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import { FaLock } from "react-icons/fa";
 import { useNavigate } from "react-router";
@@ -40,9 +42,9 @@ function LoginUser() {
     return (
       <FormContainer>
         <FormMain>
-          <FormMainBackground />
           <Heading>
-            <span className="white">LOG</span> <span className="black">IN</span>
+            <span className="#3b4a47">LOG</span>{" "}
+            <span className="black">IN</span>
           </Heading>
           <form onSubmit={handleLogin}>
             <InputContainer>
@@ -95,8 +97,9 @@ const FormContainer = styled.div`
   }
 `;
 const FormMain = styled.div`
-  width: 25%;
-  height: 70%;
+  min-width: 40%;
+  height: 85vh;
+  margin: 30px auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -110,33 +113,10 @@ const FormMain = styled.div`
   border: 3px solid #90467f;
   @media (max-width: 768px) {
     width: 80%;
-    height: auto;
-    box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.1);
-    background-color: rgb(255, 255, 255);
-    padding: 30px;
-  }
-`;
-const FormMainBackground = styled.div`
-  position: absolute;
-  content: "";
-  width: 35vw;
-  height: 70vh;
-  background: #90467f;
-  transform: rotate(45deg);
-  left: -660px;
-  bottom: 110px;
-  border-radius: 30px;
-  box-shadow: 5px 5px 20px rgba(0, 0, 0, 1);
-  @media (max-width: 768px) {
-    width: 90%;
-    height: 100%;
-    left: -140px;
-    bottom: 20px;
-    box-shadow: 5px 5px 20px rgba(0, 0, 0, 1);
   }
 `;
 const Heading = styled.h1`
-  font-size: 4.8em;
+  font-size: 40px;
   color: #3b4a47;
   font-weight: 800;
   font-family: Inter;
@@ -149,7 +129,6 @@ const Heading = styled.h1`
     color: #90467f;
   }
   @media (max-width: 768px) {
-    font-size: 2.5em;
   }
 `;
 const InputContainer = styled.div`
@@ -160,15 +139,15 @@ const InputContainer = styled.div`
   justify-content: center;
   z-index: 2;
   margin-top: 5rem;
-  width: 29rem;
+  width: 100%;
   @media (max-width: 768px) {
     margin-top: 1.5rem;
-    width: 20rem;
+    width: 100%;
   }
 `;
 const InputField = styled.input`
   width: 100%;
-  height: 70px;
+  height: 50px;
   border: none;
   box-shadow: 0px 0px 70px rgba(0, 0, 0, 0.3);
   border-bottom: 2px solid rgb(173, 173, 173);

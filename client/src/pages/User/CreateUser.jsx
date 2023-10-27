@@ -56,8 +56,6 @@ const CreateUser = () => {
   return (
     <FormContainer>
       <Container>
-        {/* <Title>AZIEL NET</Title>
-<SignUpHeading>SIGN UP</SignUpHeading> */}
         <Heading>
           <span className="white">SIGN</span> <span className="black">UP</span>
         </Heading>
@@ -151,29 +149,29 @@ const FormContainer = styled.div`
   justify-content: center;
   height: 100vh;
   @media (max-width: 768px) {
-    height: 100vh;
   }
 `;
 const Container = styled.div`
-  width: 25%;
-  height: 70%;
+  min-width: 40%;
+  height: 85vh;
+  margin: 30px auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: rgb(255, 255, 255);
+  padding: 40px;
+  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
   border-radius: 20px;
   border: 3px solid #90467f;
-  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.3);
   @media (max-width: 768px) {
-    width: 90%;
-    height: auto;
-    box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.1);
-    background-color: rgb(255, 255, 255);
-    padding: 30px;
+    width: 80%;
   }
 `;
 const Heading = styled.h1`
-  font-size: 4.8em;
+  font-size: 40px;
   color: #3b4a47;
   font-weight: 800;
   font-family: Inter;
@@ -186,37 +184,13 @@ const Heading = styled.h1`
     color: #90467f;
   }
   @media (max-width: 768px) {
-    font-size: 2.5em;
   }
 `;
-// const Title = styled.div`
-//   position: relative;
-//   margin: 0 auto;
-//   width: 348px;
-//   height: 86px;
-//   color: #90467F;
-//   font-family: Inter;
-//   font-size: 64px;
-//   font-style: normal;
-//   font-weight: 800;
-//   line-height: normal;
-// `;
-// const SignUpHeading = styled.h1`
-//   font-size: 2.5em;
-//   color: #3B4A47;
-//   font-weight: 700;
-//   margin: 0;
-//   aligin-item: center;
-//   text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
-//   @media (max-width: 768px) {
-//     font-size: 2em;
-//   }
-// `;
 const InputField = styled.div`
-  margin: 50px auto 50px;
+  width: 100%;
+  margin: 20px auto 20px;
   position: relative;
   display: flex;
-  width: 29rem;
   flex-direction: column;
   align-items: left;
   font-size: 15px;
@@ -229,7 +203,7 @@ const GuideList = styled.ul`
   list-style: none;
 `;
 const StyledInput = styled(Input)`
-  height: 70px;
+  height: 50px;
   width: 100%;
   font-size: 17px;
   align-self: stretch;
@@ -242,6 +216,9 @@ const StyledInput = styled(Input)`
   }
   &:hover {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  }
+  @media (max-width: 768px) {
+    height: 40px;
   }
 `;
 const StyledButton = styled.button`
