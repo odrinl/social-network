@@ -4,7 +4,7 @@ import {
   getUserFriends,
   addRemoveFriend,
 } from "../controllers/userControllers.js";
-import { protect } from "../middleware/authMiddleware.js";
+import { protect } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
