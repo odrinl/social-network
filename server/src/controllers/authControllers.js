@@ -1,9 +1,10 @@
-const asyncHandler = require("express-async-handler");
-const User = require("../models/userModel");
-const bcryptjs = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+import asyncHandler from "express-async-handler";
+import bcryptjs from "bcryptjs";
+import jwt from "jsonwebtoken";
 
-const register = asyncHandler(async (req, res) => {
+import User from "../models/User.js";
+
+export const register = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
   if (!name || !email || !password) {
     res.status(400);
@@ -36,7 +37,7 @@ const register = asyncHandler(async (req, res) => {
   }
 });
 
-const login = asyncHandler(async (req, res) => {
+export const login = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
@@ -65,4 +66,4 @@ const generateToken = (userId) => {
   return token;
 };
 
-module.exports = { register, login };
+// module.exports = { register, login };
