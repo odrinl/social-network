@@ -65,5 +65,3 @@ const generateToken = (userId) => {
 
   return token;
 };
-
-// module.exports = { register, login };
