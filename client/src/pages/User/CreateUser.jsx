@@ -4,7 +4,6 @@ import Input from "../../components/Input";
 import useFetch from "../../hooks/useFetch";
 import TEST_ID from "./CreateUser.testid";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-
 const CreateUser = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -55,10 +54,13 @@ const CreateUser = () => {
     );
   }
   return (
-    <Container>
-      <Title>AZIEL NET</Title>
-      <div data-testid={TEST_ID.container}>
-        <h1>SIGN UP</h1>
+    <FormContainer>
+      <Container>
+        {/* <Title>AZIEL NET</Title>
+<SignUpHeading>SIGN UP</SignUpHeading> */}
+        <Heading>
+          <span className="white">SIGN</span> <span className="black">UP</span>
+        </Heading>
         <form onSubmit={handleSubmit}>
           <InputField>
             <StyledInput
@@ -137,43 +139,84 @@ const CreateUser = () => {
           </StyledButton>
         </form>
         {statusComponent}
-      </div>
-    </Container>
+      </Container>
+    </FormContainer>
   );
 };
-
 export default CreateUser;
-
 // Styled components
+const FormContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  @media (max-width: 768px) {
+    height: 100vh;
+  }
+`;
 const Container = styled.div`
+  width: 25%;
+  height: 70%;
   display: flex;
   flex-direction: column;
-  text-align: center;
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 20px;
-  width: 591px;
-  height: auto;
-  border-radius: 10px;
-  border: 1px solid #000;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  border: 3px solid #90467f;
+  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.3);
+  @media (max-width: 768px) {
+    width: 90%;
+    height: auto;
+    box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.1);
+    background-color: rgb(255, 255, 255);
+    padding: 30px;
+  }
 `;
-const Title = styled.div`
-  position: relative;
-  margin: 0 auto;
-  width: 348px;
-  height: 86px;
-  color: #90467f;
-  font-family: Inter;
-  font-size: 64px;
-  font-style: normal;
+const Heading = styled.h1`
+  font-size: 4.8em;
+  color: #3b4a47;
   font-weight: 800;
-  line-height: normal;
+  font-family: Inter;
+  text-shadow: 0px 0px 30px rgba(0, 0, 0, 0.4);
+  z-index: 2;
+  .white {
+    color: #3b4a47;
+  }
+  .black {
+    color: #90467f;
+  }
+  @media (max-width: 768px) {
+    font-size: 2.5em;
+  }
 `;
+// const Title = styled.div`
+//   position: relative;
+//   margin: 0 auto;
+//   width: 348px;
+//   height: 86px;
+//   color: #90467F;
+//   font-family: Inter;
+//   font-size: 64px;
+//   font-style: normal;
+//   font-weight: 800;
+//   line-height: normal;
+// `;
+// const SignUpHeading = styled.h1`
+//   font-size: 2.5em;
+//   color: #3B4A47;
+//   font-weight: 700;
+//   margin: 0;
+//   aligin-item: center;
+//   text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+//   @media (max-width: 768px) {
+//     font-size: 2em;
+//   }
+// `;
 const InputField = styled.div`
-  margin: 10px auto 10px;
+  margin: 50px auto 50px;
   position: relative;
   display: flex;
-  max-width: 100%;
+  width: 29rem;
   flex-direction: column;
   align-items: left;
   font-size: 15px;
@@ -186,22 +229,34 @@ const GuideList = styled.ul`
   list-style: none;
 `;
 const StyledInput = styled(Input)`
-  height: 40px;
+  height: 70px;
+  width: 100%;
   font-size: 17px;
   align-self: stretch;
   border-radius: 12px;
   border: 1px solid rgba(102, 102, 102, 0.35);
   padding: 5px;
+  &:focus {
+    outline: none;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  }
+  &:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  }
 `;
 const StyledButton = styled.button`
-  width: 185.867px;
-  height: 54.5px;
-  flex-shrink: 0;
-  border-radius: 10px;
-  background: #90467f;
+  position: relative;
+  padding: 15px 15px;
+  width: 14rem;
+  border-radius: 1rem;
+  border: 0 !important;
+  outline: 0 !important;
+  background: #3b4a47;
+  font-size: 1.5rem;
+  margin-top: 25px;
   color: white;
-  font-size: 20px;
   cursor: pointer;
+  font-weight: bolder;
   &:hover {
     box-shadow: 0 0 10px 5px rgba(144, 70, 127, 0.5);
     transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
@@ -210,5 +265,15 @@ const StyledButton = styled.button`
 const IconWrapper = styled.div`
   position: absolute;
   right: 10px;
-  top: 5px;
+  top: 35%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  svg {
+    font-size: 1.5em;
+    color: #777;
+    transition: color 0.3s;
+    &:hover {
+      color: #0099ff;
+    }
+  }
 `;
