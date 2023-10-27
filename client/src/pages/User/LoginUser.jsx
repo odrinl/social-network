@@ -47,6 +47,7 @@ function LoginUser() {
       <FormContainer>
         <FormMain>
           <FormMainBackground />
+
           <Heading>
             <span className="white">LOG</span> <span className="black">IN</span>
           </Heading>
@@ -105,17 +106,19 @@ const FormContainer = styled.div`
 `;
 
 const FormMain = styled.div`
-  width: 25vw;
-  height: 70vh;
+  width: 25%;
+  height: 70%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   background-color: rgb(255, 255, 255);
   padding: 40px;
-  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.3);
   position: relative;
   overflow: hidden;
+  border-radius: 20px;
+  border: 3px solid #90467f;
 
   @media (max-width: 768px) {
     width: 80%;
@@ -129,11 +132,11 @@ const FormMain = styled.div`
 const FormMainBackground = styled.div`
   position: absolute;
   content: "";
-  width: 33vw;
+  width: 35vw;
   height: 70vh;
-  background: #3b4a47;
+  background: #90467f;
   transform: rotate(45deg);
-  left: -560px;
+  left: -660px;
   bottom: 110px;
 
   border-radius: 30px;
@@ -142,17 +145,18 @@ const FormMainBackground = styled.div`
   @media (max-width: 768px) {
     width: 90%;
     height: 100%;
-    background: #3b4a47;
-    left: -170px;
-    bottom: 10px;
+
+    left: -140px;
+    bottom: 20px;
     box-shadow: 5px 5px 20px rgba(0, 0, 0, 1);
   }
 `;
 
 const Heading = styled.h1`
   font-size: 4.8em;
-  color: #2e2e2e;
+  color: #3b4a47;
   font-weight: 800;
+  font-family: Inter;
   text-shadow: 0px 0px 30px rgba(0, 0, 0, 0.4);
   z-index: 2;
 
@@ -161,11 +165,11 @@ const Heading = styled.h1`
   }
 
   .black {
-    color: #3b4a47;
+    color: #90467f;
   }
 
   @media (max-width: 768px) {
-    font-size: 3em;
+    font-size: 2.5em;
   }
 `;
 
@@ -187,7 +191,7 @@ const InputContainer = styled.div`
 const InputField = styled.input`
   width: 100%;
   height: 70px;
-  background-color: transparent;
+
   border: none;
   box-shadow: 0px 0px 70px rgba(0, 0, 0, 0.3);
   border-bottom: 2px solid rgb(173, 173, 173);
@@ -219,7 +223,7 @@ const InputField = styled.input`
 const PasswordToggle = styled.div`
   position: absolute;
   right: 10px;
-  top: 80%;
+  top: 75%;
   transform: translateY(-50%);
   cursor: pointer;
 
@@ -242,7 +246,8 @@ const SubmitButton = styled.button`
   border-radius: 1rem;
   border: 0 !important;
   outline: 0 !important;
-  background: #90467f;
+
+  background: #3b4a47;
   font-size: 1.5rem;
   margin-top: 25px;
   color: white;
