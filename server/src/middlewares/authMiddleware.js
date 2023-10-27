@@ -25,5 +25,3 @@ export const protect = asyncHandler(async (req, res, next) => {
     throw new Error("no token!");
   }
 });
-
-// module.exports = { protect };
