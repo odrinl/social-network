@@ -5,8 +5,8 @@ import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 
 export const register = asyncHandler(async (req, res) => {
-  const { name, email, password } = req.body;
-  if (!name || !email || !password) {
+  const { username, email, password } = req.body;
+  if (!username || !email || !password) {
     res.status(400);
     throw new Error("please add all fields");
   }
@@ -21,7 +21,7 @@ export const register = asyncHandler(async (req, res) => {
   const hashedPassword = await bcryptjs.hash(password, salt);
 
   const newUser = await User.create({
-    name,
+    username,
     email,
     password: hashedPassword,
   });
