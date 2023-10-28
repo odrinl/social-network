@@ -10,7 +10,6 @@ const CreateUser = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [resutData, setResutData] = useState(null);
 
   const isPasswordValid = () => {
     const validPattern = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/;
@@ -22,8 +21,7 @@ const CreateUser = () => {
   const togglePasswordVisibility = () => {
     setShowPassword((prevState) => !prevState);
   };
-  const onSuccess = (jsonResult) => {
-    setResutData(jsonResult);
+  const onSuccess = () => {
     setUsername("");
     setEmail("");
     setPassword("");
