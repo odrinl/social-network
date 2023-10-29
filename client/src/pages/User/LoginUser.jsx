@@ -11,13 +11,16 @@ function LoginUser() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
-  const { isLoading, error, performFetch } = useFetch("/login", onSuccess);
   const navigate = useNavigate();
-  const onSuccess = () => {
+
+  const onSuccess = (response) => {
     setEmail("");
     setPassword("");
     setLoggedIn(true);
+    localStorage.setItem("token", response.token);
   };
+  const { isLoading, error, performFetch } = useFetch("/login", onSuccess);
+
   const handleLogin = async (e) => {
     e.preventDefault();
     if (!email || !password) {
@@ -36,7 +39,7 @@ function LoginUser() {
     setShowPassword(!showPassword);
   };
   if (loggedIn) {
-    navigate.push("/home");
+    navigate("/home");
     return null;
   } else {
     return (
