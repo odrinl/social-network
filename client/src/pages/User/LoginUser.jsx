@@ -19,7 +19,7 @@ function LoginUser() {
     setLoggedIn(true);
     localStorage.setItem("token", response.token);
   };
-  const { isLoading, error, performFetch } = useFetch("/login", onSuccess);
+  const { isLoading, error, performFetch } = useFetch("/auth/login", onSuccess);
 
   const handleLogin = async (e) => {
     e.preventDefault();
