@@ -4,12 +4,14 @@ import Input from "../../components/Input";
 import useFetch from "../../hooks/useFetch";
 import TEST_ID from "./CreateUser.testid";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useNavigate } from "react-router";
 const CreateUser = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const isPasswordValid = () => {
     const validPattern = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/;
@@ -21,11 +23,13 @@ const CreateUser = () => {
   const togglePasswordVisibility = () => {
     setShowPassword((prevState) => !prevState);
   };
-  const onSuccess = () => {
+  const onSuccess = (response) => {
     setUsername("");
     setEmail("");
     setPassword("");
     setConfirmPassword("");
+    localStorage.setItem("token", response.token);
+    navigate("/home");
   };
 
   const { isLoading, error, performFetch, cancelFetch } = useFetch(
