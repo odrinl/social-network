@@ -5,11 +5,12 @@ import useFetch from "../../hooks/useFetch";
 import TEST_ID from "./CreateUser.testid";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 const CreateUser = () => {
-  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+
   const isPasswordValid = () => {
     const validPattern = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/;
     return validPattern.test(password);
@@ -21,13 +22,17 @@ const CreateUser = () => {
     setShowPassword((prevState) => !prevState);
   };
   const onSuccess = () => {
-    setName("");
+    setUsername("");
     setEmail("");
+    setPassword("");
+    setConfirmPassword("");
   };
+
   const { isLoading, error, performFetch, cancelFetch } = useFetch(
-    "/user/create",
+    "/auth/register",
     onSuccess
   );
+
   useEffect(() => {
     return cancelFetch;
   }, []);
@@ -38,7 +43,7 @@ const CreateUser = () => {
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify({ user: { name, email, password } }),
+      body: JSON.stringify({ username, email, password }),
     });
   };
   let statusComponent = null;
@@ -53,6 +58,7 @@ const CreateUser = () => {
       <div data-testid={TEST_ID.loadingContainer}>Creating user....</div>
     );
   }
+
   return (
     <FormContainer>
       <Container>
@@ -64,8 +70,8 @@ const CreateUser = () => {
             <StyledInput
               name="username"
               placeholder="Username"
-              value={name}
-              onChange={(value) => setName(value)}
+              value={username}
+              onChange={(value) => setUsername(value)}
               data-testid={TEST_ID.nameInput}
             />
             <GuideList>
