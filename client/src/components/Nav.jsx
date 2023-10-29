@@ -2,17 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const NavContainer = styled.nav`
-  background-color: var(--nav-background);
-  color: var(--nav-color);
-  padding: 10px;
-`;
-
 const NavList = styled.ul`
   list-style: none;
   justify-content: flex-end;
   padding: 0;
   display: flex;
+  flex-wrap: wrap;
 `;
 
 const NavItem = styled.li`
@@ -22,32 +17,41 @@ const NavItem = styled.li`
 const NavLink = styled(Link)`
   text-decoration: none;
   color: black;
-  font-weight: bold;
   transition: color 0.3s;
 
   &:hover {
     color: var(--nav-hover-color);
   }
+
+  &.active {
+    color: #1877f2;
+  }
 `;
 
 const Nav = () => {
   return (
-    <NavContainer>
-      <NavList>
-        <NavItem>
-          <NavLink to="/home/my-profile">My Profile</NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink to="/home/events">Events</NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink to="/home/news">News</NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink to="/home/friends">Friends</NavLink>
-        </NavItem>
-      </NavList>
-    </NavContainer>
+    <NavList>
+      <NavItem>
+        <NavLink to="/home/my-profile" activeClassName="active">
+          My Profile
+        </NavLink>
+      </NavItem>
+      <NavItem>
+        <NavLink to="/home/events" activeClassName="active">
+          Events
+        </NavLink>
+      </NavItem>
+      <NavItem>
+        <NavLink to="/home/news" activeClassName="active">
+          News
+        </NavLink>
+      </NavItem>
+      <NavItem>
+        <NavLink to="/home/friends" activeClassName="active">
+          Friends
+        </NavLink>
+      </NavItem>
+    </NavList>
   );
 };
 

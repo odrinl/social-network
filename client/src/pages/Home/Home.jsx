@@ -9,26 +9,32 @@ import Events from "../../components/Events";
 const Home = () => {
   return (
     <div data-testid={TEST_ID.container}>
-      <h1>Welcome to the Home Page</h1>
-      <div className="wrapper">
+      <div className="container wrapper">
         <div className="container homepage">
-          <div className="column">
-            <h2>Column 1</h2>
-            <div>
+          <div className="container column">
+            <div className="container block">
               <MyProfile />
+            </div>
+            <div className="title">
+              <h2>My friends</h2>
+            </div>
+            <div className="container block">
               <MyFriends />
             </div>
           </div>
-          <div className="middle-column">
-            <h2>Column 2</h2>
-            <div>
+          <div className="container middle-column">
+            <div className="container nav">
               <Nav />
+            </div>
+            <div className="container block">
               <Feed />
             </div>
           </div>
-          <div className="column">
-            <h2>Column 3</h2>
-            <div>
+          <div className="container column">
+            <div className="title">
+              <h2>Events</h2>
+            </div>
+            <div className="container block">
               <Events />
             </div>
           </div>

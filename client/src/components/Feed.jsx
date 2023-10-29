@@ -1,5 +1,15 @@
 import React from "react";
-const MyFriends = () => {
-  return <div>Latest posts</div>;
+import styled from "styled-components";
+
+const Feed = () => {
+  return (
+    <Container>
+      <div>Posts</div>
+    </Container>
+  );
 };
-export default MyFriends;
+
+export default Feed;
+const Container = styled.div`
+  height: 20rem;
+`;
