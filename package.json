@@ -55,6 +55,7 @@
     "bcryptjs": "^2.4.3",
     "concurrently": "^6.4.0",
     "express-async-handler": "^1.2.0",
-    "jsonwebtoken": "^9.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "react-toastify": "^9.1.3"
   }
 }
