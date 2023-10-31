@@ -5,6 +5,8 @@ import useFetch from "../../hooks/useFetch";
 import TEST_ID from "./CreateUser.testid";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const CreateUser = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -39,9 +41,10 @@ const CreateUser = () => {
 
   useEffect(() => {
     return cancelFetch;
-  }, []);
+  }, [error]);
   const handleSubmit = (e) => {
     e.preventDefault();
+    notify();
     performFetch({
       method: "POST",
       headers: {
@@ -51,17 +54,20 @@ const CreateUser = () => {
     });
   };
   let statusComponent = null;
-  if (error != null) {
-    statusComponent = (
-      <div data-testid={TEST_ID.errorContainer}>
-        Error while trying to create user: {error.toString()}
-      </div>
-    );
-  } else if (isLoading) {
-    statusComponent = (
-      <div data-testid={TEST_ID.loadingContainer}>Creating user....</div>
-    );
-  }
+  const notify = () => {
+    if (error != null) {
+      statusComponent = (
+        <div data-testid={TEST_ID.errorContainer}>
+          Error while trying to create user: {error.toString()}
+        </div>
+      );
+    } else if (error === null && isLoading != null) {
+      statusComponent = (
+        <div data-testid={TEST_ID.loadingContainer}>Creating user....</div>
+      );
+    }
+    toast(statusComponent);
+  };
 
   return (
     <FormContainer>
