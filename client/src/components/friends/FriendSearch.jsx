@@ -44,7 +44,7 @@ const FormStyle = styled.form`
   border: 1px solid #d3d6db;
   border-radius: 50px;
   padding: 0.5rem 1rem;
-  width: 25vw;
+  width: 600px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 `;
 
