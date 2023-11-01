@@ -13,5 +13,6 @@ const Feed = () => {
 
 export default Feed;
 const Container = styled.div`
+  width: 100%;
   height: 93vh;
 `;
