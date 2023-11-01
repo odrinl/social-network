@@ -33,6 +33,7 @@ body {
 
 .container {
   display: flex;
+  width: 100%;
   /* border: 1px dashed green; */
 }
 
@@ -41,6 +42,8 @@ body {
   background-color: var(--homepage-wrapper-background-color);
   border-radius: var(--homepage-border-radius);
   margin: 1rem;
+  width: 100%;
+  height: 100vh;
 }
 
 .column {

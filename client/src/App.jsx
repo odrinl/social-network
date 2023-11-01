@@ -5,6 +5,7 @@ import CreateUser from "./pages/User/CreateUser";
 import UserList from "./pages/User/UserList";
 import Welcome from "./pages/Home/Welcome";
 import LoginUser from "./pages/User/LoginUser";
+import FriendSearchContainer from "./pages/FriendsPage/FriendSearchContainer";
 
 const App = () => {
   return (
@@ -15,6 +16,10 @@ const App = () => {
         <Route path="/home/users" element={<UserList />} />
         <Route path="/login" element={<LoginUser />} />
         <Route path="/register" element={<CreateUser />} />
+        <Route
+          path="/friendSearchContainer"
+          component={FriendSearchContainer}
+        />
       </Routes>
     </>
   );
