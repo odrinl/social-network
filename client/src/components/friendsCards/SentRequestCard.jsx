@@ -94,7 +94,7 @@ const fakeData = [
   },
 ];
 
-function FriendCard() {
+function SentRequestCard() {
   return (
     <Container>
       <ScrollableContainer>
@@ -109,7 +109,7 @@ function FriendCard() {
                 </MutualFriends>
               </FriendInfo>
               <ButtonContainer>
-                <ConfirmButton>Confirm</ConfirmButton>
+                <ConfirmButton>Cancel</ConfirmButton>
                 <RemoveButton>Remove</RemoveButton>
               </ButtonContainer>
             </FriendItem>
@@ -119,14 +119,13 @@ function FriendCard() {
     </Container>
   );
 }
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 40rem;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
 `;
 
 const ScrollableContainer = styled.div`
@@ -156,6 +155,7 @@ const FriendGrid = styled.div`
 
 const FriendItem = styled.div`
   display: flex;
+
   flex-direction: column;
   align-items: center;
   padding: 6px;
@@ -203,7 +203,7 @@ const RemoveButton = styled.button`
 `;
 
 const ConfirmButton = styled.button`
-  background-color: #1c2733;
+  background-color: #dc143c;
   color: white;
   padding: 8px 16px;
   border: none;
@@ -211,5 +211,4 @@ const ConfirmButton = styled.button`
   cursor: pointer;
   margin: 8px 10px 8px 0;
 `;
-
-export default FriendCard;
+export default SentRequestCard;

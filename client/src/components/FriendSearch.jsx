@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { FaSearch } from "react-icons/fa";
-import FriendSearchedResults from "../pages/FriendsPage/FriendSearchedResults";
 
-function FriendSearch() {
+// eslint-disable-next-line react/prop-types
+function FriendSearch({ onSearchSubmit }) {
   const [input, setInput] = useState("");
-  const [showResults, setShowResults] = useState(false);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    setShowResults(true);
+    onSearchSubmit(input);
   };
 
   return (
@@ -23,7 +22,6 @@ function FriendSearch() {
           placeholder="Search person"
         />
       </FormStyle>
-      {showResults && <FriendSearchedResults />}
     </SearchContainer>
   );
 }
@@ -34,6 +32,7 @@ const SearchContainer = styled.div`
   align-items: center;
   justify-content: center;
   gap: 1rem;
+  margin-bottom: 1.5rem;
 `;
 
 const FormStyle = styled.form`
@@ -43,7 +42,7 @@ const FormStyle = styled.form`
   border: 1px solid #d3d6db;
   border-radius: 50px;
   padding: 0.2rem 0.4rem;
-  width: 500px;
+  width: 610px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 `;
 

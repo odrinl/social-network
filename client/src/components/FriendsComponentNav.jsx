@@ -1,19 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
-const FriendsComponentNav = () => {
-  const [activeTab, setActiveTab] = useState("Friends");
-
-  const handleTabClick = (tab) => {
-    setActiveTab(tab);
-  };
+// eslint-disable-next-line react/prop-types
+const FriendsComponentNav = ({ onTabClick, activeTab }) => {
+  const tabs = ["Friends", "Friends Request", "Sent Request"];
 
   return (
     <NavContainer>
       {tabs.map((tab) => (
         <Tab
           key={tab}
-          onClick={() => handleTabClick(tab)}
+          onClick={() => onTabClick(tab)}
           active={activeTab === tab}
         >
           {tab}
@@ -22,8 +19,6 @@ const FriendsComponentNav = () => {
     </NavContainer>
   );
 };
-
-const tabs = ["Friends", "Friends Request", "Sent Request"];
 
 const NavContainer = styled.div`
   display: flex;
@@ -40,8 +35,8 @@ const Tab = styled.div`
   cursor: pointer;
   padding: 10px 20px;
   font-weight: ${(props) => (props.active ? "bold" : "normal")};
-  border-bottom: ${(props) => (props.active ? "3px solid white" : "none")};
-  transition: all 0.3s;
+  border-bottom: ${(props) => (props.active ? "3px solid #ff9900" : "none")};
+  transition: border-bottom 0.2s ease-in-out; /* Change transition to only affect border-bottom */
   &:hover {
     background-color: #555;
   }
