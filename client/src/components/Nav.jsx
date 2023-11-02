@@ -32,24 +32,18 @@ const Nav = () => {
   return (
     <NavList>
       <NavItem>
-        <NavLink to="/home/my-profile" activeClassName="active">
-          My Profile
+        <NavLink to="/home" activeclassname="active">
+          Feed
         </NavLink>
       </NavItem>
       <NavItem>
-        <NavLink to="/home/events" activeClassName="active">
-          Events
-        </NavLink>
+        <NavLink to="/home/events">Events</NavLink>
       </NavItem>
       <NavItem>
-        <NavLink to="/home/news" activeClassName="active">
-          News
-        </NavLink>
+        <NavLink to="/home/friends">Friends</NavLink>
       </NavItem>
       <NavItem>
-        <NavLink to="/home/friends" activeClassName="active">
-          Friends
-        </NavLink>
+        <NavLink to="/home/my-profile">My profile</NavLink>
       </NavItem>
     </NavList>
   );
