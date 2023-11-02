@@ -1,15 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 
-const MyFriends = () => {
+const Friends = () => {
   return (
     <Container>
-      <div>My Friends</div>
+      <div className="container block">
+        <h2>Friends</h2>
+      </div>
     </Container>
   );
 };
 
-export default MyFriends;
+export default Friends;
 const Container = styled.div`
-  height: 13rem;
+  height: 20rem;
 `;

@@ -4,15 +4,17 @@
   --nav-color: black;
   --nav-background: white;
   --nav-hover-color: #ff9900;
+  --nav-active-color: #1877f2;
   --homepage-border-color: #ccc;
   --homepage-background-color: white;
   --homepage-wrapper-background-color: #d9d9d9;
-  --homepage-margin-padding: 10px;
+  --homepage-margin-padding: 1rem;
   --homepage-button-background-color: #f0f7ff;
   --homepage-button-color: #f0f7ff;
   --homepage-button-height: 1.9rem;
   --homepage-button-height: 7.6rem;
   --homepage-border-radius: 1.25rem;
+  --create-post-background-color: #1c2733;
 }
 
 * {
@@ -40,20 +42,13 @@ body {
   width: 1365px;
   background-color: var(--homepage-wrapper-background-color);
   border-radius: var(--homepage-border-radius);
-  margin: 1rem;
+  margin: var(--homepage-margin-padding);
+  padding: var(--homepage-margin-padding) 0.6rem;
+  align-items: stretch;
 }
 
 .column {
   flex: 1;
-  padding: 20px;
-  background-color: var(--homepage-wrapper-background-color);
-  margin: var(--homepage-margin-padding);
-  flex-direction: column;
-}
-
-.middle-column {
-  flex: 2;
-  padding: 20px;
   background-color: var(--homepage-wrapper-background-color);
   margin: var(--homepage-margin-padding);
   flex-direction: column;
@@ -67,9 +62,26 @@ body {
   justify-content: center;
 }
 
+.middle-column {
+  flex: 2;
+  background-color: var(--homepage-wrapper-background-color);
+  margin: var(--homepage-margin-padding);
+  border-radius: 0.5rem;
+  flex-direction: column;
+}
+
+.middle-column .block {
+  border-radius: 0.5rem;
+}
+
 .nav {
   justify-content: flex-end;
   margin-bottom: 1rem;
+}
+
+.active {
+  background-color: var(--nav-active-color);
+  font-weight: bold;
 }
 
 .title {
@@ -88,5 +100,33 @@ body {
 
   .column {
     margin: var(--homepage-margin-padding) 0;
+  }
+
+  .my-profile {
+    display: none;
+  }
+
+  .my-friends {
+    display: none;
+  }
+
+  .events {
+    display: none;
+  }
+
+  :root {
+    --homepage-margin-padding: 0;
+  }
+
+  .homepage {
+    margin: 0;
+  }
+
+  .block {
+    align-items: center;
+  }
+
+  .nav {
+    padding-top: 1rem;
   }
 }

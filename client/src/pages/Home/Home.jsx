@@ -1,10 +1,10 @@
 import React from "react";
 import TEST_ID from "./Home.testid";
-import MyProfile from "../../components/MyProfile";
-import MyFriends from "../../components/MyFriends";
+import MyProfileSideSection from "../../components/MyProfileSideSection";
+import FriendSideSection from "../../components/FriendSideSection";
 import Nav from "../../components/Nav";
-import Feed from "../../components/Feed";
-import Events from "../../components/Events";
+import SharedArea from "../../components/SharedArea";
+import EventSideSection from "../../components/EventSideSection";
 
 const Home = () => {
   return (
@@ -12,30 +12,32 @@ const Home = () => {
       <div className="container wrapper">
         <div className="container homepage">
           <div className="container column">
-            <div className="container block">
-              <MyProfile />
+            <div className="container block my-profile">
+              <MyProfileSideSection />
             </div>
-            <div className="title">
-              <h2>My friends</h2>
-            </div>
-            <div className="container block">
-              <MyFriends />
+            <div className="my-friends">
+              <div className="title">
+                <h2>My friends</h2>
+              </div>
+              <div className="container block">
+                <FriendSideSection />
+              </div>
             </div>
           </div>
           <div className="container middle-column">
             <div className="container nav">
               <Nav />
             </div>
-            <div className="container block">
-              <Feed />
-            </div>
+            <SharedArea />
           </div>
           <div className="container column">
-            <div className="title">
-              <h2>Events</h2>
-            </div>
-            <div className="container block">
-              <Events />
+            <div className="events">
+              <div className="title">
+                <h2>Events</h2>
+              </div>
+              <div className="container block">
+                <EventSideSection />
+              </div>
             </div>
           </div>
         </div>
