@@ -1,17 +1,20 @@
 import React from "react";
 import styled from "styled-components";
+import FriendSearch from "./FriendSearch";
+import FriendsComponentNav from "./FriendsComponentNav";
+import FriendCard from "./FriendCard";
 
 const Friends = () => {
   return (
     <Container>
-      <div className="container block">
-        <h2>Friends</h2>
-      </div>
+      <FriendsComponentNav />
+      <FriendSearch />
+      <FriendCard />
     </Container>
   );
 };
-
-export default Friends;
 const Container = styled.div`
-  height: 20rem;
+  height: 50rem;
+  overflow: hidden;
 `;
+export default Friends;
