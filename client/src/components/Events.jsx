@@ -4,12 +4,14 @@ import styled from "styled-components";
 const Events = () => {
   return (
     <Container>
-      <div>Latest events</div>
+      <div className="container block">
+        <h2>Events</h2>
+      </div>
     </Container>
   );
 };
 
 export default Events;
 const Container = styled.div`
-  height: 13rem;
+  height: 20rem;
 `;

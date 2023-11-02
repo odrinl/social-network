@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const MyProfile = () => {
+const MyProfileSideSection = () => {
   return (
     <Container>
       <Ellipse
@@ -9,17 +9,17 @@ const MyProfile = () => {
         alt="Ellipse"
         src="https://c.animaapp.com/EuIEJ23i/img/ellipse@2x.png"
       />
-      <TextWrapper className="text-wrapper">@jane</TextWrapper>
+      <TextWrapper>@jane</TextWrapper>
     </Container>
   );
 };
 
-export default MyProfile;
+export default MyProfileSideSection;
 const Container = styled.div`
   height: 13rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
 `;
 
 const Ellipse = styled.img`
