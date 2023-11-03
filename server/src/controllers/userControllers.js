@@ -1,7 +1,51 @@
 import Friendship from "../models/Friendship.js";
+import User from "../models/User.js";
 
-export const getUser = () => ({});
-export const getUserFriends = () => [];
+export const getUser = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).send({ message: "User not found." });
+    }
+
+    res.status(200).json({
+      success: true,
+      user,
+    });
+  } catch (error) {
+    res.status(500).send({ message: "Error while fetching user." });
+  }
+};
+export const getUserFriends = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    const friendships = await Friendship.find({
+      $or: [
+        { userA: userId, status: "accepted" },
+        { userB: userId, status: "accepted" },
+      ],
+    });
+
+    const friendIds = friendships.map((friendship) => {
+      return userId.equals(friendship.userA)
+        ? friendship.userB
+        : friendship.userA;
+    });
+
+    const userFriends = await User.find({ _id: { $in: friendIds } });
+
+    res.status(200).json({
+      success: true,
+      friends: userFriends,
+    });
+  } catch (error) {
+    res.status(500).send({ message: "Error while fetching user's friends." });
+  }
+};
 
 export const sendFriendRequest = async (req, res) => {
   try {
