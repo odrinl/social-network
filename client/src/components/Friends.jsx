@@ -11,17 +11,13 @@ const Friends = () => {
 
   let finalEndPoint = "";
   const handleEndPoint = (endPoint) => {
-    
-    if(category === "friends"){
+    if (category === "friends") {
       finalEndPoint = `/users${endPoint}`;
     } else {
       finalEndPoint === `/users:${input}`;
     }
-  }
-  const { isLoading, error} = useFetch(
-    finalEndPoint,
-    onSuccess
-  );
+  };
+  const { isLoading, error } = useFetch(finalEndPoint, onSuccess);
 
   const onSuccess = (response) => {
     setData(response.data);
@@ -30,24 +26,20 @@ const Friends = () => {
   let statusComponent = null;
   if (error != null) {
     statusComponent = (
-      <div>
-        Error while trying to create user: {error.toString()}
-      </div>
+      <div>Error while trying to create user: {error.toString()}</div>
     );
   } else if (isLoading) {
-    statusComponent = (
-      <div>Creating user....</div>
-    );
+    statusComponent = <div>Creating user....</div>;
   }
   return (
     <Container>
       <SearchContainer>
-      <SearchIcon />
+        <SearchIcon />
         <SearchInput
           onChange={(e) => {
-            setInput(e.target.value)
+            setInput(e.target.value);
             setCategory("search");
-            handleEndPoint("/search")
+            handleEndPoint("/search");
           }}
           type="text"
           value={input}
@@ -57,18 +49,30 @@ const Friends = () => {
 
       <FriendsNav>
         <ul>
-          <li onClick={() => {
-            handleEndPoint("/:id/friends")
-            setCategory("friends")
-            }}>MyFriends</li>
-          <li onClick={() => {
-            handleEndPoint("/:id/friends")
-            setCategory("friends")
-            }}>Friends Requests</li>
-          <li onClick={() => {
-            handleEndPoint("/:id/friends")
-            setCategory("friends")
-            }}>Sent requests</li>
+          <li
+            onClick={() => {
+              handleEndPoint("/:id/friends");
+              setCategory("friends");
+            }}
+          >
+            MyFriends
+          </li>
+          <li
+            onClick={() => {
+              handleEndPoint("/:id/friends");
+              setCategory("friends");
+            }}
+          >
+            Friends Requests
+          </li>
+          <li
+            onClick={() => {
+              handleEndPoint("/:id/friends");
+              setCategory("friends");
+            }}
+          >
+            Sent requests
+          </li>
         </ul>
       </FriendsNav>
       <div>
@@ -100,7 +104,7 @@ const SearchIcon = styled(FaSearch)`
 const FriendsNav = styled.div`
   display: flex;
   flex-direction: row;
-  margin-top:20px;
+  margin-top: 20px;
   align-items: center;
   justify-content: center;
   height: 40px;
@@ -133,7 +137,7 @@ const FriendsNav = styled.div`
 `;
 
 const SearchInput = styled.input`
-border: none;
+  border: none;
   outline: none;
   background: transparent;
   flex: 1;
@@ -147,4 +151,3 @@ border: none;
     color: #8c949e;
   }
 `;
-
