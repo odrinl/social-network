@@ -17,9 +17,6 @@ const Welcome = () => {
         <Link to="/register">
           <li>Register</li>
         </Link>
-        <Link to="/friends">
-          <li>Friends</li>
-        </Link>
       </ul>
     </div>
   );
