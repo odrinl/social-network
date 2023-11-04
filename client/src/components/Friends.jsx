@@ -16,56 +16,54 @@ const Friends = () => {
   const [input, setInput] = useState("");
   const [data, setData] = useState([]);
   const [endPoint, setEndPoint] = useState("");
-  
+
   let statusComponent = null;
   const handleEndPoint = () => {
     if (category === "friends") {
-      setEndPoint(`/users/${userId}/friends`)
+      setEndPoint(`/users/${userId}/friends`);
     } else if (category === "search") {
-      setEndPoint(`/users:${input}`)
+      setEndPoint(`/users:${input}`);
     } else if (category === "friends-requests") {
-      setEndPoint("/users")
+      setEndPoint("/users");
     } else {
-      setEndPoint("/users")
+      setEndPoint("/users");
     }
   };
-
 
   const onSuccess = (response) => {
     setData(response.data);
   };
 
-  const { isLoading, error, performFetch, cancelFetch } = useFetch(endPoint, onSuccess);
-  
+  const { isLoading, error, performFetch, cancelFetch } = useFetch(
+    endPoint,
+    onSuccess
+  );
+
   const handleSelect = () => {
     handleEndPoint();
-  }
+  };
 
   useEffect(() => {
     return cancelFetch;
   }, []);
 
-    useEffect(()=>{
-      performFetch({
-        method: "GET",
-        headers: {
-          "Authorization": `Bearer ${token}`,
-          "content-type": "application/json",
-        }
-      });
-    },[endPoint])
-    
+  useEffect(() => {
+    performFetch({
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "content-type": "application/json",
+      },
+    });
+  }, [endPoint]);
 
-  
-    if (error != null) {
-      statusComponent = (
-        <div>Error while trying to create user: {error.toString()}</div>
-      );
-    } else if (isLoading) {
-      statusComponent = <div>Creating user....</div>;
-    }
-  
-  
+  if (error != null) {
+    statusComponent = (
+      <div>Error while trying to create user: {error.toString()}</div>
+    );
+  } else if (isLoading) {
+    statusComponent = <div>Creating user....</div>;
+  }
 
   let cardComponent = null;
   if (category === "friends") {
