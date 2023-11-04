@@ -18,10 +18,9 @@ export const protect = asyncHandler(async (req, res, next) => {
       req.user = await User.findById(decoded.id);
       next();
     } catch (error) {
-      res.status(401);
-      throw new Error("not authorized!");
+      res.status(401).send("not authorized!");
     }
   } else {
-    throw new Error("no token!");
+    res.status(401).send("no token!");
   }
 });
