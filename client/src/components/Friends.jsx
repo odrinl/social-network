@@ -13,8 +13,7 @@ const Friends = () => {
   const [category, setCategory] = useState("friends");
   const [input, setInput] = useState("");
   const [data, setData] = useState([]);
-  
-  
+
   // const userId = localStorage.getItem("userId");
   const userId = "653eab81fe0331d11b507b64";
   let finalEndPoint = "";
@@ -25,31 +24,28 @@ const Friends = () => {
     } else if (category === "search") {
       finalEndPoint = `/users:${input}`;
     } else if (category === "friends-requests") {
-      finalEndPoint = "/users"
+      finalEndPoint = "/users";
     } else {
-      finalEndPoint = "/users"
+      finalEndPoint = "/users";
     }
   };
 
-  const handleSelect = ()=> {
+  const handleSelect = () => {
     const { isLoading, error } = useFetch(finalEndPoint, onSuccess);
-  
-  
 
-  const onSuccess = (response) => {
-    setData(response.data);
-    console.log("molham");
+    const onSuccess = (response) => {
+      setData(response.data);
+      console.log("molham");
+    };
+
+    if (error != null) {
+      statusComponent = (
+        <div>Error while trying to create user: {error.toString()}</div>
+      );
+    } else if (isLoading) {
+      statusComponent = <div>Creating user....</div>;
+    }
   };
-
-  
-  if (error != null) {
-    statusComponent = (
-      <div>Error while trying to create user: {error.toString()}</div>
-    );
-  } else if (isLoading) {
-    statusComponent = <div>Creating user....</div>;
-  }
-}
 
   let cardComponent = null;
   if (category === "friends") {
@@ -125,7 +121,7 @@ const SearchContainer = styled.div``;
 
 const Container = styled.div`
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 `;

@@ -2,14 +2,18 @@ import React from "react";
 import styled from "styled-components";
 
 const SearchCard = (data) => {
-  const sparePic = "https://th.bing.com/th/id/OIP.Y6Xo7ozc-rL5UrzUanPlxAHaHa?w=211&h=211&c=7&r=0&o=5&dpr=1.3&pid=1.7";
+  const sparePic =
+    "https://th.bing.com/th/id/OIP.Y6Xo7ozc-rL5UrzUanPlxAHaHa?w=211&h=211&c=7&r=0&o=5&dpr=1.3&pid=1.7";
   return (
     <Container>
       <ScrollableContainer>
         <FriendGrid>
           {data.data.map((friend, index) => (
             <FriendItem key={index}>
-              <ProfilePic src={friend.profilePic? friend.profilePic : sparePic} alt={friend.name} />
+              <ProfilePic
+                src={friend.profilePic ? friend.profilePic : sparePic}
+                alt={friend.name}
+              />
               <FriendInfo>
                 <Name>{friend.name}</Name>
                 <MutualFriends>
@@ -26,7 +30,7 @@ const SearchCard = (data) => {
       </ScrollableContainer>
     </Container>
   );
-}
+};
 
 const Container = styled.div`
   display: flex;

@@ -25,7 +25,7 @@ const FriendCard = (data) => {
       </ScrollableContainer>
     </Container>
   );
-}
+};
 
 const Container = styled.div`
   display: flex;

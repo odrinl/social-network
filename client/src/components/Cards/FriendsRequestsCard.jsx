@@ -1,8 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-
-const FriendRequestCard = (data)=> {
+const FriendRequestCard = (data) => {
   return (
     <Container>
       <ScrollableContainer>
@@ -26,7 +25,7 @@ const FriendRequestCard = (data)=> {
       </ScrollableContainer>
     </Container>
   );
-}
+};
 const Container = styled.div`
   display: flex;
   flex-direction: column;

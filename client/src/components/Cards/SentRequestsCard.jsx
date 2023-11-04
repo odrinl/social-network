@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-
 const SentRequestCard = (data) => {
   return (
     <Container>
@@ -26,7 +25,7 @@ const SentRequestCard = (data) => {
       </ScrollableContainer>
     </Container>
   );
-}
+};
 const Container = styled.div`
   display: flex;
   flex-direction: column;
