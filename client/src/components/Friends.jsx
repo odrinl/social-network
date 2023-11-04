@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { FaSearch } from "react-icons/fa";
+import FriendCard from "./Cards/FriendsCard";
+import SentRequestCard from "./Cards/SentRequestsCard";
+import SearchCard from "./Cards/SearchCard";
+import FriendRequestCard from "./Cards/FriendsRequestsCard";
+import fakeData from "./Cards/FakeData";
 
 import useFetch from "../hooks/useFetch";
 
@@ -8,22 +13,35 @@ const Friends = () => {
   const [category, setCategory] = useState("friends");
   const [input, setInput] = useState("");
   const [data, setData] = useState([]);
-
+  
+  
+  // const userId = localStorage.getItem("userId");
+  const userId = "653eab81fe0331d11b507b64";
   let finalEndPoint = "";
-  const handleEndPoint = (endPoint) => {
+  let statusComponent = null;
+  const handleEndPoint = () => {
     if (category === "friends") {
-      finalEndPoint = `/users${endPoint}`;
+      finalEndPoint = `users/:${userId}/friends`;
+    } else if (category === "search") {
+      finalEndPoint = `/users:${input}`;
+    } else if (category === "friends-requests") {
+      finalEndPoint = "/users"
     } else {
-      finalEndPoint === `/users:${input}`;
+      finalEndPoint = "/users"
     }
   };
-  const { isLoading, error } = useFetch(finalEndPoint, onSuccess);
+
+  const handleSelect = ()=> {
+    const { isLoading, error } = useFetch(finalEndPoint, onSuccess);
+  
+  
 
   const onSuccess = (response) => {
     setData(response.data);
+    console.log("molham");
   };
 
-  let statusComponent = null;
+  
   if (error != null) {
     statusComponent = (
       <div>Error while trying to create user: {error.toString()}</div>
@@ -31,6 +49,19 @@ const Friends = () => {
   } else if (isLoading) {
     statusComponent = <div>Creating user....</div>;
   }
+}
+
+  let cardComponent = null;
+  if (category === "friends") {
+    cardComponent = <FriendCard data={fakeData} />;
+  } else if (category === "friends-requests") {
+    cardComponent = <FriendRequestCard data={fakeData} />;
+  } else if (category === "sent-requests") {
+    cardComponent = <SentRequestCard data={fakeData} />;
+  } else if (category === "search") {
+    cardComponent = <SearchCard data={fakeData} />;
+  }
+
   return (
     <Container>
       <SearchContainer>
@@ -39,7 +70,8 @@ const Friends = () => {
           onChange={(e) => {
             setInput(e.target.value);
             setCategory("search");
-            handleEndPoint("/search");
+            handleEndPoint();
+            handleSelect();
           }}
           type="text"
           value={input}
@@ -51,24 +83,25 @@ const Friends = () => {
         <ul>
           <li
             onClick={() => {
-              handleEndPoint("/:id/friends");
+              handleEndPoint();
               setCategory("friends");
+              handleSelect();
             }}
           >
             MyFriends
           </li>
           <li
             onClick={() => {
-              handleEndPoint("/:id/friends");
-              setCategory("friends");
+              handleEndPoint();
+              setCategory("friends-requests");
             }}
           >
             Friends Requests
           </li>
           <li
             onClick={() => {
-              handleEndPoint("/:id/friends");
-              setCategory("friends");
+              handleEndPoint();
+              setCategory("sent-requests");
             }}
           >
             Sent requests
@@ -80,6 +113,7 @@ const Friends = () => {
           <div key={item.id}>{item.name}</div>
         ))}
       </div>
+      {cardComponent}
       {statusComponent}
     </Container>
   );
@@ -91,7 +125,7 @@ const SearchContainer = styled.div``;
 
 const Container = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: column; 
   align-items: center;
   justify-content: center;
 `;
