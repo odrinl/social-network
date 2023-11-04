@@ -44,6 +44,10 @@ const FormStyle = styled.form`
   padding: 0.2rem 0.4rem;
   width: 610px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const SearchInput = styled.input`

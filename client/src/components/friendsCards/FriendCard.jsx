@@ -127,6 +127,9 @@ const Container = styled.div`
   justify-content: center;
   height: 40rem;
   margin-top: 1.5rem;
+
+  @media (max-width: 768px) {
+  }
 `;
 
 const ScrollableContainer = styled.div`
@@ -152,6 +155,10 @@ const FriendGrid = styled.div`
   gap: 16px;
   max-width: 800px;
   margin: 0 auto;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;
 
 const FriendItem = styled.div`

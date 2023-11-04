@@ -148,6 +148,9 @@ const FriendSearchedResultsContainer = styled.div`
   margin-top: 1rem;
   height: 40rem;
   overflow: hidden;
+  @media (max-width: 768px) {
+    height: 50rem;
+  }
 `;
 
 const ScrollableContainer = styled.div`
@@ -182,6 +185,10 @@ const FriendResultContainer = styled.div`
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
   &:hover {
     background-color: #f0f2f5;
+  }
+
+  @media (max-width: 768px) {
+    margin-bottom:10px;
   }
 }`;
 

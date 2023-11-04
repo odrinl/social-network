@@ -126,6 +126,9 @@ const Container = styled.div`
   justify-content: center;
   height: 40rem;
   margin-top: 1.5rem;
+
+  @media (max-width: 768px) {
+  }
 `;
 
 const ScrollableContainer = styled.div`
@@ -151,6 +154,10 @@ const FriendGrid = styled.div`
   gap: 16px;
   max-width: 800px;
   margin: 0 auto;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;
 
 const FriendItem = styled.div`
@@ -173,21 +180,21 @@ const ProfilePic = styled.img`
   border-top-right-radius: 8px;
   margin-bottom: 8px;
 `;
-
 const FriendInfo = styled.div`
-  text-align: center;
+  text-align: left;
 `;
 
 const Name = styled.h3`
   font-size: 1.25rem;
-  margin: 0;
+  text-align: left;
 `;
 
 const MutualFriends = styled.p`
   color: #777;
-  margin: 0;
   font-size: 0.875rem;
+  text-align: left;
 `;
+
 const ButtonContainer = styled.div`
   display: flex;
   align-items: center;
@@ -203,7 +210,7 @@ const RemoveButton = styled.button`
 `;
 
 const ConfirmButton = styled.button`
-  background-color: #008000;
+  background-color: #1c2733;
   color: white;
   padding: 8px 16px;
   border: none;
@@ -211,4 +218,5 @@ const ConfirmButton = styled.button`
   cursor: pointer;
   margin: 8px 10px 8px 0;
 `;
+
 export default FriendRequestCard;

@@ -44,6 +44,10 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   height: 50rem;
+
+  @media (max-width: 768px) {
+    height: 100%;
+  }
 `;
 
 const Content = styled.div`
@@ -51,6 +55,9 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   height: 50rem;
+
+  @media (max-width: 768px) {
+  }
 `;
 
 export default Friends;
