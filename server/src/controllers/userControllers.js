@@ -126,3 +126,81 @@ export const rejectFriendRequest = async (req, res) => {
     res.status(500).send({ message: "Friend request rejection failed." });
   }
 };
+
+export const getNonFriendUsers = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    const userFriendships = await Friendship.find({
+      $or: [
+        { userA: userId, status: "accepted" },
+        { userB: userId, status: "accepted" },
+      ],
+    });
+
+    const friendIds = userFriendships.map((friendship) => {
+      return userId.equals(friendship.userA)
+        ? friendship.userB
+        : friendship.userA;
+    });
+
+    const nonFriendUsers = await User.find({
+      _id: { $nin: [...friendIds, userId] },
+    });
+
+    res.status(200).json({
+      success: true,
+      nonFriends: nonFriendUsers,
+    });
+  } catch (error) {
+    res.status(500).send({ message: "Error while fetching non-friends." });
+  }
+};
+
+export const getAllSentRequests = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    const sentRequests = await Friendship.find({
+      userA: userId,
+      status: "pending",
+    });
+
+    const receiverIds = sentRequests.map((request) => request.userB);
+
+    const receivers = await User.find({ _id: { $in: receiverIds } });
+
+    res.status(200).json({
+      success: true,
+      sentRequests: receivers,
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .send({ message: "Error while fetching sent friend requests." });
+  }
+};
+
+export const getAllReceivedRequests = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    const receivedRequests = await Friendship.find({
+      userB: userId,
+      status: "pending",
+    });
+
+    const senderIds = receivedRequests.map((request) => request.userA);
+
+    const senders = await User.find({ _id: { $in: senderIds } });
+
+    res.status(200).json({
+      success: true,
+      receivedRequests: senders,
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .send({ message: "Error while fetching received friend requests." });
+  }
+};
