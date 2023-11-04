@@ -134,7 +134,7 @@ const Container = styled.div`
 const ScrollableContainer = styled.div`
   overflow-y: auto;
   &::-webkit-scrollbar {
-    width: 0em;
+    width: 0rem;
   }
   &::-webkit-scrollbar-thumb {
     background: #8c8c8c;
