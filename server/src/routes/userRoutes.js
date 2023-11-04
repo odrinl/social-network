@@ -8,6 +8,7 @@ import {
   getNonFriendUsers,
   getAllSentRequests,
   getAllReceivedRequests,
+  searchNonFriendsByName,
 } from "../controllers/userControllers.js";
 import { protect } from "../middlewares/authMiddleware.js";
 
@@ -23,4 +24,6 @@ router.put("/:senderId/:receiverId/reject", protect, rejectFriendRequest);
 router.get("/:id/nonFriendUsers", protect, getNonFriendUsers);
 router.get("/:id/getAllSentRequests", protect, getAllSentRequests);
 router.get("/:id/getAllReceivedRequests", protect, getAllReceivedRequests);
+
+router.get("/:id/searchNonFriendsByName", protect, searchNonFriendsByName);
 export default router;

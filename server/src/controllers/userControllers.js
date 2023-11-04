@@ -204,3 +204,41 @@ export const getAllReceivedRequests = async (req, res) => {
       .send({ message: "Error while fetching received friend requests." });
   }
 };
+
+export const searchNonFriendsByName = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { name } = req.query;
+
+    const userFriendships = await Friendship.find({
+      $or: [
+        { userA: userId, status: "accepted" },
+        { userB: userId, status: "accepted" },
+      ],
+    });
+
+    const friendIds = userFriendships.map((friendship) => {
+      return userId.equals(friendship.userA)
+        ? friendship.userB
+        : friendship.userA;
+    });
+
+    const nonFriendUsers = await User.find({
+      _id: { $nin: [...friendIds, userId] },
+      $or: [
+        { username: { $regex: name, $options: "i" } },
+        { firstName: { $regex: name, $options: "i" } },
+        { lastName: { $regex: name, $options: "i" } },
+      ],
+    });
+
+    res.status(200).json({
+      success: true,
+      nonFriends: nonFriendUsers,
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .send({ message: "Error while searching for non-friends by name." });
+  }
+};
