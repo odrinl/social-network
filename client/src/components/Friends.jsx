@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FaSearch } from "react-icons/fa";
 import FriendCard from "./Cards/FriendsCard";
@@ -8,36 +8,55 @@ import FriendRequestCard from "./Cards/FriendsRequestsCard";
 import fakeData from "./Cards/FakeData";
 
 import useFetch from "../hooks/useFetch";
+const userId = localStorage.getItem("userId");
+const token = localStorage.getItem("token");
 
 const Friends = () => {
   const [category, setCategory] = useState("friends");
   const [input, setInput] = useState("");
   const [data, setData] = useState([]);
-
-  // const userId = localStorage.getItem("userId");
-  const userId = "653eab81fe0331d11b507b64";
-  let finalEndPoint = "";
+  const [endPoint, setEndPoint] = useState("");
+  
   let statusComponent = null;
   const handleEndPoint = () => {
     if (category === "friends") {
-      finalEndPoint = `users/:${userId}/friends`;
+      setEndPoint(`/users/${userId}/friends`)
     } else if (category === "search") {
-      finalEndPoint = `/users:${input}`;
+      setEndPoint(`/users:${input}`)
     } else if (category === "friends-requests") {
-      finalEndPoint = "/users";
+      setEndPoint("/users")
     } else {
-      finalEndPoint = "/users";
+      setEndPoint("/users")
     }
   };
 
+
+  const onSuccess = (response) => {
+    setData(response.data);
+  };
+
+  const { isLoading, error, performFetch, cancelFetch } = useFetch(endPoint, onSuccess);
+  
   const handleSelect = () => {
-    const { isLoading, error } = useFetch(finalEndPoint, onSuccess);
+    handleEndPoint();
+  }
 
-    const onSuccess = (response) => {
-      setData(response.data);
-      console.log("molham");
-    };
+  useEffect(() => {
+    return cancelFetch;
+  }, []);
 
+    useEffect(()=>{
+      performFetch({
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "content-type": "application/json",
+        }
+      });
+    },[endPoint])
+    
+
+  
     if (error != null) {
       statusComponent = (
         <div>Error while trying to create user: {error.toString()}</div>
@@ -45,7 +64,8 @@ const Friends = () => {
     } else if (isLoading) {
       statusComponent = <div>Creating user....</div>;
     }
-  };
+  
+  
 
   let cardComponent = null;
   if (category === "friends") {
@@ -66,7 +86,6 @@ const Friends = () => {
           onChange={(e) => {
             setInput(e.target.value);
             setCategory("search");
-            handleEndPoint();
             handleSelect();
           }}
           type="text"
@@ -79,7 +98,6 @@ const Friends = () => {
         <ul>
           <li
             onClick={() => {
-              handleEndPoint();
               setCategory("friends");
               handleSelect();
             }}
@@ -88,16 +106,16 @@ const Friends = () => {
           </li>
           <li
             onClick={() => {
-              handleEndPoint();
               setCategory("friends-requests");
+              handleSelect();
             }}
           >
             Friends Requests
           </li>
           <li
             onClick={() => {
-              handleEndPoint();
               setCategory("sent-requests");
+              handleSelect();
             }}
           >
             Sent requests
