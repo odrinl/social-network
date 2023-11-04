@@ -193,11 +193,15 @@ const FriendResultContainer = styled.div`
 }`;
 
 const FriendProfilePic = styled.img`
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
+  width: 80px;
+  height: 80px;
   object-fit: cover;
   margin-right: 16px;
+  border-radius: 50%;
+  padding: 0.2rem;
+  border-radius: 50%;
+  border-color: var(--white);
+  box-shadow: -1.27px 1.27px 5.07px #78829280;
 `;
 
 const FriendInfo = styled.div`
