@@ -9,7 +9,7 @@ export const getAllPosts = asyncHandler(async (req, res) => {
   // Extract and flatten all posts from users
   const allPosts = users.reduce((posts, user) => posts.concat(user.posts), []);
 
-  res.status(200).json(allPosts);
+  res.status(200).json({ success: true, posts: allPosts });
 });
 
 // Controller to get all posts of a specific user
@@ -24,7 +24,7 @@ export const getUserPosts = asyncHandler(async (req, res) => {
 
   const userPosts = user.posts; // Assuming "posts" is the array of embedded posts
 
-  res.status(200).json(userPosts);
+  res.status(200).json({ success: true, posts: userPosts });
 });
 
 export const likePost = () => null;
@@ -52,5 +52,9 @@ export const createPost = asyncHandler(async (req, res) => {
   user.posts.push(newPost);
   await user.save();
 
-  res.status(201).json({ message: "Post created successfully", post: newPost });
+  res.status(201).json({
+    success: true,
+    message: "Post created successfully",
+    post: { _id: Math.random(), ...newPost },
+  });
 });

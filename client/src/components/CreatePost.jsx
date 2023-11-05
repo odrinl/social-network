@@ -3,11 +3,11 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import useFetch from "../hooks/useFetch";
 
-const CreatePost = () => {
+const CreatePost = ({ onPostCreate }) => {
   const [text, setText] = useState("");
   const onReceived = (response) => {
     setText("");
-    response.message;
+    onPostCreate(response.post);
   };
 
   const { performFetch, isLoading } = useFetch("/posts/create", onReceived);
