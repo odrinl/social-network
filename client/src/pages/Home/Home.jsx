@@ -5,6 +5,7 @@ import FriendSideSection from "../../components/FriendSideSection";
 import Nav from "../../components/Nav";
 import SharedArea from "../../components/SharedArea";
 import EventSideSection from "../../components/EventSideSection";
+import logo from "../../../public/logo.png";
 
 const Home = () => {
   return (
@@ -25,8 +26,14 @@ const Home = () => {
             </div>
           </div>
           <div className="container middle-column">
-            <div className="container nav">
-              <Nav />
+            <div className="container logo">
+              <div className="container">
+                <img src={logo} alt="logo" />
+              </div>
+
+              <div className="container nav">
+                <Nav />
+              </div>
             </div>
             <SharedArea />
           </div>

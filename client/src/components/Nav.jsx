@@ -1,6 +1,34 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import styled from "styled-components";
+
+const Nav = () => {
+  const location = useLocation();
+
+  const isFeedActive = () => {
+    return location.pathname === "/home";
+  };
+  return (
+    <NavList>
+      <NavItem>
+        <StyledNavLink className={isFeedActive() ? "active" : ""} to="/home/">
+          Feed
+        </StyledNavLink>
+      </NavItem>
+      <NavItem>
+        <StyledNavLink to="/home/events">Events</StyledNavLink>
+      </NavItem>
+      <NavItem>
+        <StyledNavLink to="/home/friends">Friends</StyledNavLink>
+      </NavItem>
+      <NavItem>
+        <StyledNavLink to="/home/my-profile">My profile</StyledNavLink>
+      </NavItem>
+    </NavList>
+  );
+};
+
+export default Nav;
 
 const NavList = styled.ul`
   list-style: none;
@@ -14,7 +42,7 @@ const NavItem = styled.li`
   margin-right: 20px;
 `;
 
-const NavLink = styled(Link)`
+const StyledNavLink = styled(NavLink)`
   text-decoration: none;
   color: black;
   transition: color 0.3s;
@@ -24,29 +52,6 @@ const NavLink = styled(Link)`
   }
 
   &.active {
-    color: #1877f2;
+    color: var(--nav-active-color);
   }
 `;
-
-const Nav = () => {
-  return (
-    <NavList>
-      <NavItem>
-        <NavLink to="/home" activeclassname="active">
-          Feed
-        </NavLink>
-      </NavItem>
-      <NavItem>
-        <NavLink to="/home/events">Events</NavLink>
-      </NavItem>
-      <NavItem>
-        <NavLink to="/home/friends">Friends</NavLink>
-      </NavItem>
-      <NavItem>
-        <NavLink to="/home/my-profile">My profile</NavLink>
-      </NavItem>
-    </NavList>
-  );
-};
-
-export default Nav;
