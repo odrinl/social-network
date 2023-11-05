@@ -17,7 +17,7 @@ const Friends = () => {
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
-    setShowResults(false); // Hide the results when switching tabs
+    setShowResults(false);
   };
 
   return (

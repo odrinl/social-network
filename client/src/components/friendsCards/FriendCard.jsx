@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const fakeData = [
+export const fakeData = [
   {
     name: "Sarah Johnson",
     profilePic:
@@ -95,6 +95,20 @@ const fakeData = [
 ];
 
 function FriendCard() {
+  // const [data, setData] = useState([]);
+  // const onSuccess = (response) => {
+  //   setData(response.data);
+  //   logInfo("molham");
+  // };
+  // const [isLoading, error, performFetch] = useFetch(
+  //   "/users/friends",
+  //   onSuccess
+  // );
+
+  // useEffect(() => {
+  //   performFetch();
+  // }, []);
+
   return (
     <Container>
       <ScrollableContainer>
