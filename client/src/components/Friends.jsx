@@ -8,8 +8,7 @@ import FriendRequestCard from "./Cards/FriendsRequestsCard";
 import useFetch from "../hooks/useFetch";
 const userId = localStorage.getItem("userId");
 const token = localStorage.getItem("token");
-console.log(token)
-
+console.log(token);
 
 const Friends = () => {
   const [category, setCategory] = useState("friends");
@@ -51,7 +50,7 @@ const Friends = () => {
     performFetch({
       method: "GET",
       headers: {
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
     });
@@ -74,7 +73,6 @@ const Friends = () => {
   } else if (category === "search") {
     cardComponent = <SearchCard data={data.nonFriends} />;
   }
-
 
   return (
     <Container>

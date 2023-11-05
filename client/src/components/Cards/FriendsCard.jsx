@@ -95,7 +95,6 @@ const Name = styled.h3`
   text-align: left;
 `;
 
-
 const ButtonContainer = styled.div`
   display: flex;
   align-items: center;

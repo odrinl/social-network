@@ -1,4 +1,4 @@
-import React ,{useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import useFetch from "../../hooks/useFetch";
 
@@ -9,7 +9,6 @@ const SearchCard = (data) => {
   const [endPoint, setEndPoint] = useState("");
   const [isRequestSent, setIsRequestSent] = useState(true);
 
-
   const onSuccess = () => {
     setIsRequestSent((prevIsRequestSent) => !prevIsRequestSent);
   };
@@ -19,8 +18,7 @@ const SearchCard = (data) => {
     onSuccess
   );
 
-  const handleFriendRequest = () => {
-  };
+  const handleFriendRequest = () => {};
 
   useEffect(() => {
     return cancelFetch;
@@ -30,7 +28,7 @@ const SearchCard = (data) => {
     performFetch({
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
     });
@@ -62,13 +60,13 @@ const SearchCard = (data) => {
                   <Name>{user.username}</Name>
                 </FriendInfo>
                 <ButtonContainer>
-                <FriendButton onClick={()=>{
-                  handleFriendRequest();
-                  setEndPoint(`/users/${userId}/${user._id}`)
-                  }}>
-                    {isRequestSent 
-                      ? "Add friend"
-                      : "Cancel request"}
+                  <FriendButton
+                    onClick={() => {
+                      handleFriendRequest();
+                      setEndPoint(`/users/${userId}/${user._id}`);
+                    }}
+                  >
+                    {isRequestSent ? "Add friend" : "Cancel request"}
                   </FriendButton>
                   <RemoveButton>Remove</RemoveButton>
                 </ButtonContainer>
@@ -146,7 +144,6 @@ const Name = styled.h3`
   text-align: left;
 `;
 
-
 const ButtonContainer = styled.div`
   display: flex;
   align-items: center;
@@ -171,4 +168,4 @@ const FriendButton = styled.button`
   margin: 8px 10px 8px 0;
 `;
 
-export default SearchCard ;
+export default SearchCard;
