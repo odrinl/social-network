@@ -254,11 +254,9 @@ export const cancelFriendRequest = async (req, res) => {
     });
 
     if (!existingFriendship) {
-      return res
-        .status(404)
-        .send({
-          message: "Friend request not found or already accepted/rejected.",
-        });
+      return res.status(404).send({
+        message: "Friend request not found or already accepted/rejected.",
+      });
     }
 
     await existingFriendship.remove();
