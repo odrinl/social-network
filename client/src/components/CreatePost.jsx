@@ -1,7 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
+import useFetch from "../hooks/useFetch";
 
-const CreatePost = () => {
+const CreatePost = ({ onPostCreate }) => {
+  const [text, setText] = useState("");
+  const onReceived = (response) => {
+    setText("");
+    onPostCreate(response.post);
+  };
+
+  const { performFetch, isLoading } = useFetch("/posts/create", onReceived);
+  const token = localStorage.getItem("token");
+
+  const handlePostCreate = () => {
+    if (text.trim() !== "") {
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ text }),
+      };
+
+      performFetch(options);
+    }
+  };
+
   return (
     <Container>
       <TopArea>
@@ -9,13 +35,23 @@ const CreatePost = () => {
           src="https://c.animaapp.com/EuIEJ23i/img/ellipse@2x.png"
           alt="Profile Image"
         />
-        <Text placeholder="What's on your mind?"></Text>
+        <Text
+          name="user-post"
+          placeholder="What's on your mind?"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+        ></Text>
       </TopArea>
       <BottomArea>
-        <PostButton>Post</PostButton>
+        <PostButton onClick={handlePostCreate}>Post</PostButton>
       </BottomArea>
+      {isLoading && <p>Loading...</p>}
     </Container>
   );
+};
+
+CreatePost.propTypes = {
+  onPostCreate: PropTypes.func.isRequired,
 };
 
 export default CreatePost;
@@ -48,7 +84,7 @@ const ProfileImage = styled.img`
   border-radius: 50%;
 `;
 
-const Text = styled.input`
+const Text = styled.textarea`
   margin-top: 0.5rem;
   display: flex;
   width: 100%;
