@@ -76,11 +76,23 @@ body {
 
 .nav {
   justify-content: flex-end;
-  margin-bottom: 1rem;
 }
 
 .title {
   margin-bottom: 1rem;
+}
+
+.logo {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo img {
+  width: 135px;
+  height: 35px;
+  margin-bottom: 0.5rem;
 }
 
 /* Add media queries for responsiveness */
@@ -123,5 +135,13 @@ body {
 
   .nav {
     padding-top: 1rem;
+  }
+
+  .logo {
+    margin: 1rem;
+  }
+
+  .logo img {
+    margin: 0;
   }
 }
