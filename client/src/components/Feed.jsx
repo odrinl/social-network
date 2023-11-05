@@ -43,7 +43,7 @@ const Feed = () => {
   useEffect(() => {
     fetchPosts();
     return cancelFetch;
-  }, [posts]);
+  }, []);
 
   return (
     <Container>
