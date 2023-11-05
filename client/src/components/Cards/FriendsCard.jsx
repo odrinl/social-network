@@ -2,25 +2,31 @@ import React from "react";
 import styled from "styled-components";
 
 const FriendCard = (data) => {
+  const sparePic =
+    "https://th.bing.com/th/id/OIP.Y6Xo7ozc-rL5UrzUanPlxAHaHa?w=211&h=211&c=7&r=0&o=5&dpr=1.3&pid=1.7";
   return (
     <Container>
       <ScrollableContainer>
         <FriendGrid>
-          {data.data.map((friend, index) => (
-            <FriendItem key={index}>
-              <ProfilePic src={friend.profilePic} alt={friend.name} />
-              <FriendInfo>
-                <Name>{friend.name}</Name>
-                <MutualFriends>
-                  {friend.mutualFriends} mutual friends
-                </MutualFriends>
-              </FriendInfo>
-              <ButtonContainer>
-                <ConfirmButton>Unfriend</ConfirmButton>
-                <RemoveButton>Remove</RemoveButton>
-              </ButtonContainer>
-            </FriendItem>
-          ))}
+          {data.data && data.data.length > 0 ? (
+            data.data.map((friend) => (
+              <FriendItem key={friend._id}>
+                <ProfilePic
+                  src={friend.profilePic ? friend.profilePic : sparePic}
+                  alt={friend.name}
+                />
+                <FriendInfo>
+                  <Name>{friend.username}</Name>
+                </FriendInfo>
+                <ButtonContainer>
+                  <ConfirmButton>Unfriend</ConfirmButton>
+                  <RemoveButton>Remove</RemoveButton>
+                </ButtonContainer>
+              </FriendItem>
+            ))
+          ) : (
+            <div>No friends to display.</div>
+          )}
         </FriendGrid>
       </ScrollableContainer>
     </Container>
@@ -89,11 +95,6 @@ const Name = styled.h3`
   text-align: left;
 `;
 
-const MutualFriends = styled.p`
-  color: #777;
-  font-size: 0.875rem;
-  text-align: left;
-`;
 
 const ButtonContainer = styled.div`
   display: flex;

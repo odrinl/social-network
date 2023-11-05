@@ -1,32 +1,84 @@
-import React from "react";
+import React ,{useState, useEffect} from "react";
 import styled from "styled-components";
+import useFetch from "../../hooks/useFetch";
+
+const userId = localStorage.getItem("userId");
+const token = localStorage.getItem("token");
 
 const SearchCard = (data) => {
+  const [endPoint, setEndPoint] = useState("");
+  const [isRequestSent, setIsRequestSent] = useState(true);
+
+
+  const onSuccess = () => {
+    setIsRequestSent((prevIsRequestSent) => !prevIsRequestSent);
+  };
+
+  const { isLoading, error, performFetch, cancelFetch } = useFetch(
+    endPoint,
+    onSuccess
+  );
+
+  const handleFriendRequest = () => {
+  };
+
+  useEffect(() => {
+    return cancelFetch;
+  }, []);
+
+  useEffect(() => {
+    performFetch({
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+  }, [endPoint]);
+
+  let statusComponent = null;
+  if (error != null) {
+    statusComponent = (
+      <div>Error while trying to get data from sever: {error.toString()}</div>
+    );
+  } else if (isLoading) {
+    statusComponent = <div>Creating user....</div>;
+  }
+
   const sparePic =
     "https://th.bing.com/th/id/OIP.Y6Xo7ozc-rL5UrzUanPlxAHaHa?w=211&h=211&c=7&r=0&o=5&dpr=1.3&pid=1.7";
   return (
     <Container>
       <ScrollableContainer>
         <FriendGrid>
-          {data.data.map((friend, index) => (
-            <FriendItem key={index}>
-              <ProfilePic
-                src={friend.profilePic ? friend.profilePic : sparePic}
-                alt={friend.name}
-              />
-              <FriendInfo>
-                <Name>{friend.name}</Name>
-                <MutualFriends>
-                  {friend.mutualFriends} mutual friends
-                </MutualFriends>
-              </FriendInfo>
-              <ButtonContainer>
-                <ConfirmButton>Add friend</ConfirmButton>
-                <RemoveButton>Remove</RemoveButton>
-              </ButtonContainer>
-            </FriendItem>
-          ))}
+          {data.data && data.data.length > 0 ? (
+            data.data.map((user) => (
+              <FriendItem key={user._id}>
+                <ProfilePic
+                  src={user.profilePic ? user.profilePic : sparePic}
+                  alt={user.name}
+                />
+                <FriendInfo>
+                  <Name>{user.username}</Name>
+                </FriendInfo>
+                <ButtonContainer>
+                <FriendButton onClick={()=>{
+                  handleFriendRequest();
+                  setEndPoint(`/users/${userId}/${user._id}`)
+                  }}>
+                    {isRequestSent 
+                      ? "Add friend"
+                      : "Cancel request"}
+                  </FriendButton>
+                  <RemoveButton>Remove</RemoveButton>
+                </ButtonContainer>
+              </FriendItem>
+            ))
+          ) : (
+            <div>No friends to display.</div>
+          )}
         </FriendGrid>
+        {statusComponent}
       </ScrollableContainer>
     </Container>
   );
@@ -94,11 +146,6 @@ const Name = styled.h3`
   text-align: left;
 `;
 
-const MutualFriends = styled.p`
-  color: #777;
-  font-size: 0.875rem;
-  text-align: left;
-`;
 
 const ButtonContainer = styled.div`
   display: flex;
@@ -114,7 +161,7 @@ const RemoveButton = styled.button`
   cursor: pointer;
 `;
 
-const ConfirmButton = styled.button`
+const FriendButton = styled.button`
   background-color: #1c2733;
   color: white;
   padding: 8px 16px;
@@ -124,4 +171,4 @@ const ConfirmButton = styled.button`
   margin: 8px 10px 8px 0;
 `;
 
-export default SearchCard;
+export default SearchCard ;

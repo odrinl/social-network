@@ -5,33 +5,33 @@ import FriendCard from "./Cards/FriendsCard";
 import SentRequestCard from "./Cards/SentRequestsCard";
 import SearchCard from "./Cards/SearchCard";
 import FriendRequestCard from "./Cards/FriendsRequestsCard";
-import fakeData from "./Cards/FakeData";
-
 import useFetch from "../hooks/useFetch";
 const userId = localStorage.getItem("userId");
 const token = localStorage.getItem("token");
+console.log(token)
+
 
 const Friends = () => {
   const [category, setCategory] = useState("friends");
   const [input, setInput] = useState("");
   const [data, setData] = useState([]);
-  const [endPoint, setEndPoint] = useState("");
+  const [endPoint, setEndPoint] = useState(`/users/${userId}/friends`);
 
   let statusComponent = null;
   const handleEndPoint = () => {
     if (category === "friends") {
       setEndPoint(`/users/${userId}/friends`);
     } else if (category === "search") {
-      setEndPoint(`/users:${input}`);
+      setEndPoint(`/users/${userId}/searchNonFriendsByName?name=${input}`);
     } else if (category === "friends-requests") {
-      setEndPoint("/users");
+      setEndPoint(`/users/${userId}/getAllReceivedRequests`);
     } else {
-      setEndPoint("/users");
+      setEndPoint(`/users/${userId}/getAllSentRequests`);
     }
   };
 
   const onSuccess = (response) => {
-    setData(response.data);
+    setData(response);
   };
 
   const { isLoading, error, performFetch, cancelFetch } = useFetch(
@@ -51,15 +51,14 @@ const Friends = () => {
     performFetch({
       method: "GET",
       headers: {
-        Authorization: `Bearer ${token}`,
-        "content-type": "application/json",
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json",
       },
     });
   }, [endPoint]);
-
   if (error != null) {
     statusComponent = (
-      <div>Error while trying to create user: {error.toString()}</div>
+      <div>Error while trying to get data from sever: {error.toString()}</div>
     );
   } else if (isLoading) {
     statusComponent = <div>Creating user....</div>;
@@ -67,14 +66,15 @@ const Friends = () => {
 
   let cardComponent = null;
   if (category === "friends") {
-    cardComponent = <FriendCard data={fakeData} />;
+    cardComponent = <FriendCard data={data.friends} />;
   } else if (category === "friends-requests") {
-    cardComponent = <FriendRequestCard data={fakeData} />;
+    cardComponent = <FriendRequestCard data={data.receivedRequests} />;
   } else if (category === "sent-requests") {
-    cardComponent = <SentRequestCard data={fakeData} />;
+    cardComponent = <SentRequestCard data={data.sentRequests} />;
   } else if (category === "search") {
-    cardComponent = <SearchCard data={fakeData} />;
+    cardComponent = <SearchCard data={data.nonFriends} />;
   }
+
 
   return (
     <Container>
@@ -120,11 +120,6 @@ const Friends = () => {
           </li>
         </ul>
       </FriendsNav>
-      <div>
-        {data.map((item) => (
-          <div key={item.id}>{item.name}</div>
-        ))}
-      </div>
       {cardComponent}
       {statusComponent}
     </Container>
