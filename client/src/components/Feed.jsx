@@ -10,9 +10,14 @@ const Feed = () => {
   const token = localStorage.getItem("token");
 
   const onReceived = (response) => {
-    setPosts(response.posts);
+    const sortedPosts = response.posts.sort((a, b) => {
+      return new Date(b.timestamp) - new Date(a.timestamp);
+    });
+
+    setPosts(sortedPosts);
   };
-  const { performFetch, cancelFetch, isLoading } = useFetch(
+
+  const { performFetch, cancelFetch, isLoading, error } = useFetch(
     "/posts/get",
     onReceived
   );
@@ -41,6 +46,8 @@ const Feed = () => {
       <CreatePost onPostCreate={onPostCreate} />
       {isLoading ? (
         <p>Loading...</p>
+      ) : error ? (
+        <p>Error: {error.message}</p>
       ) : (
         posts.map((post) => <Post key={post._id} post={post} />)
       )}
