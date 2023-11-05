@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useFetch from "../../hooks/useFetch";
 import styled from "styled-components";
 
@@ -35,61 +35,66 @@ function LoginUser() {
       body: JSON.stringify({ email, password }),
     });
   };
+
+  useEffect(() => {
+    if (loggedIn) {
+      navigate("/home");
+    }
+  }, [loggedIn, navigate]);
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-  if (loggedIn) {
-    navigate("/home");
-    return null;
-  } else {
-    return (
-      <FormContainer>
-        <FormMain>
-          <Heading>
-            <span className="#3b4a47">LOG</span>{" "}
-            <span className="black">IN</span>
-          </Heading>
-          <form onSubmit={handleLogin}>
-            <InputContainer>
-              <InputField
-                type="email"
-                id="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                aria-label="Email"
-                aria-required="true"
-              />
-              <InputField
-                type={showPassword ? "text" : "password"}
-                id="password"
-                placeholder="Enter your password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                aria-label="Password"
-                aria-required="true"
-              />
-              <PasswordToggle onClick={togglePasswordVisibility}>
-                {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
-              </PasswordToggle>
-            </InputContainer>
-            <SubmitButton id="button">LOG IN</SubmitButton>
-            <RememberMe>
-              <input type="checkbox" id="rememberMe" name="rememberMe" />
-              <label htmlFor="rememberMe">Remember me</label>
-            </RememberMe>
-            <ForgotLink className="forgotLink">
-              <FaLock style={{ color: "black", marginRight: "5px" }} /> Forgot
-              password?
-            </ForgotLink>
-          </form>
-          {error && <ErrorText>{error}</ErrorText>}
-          {isLoading && <p>Loading...</p>}
-        </FormMain>
-      </FormContainer>
-    );
-  }
+
+  return (
+    <FormContainer>
+      <FormMain>
+        <Heading>
+          <span className="#3b4a47">LOG</span> <span className="black">IN</span>
+        </Heading>
+        <form onSubmit={handleLogin}>
+          <InputContainer>
+            <InputField
+              type="email"
+              id="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              aria-label="Email"
+              aria-required="true"
+              autoComplete="email"
+            />
+            <InputField
+              type={showPassword ? "text" : "password"}
+              id="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              aria-label="Password"
+              aria-required="true"
+              autoComplete="current-password"
+            />
+            <PasswordToggle onClick={togglePasswordVisibility}>
+              {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
+            </PasswordToggle>
+          </InputContainer>
+          <SubmitButton id="button">LOG IN</SubmitButton>
+          <RememberMe>
+            <input type="checkbox" id="rememberMe" name="rememberMe" />
+            <label htmlFor="rememberMe">Remember me</label>
+          </RememberMe>
+          <ForgotLink className="forgotLink">
+            <FaLock style={{ color: "black", marginRight: "5px" }} /> Forgot
+            password?
+          </ForgotLink>
+        </form>
+        {error && <ErrorText>{error}</ErrorText>}
+        {isLoading && <p>Loading...</p>}
+      </FormMain>
+    </FormContainer>
+  );
 }
+
 const FormContainer = styled.div`
   display: flex;
   align-items: center;
