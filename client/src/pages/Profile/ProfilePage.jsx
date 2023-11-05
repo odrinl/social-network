@@ -1,6 +1,7 @@
 import React from "react";
 import Nav from "../../components/Nav";
 import CreatePost from "../../components/CreatePost";
+import logo from "../../../public/logo.png";
 
 const ProfilePage = () => {
   return (
@@ -8,8 +9,14 @@ const ProfilePage = () => {
       <div className="container homepage">
         <div className="container column"></div>
         <div className="container middle-column">
-          <div className="container nav">
-            <Nav />
+          <div className="container logo">
+            <div className="container">
+              <img src={logo} alt="logo" />
+            </div>
+
+            <div className="container nav">
+              <Nav />
+            </div>
           </div>
 
           <CreatePost />
