@@ -79,11 +79,6 @@ body {
   margin-bottom: 1rem;
 }
 
-.active {
-  background-color: var(--nav-active-color);
-  font-weight: bold;
-}
-
 .title {
   margin-bottom: 1rem;
 }

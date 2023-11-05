@@ -1,8 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import { FaThumbsUp, FaComment, FaShare } from "react-icons/fa";
+import PropTypes from "prop-types";
+import TimeAgo from "react-timeago";
 
-const Post = () => {
+const Post = ({ post }) => {
   return (
     <Container>
       <PostTitle>
@@ -11,15 +13,14 @@ const Post = () => {
           alt="Profile Image"
         />
         <UserName>
-          <strong>Username</strong>
+          <strong>{post.username}</strong>
 
-          <Time>45 mins ago</Time>
+          <Time>
+            <TimeAgo date={post.timestamp} />
+          </Time>
         </UserName>
       </PostTitle>
-      <PostText>
-        This is the content of the Facebook post. You can add text, images, and
-        other content here.
-      </PostText>
+      <PostText>{post.text}</PostText>
       <PostFooter>
         <Button>
           <FaThumbsUp />
@@ -35,13 +36,17 @@ const Post = () => {
   );
 };
 
+Post.propTypes = {
+  post: PropTypes.object.isRequired,
+};
+
 export default Post;
 
 const Container = styled.div`
   border: 1px solid #dcdcdc;
   background-color: #ffffff;
   border-radius: 0.5rem;
-  padding: 1.5rem 2rem;
+  padding: 1.5rem 2rem 0.5rem 2rem;
   margin-bottom: 1rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 `;
@@ -62,7 +67,7 @@ const ProfileImage = styled.img`
   margin-bottom: 1rem;
 `;
 
-const UserName = styled.p`
+const UserName = styled.div`
   font-size: 1.2rem;
 `;
 
@@ -80,6 +85,7 @@ const PostFooter = styled.div`
   align-items: center;
   justify-content: flex-end;
   font-size: 1rem;
+  margin-top: 0.5rem;
 `;
 
 const Button = styled.div`

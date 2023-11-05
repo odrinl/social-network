@@ -1,6 +1,17 @@
 import mongoose from "mongoose";
 import validateAllowedFields from "../util/validateAllowedFields.js";
 
+const postSchema = new mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User", // Reference to the User model
+  },
+  username: String, // Add the username property to the Post schema
+  text: String,
+  images: [String], // image URLs or paths, public/assets (not sure)
+  timestamp: { type: Date, default: Date.now },
+});
+
 const userSchema = new mongoose.Schema({
   username: { type: String, unique: true, required: true },
   email: { type: String, unique: true, required: true },
@@ -19,7 +30,7 @@ const userSchema = new mongoose.Schema({
   status: String,
   description: String,
   profilePicture: String,
-  posts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
+  posts: [postSchema], // Embed posts within the user schema
 });
 
 const User = mongoose.model("User", userSchema);
