@@ -8,15 +8,13 @@ const token = localStorage.getItem("token");
 const SearchCard = (data) => {
   const [endPoint, setEndPoint] = useState("");
   const [otherUserId, setOtherUserId] = useState("");
-  const [currentData, setCurrentData] = useState(data.data)
-  
-  
+  const [currentData, setCurrentData] = useState(data.data);
+
   const onSuccess = () => {
-
-    setCurrentData((prevData) => prevData.filter((user) => user._id !== otherUserId));
-    
+    setCurrentData((prevData) =>
+      prevData.filter((user) => user._id !== otherUserId)
+    );
   };
-
 
   const { isLoading, error, performFetch, cancelFetch } = useFetch(
     endPoint,
@@ -27,9 +25,9 @@ const SearchCard = (data) => {
     return cancelFetch;
   }, []);
 
-  useEffect(()=> {
-    setCurrentData(data.data)
-  },[data.data])
+  useEffect(() => {
+    setCurrentData(data.data);
+  }, [data.data]);
 
   useEffect(() => {
     performFetch({
@@ -40,7 +38,6 @@ const SearchCard = (data) => {
       },
     });
   }, [endPoint]);
-
 
   let statusComponent = null;
   if (error != null) {
@@ -70,7 +67,7 @@ const SearchCard = (data) => {
                 <ButtonContainer>
                   <FriendButton
                     onClick={() => {
-                      setOtherUserId(user._id)
+                      setOtherUserId(user._id);
                       setEndPoint(`/users/${userId}/${user._id}`);
                     }}
                   >

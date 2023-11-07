@@ -10,12 +10,12 @@ const FriendCard = (data) => {
   const [otherUserId, setOtherUserId] = useState("");
   const [currentData, setCurrentData] = useState(data.data);
 
-
   console.log(currentData);
   const onSuccess = () => {
-    setCurrentData((prevData) => prevData.filter((user) => user._id !== otherUserId));
+    setCurrentData((prevData) =>
+      prevData.filter((user) => user._id !== otherUserId)
+    );
   };
-
 
   const { isLoading, error, performFetch, cancelFetch } = useFetch(
     endPoint,
@@ -26,9 +26,9 @@ const FriendCard = (data) => {
     return cancelFetch;
   }, []);
 
-  useEffect(()=> {
-    setCurrentData(data.data)
-  },[data.data])
+  useEffect(() => {
+    setCurrentData(data.data);
+  }, [data.data]);
 
   useEffect(() => {
     performFetch({
@@ -39,7 +39,6 @@ const FriendCard = (data) => {
       },
     });
   }, [endPoint]);
-
 
   let statusComponent = null;
   if (error != null) {
@@ -69,7 +68,7 @@ const FriendCard = (data) => {
                 <ButtonContainer>
                   <FriendButton
                     onClick={() => {
-                      setOtherUserId(user._id)
+                      setOtherUserId(user._id);
                       setEndPoint(`/users/${userId}/${user._id}`);
                     }}
                   >

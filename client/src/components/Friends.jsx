@@ -16,7 +16,6 @@ const Friends = () => {
   const [data, setData] = useState([]);
   const [endPoint, setEndPoint] = useState(`/users/${userId}/friends`);
 
-
   const onSuccess = (response) => {
     setData(response);
   };
@@ -59,7 +58,6 @@ const Friends = () => {
   } else if (category === "search") {
     cardComponent = <SearchCard data={data.nonFriends} />;
   }
-  
 
   return (
     <Container>
@@ -69,7 +67,9 @@ const Friends = () => {
           onChange={(e) => {
             setInput(e.target.value);
             setCategory("search");
-            setEndPoint(`/users/${userId}/searchNonFriendsByName?name=${input}`);
+            setEndPoint(
+              `/users/${userId}/searchNonFriendsByName?name=${input}`
+            );
           }}
           type="text"
           value={input}
