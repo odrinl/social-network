@@ -6,6 +6,7 @@ import Nav from "../../components/Nav";
 import SharedArea from "../../components/SharedArea";
 import EventSideSection from "../../components/EventSideSection";
 import logo from "../../../public/logo.png";
+import SignOutButton from "../../components/SignOutButton";
 
 const Home = () => {
   return (
@@ -45,6 +46,11 @@ const Home = () => {
               <div className="container block">
                 <EventSideSection />
               </div>
+            </div>
+          </div>
+          <div className="container column">
+            <div className="sign-out-button-container">
+              <SignOutButton />
             </div>
           </div>
         </div>

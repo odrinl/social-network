@@ -2,6 +2,7 @@ import React from "react";
 import Nav from "../../components/Nav";
 import CreatePost from "../../components/CreatePost";
 import logo from "../../../public/logo.png";
+import SignOutButton from "../../components/SignOutButton";
 
 const ProfilePage = () => {
   return (
@@ -20,6 +21,10 @@ const ProfilePage = () => {
           </div>
 
           <CreatePost />
+        </div>
+
+        <div className="container sign-out-button-container">
+          <SignOutButton />
         </div>
         <div className="container column"></div>
       </div>
