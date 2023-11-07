@@ -21,19 +21,17 @@ export const getUser = async (req, res) => {
 };
 export const getUserFriends = async (req, res) => {
   try {
-    const { userId } = req.params;
+    const { id } = req.params;
 
     const friendships = await Friendship.find({
       $or: [
-        { userA: userId, status: "accepted" },
-        { userB: userId, status: "accepted" },
+        { userA: id, status: "accepted" },
+        { userB: id, status: "accepted" },
       ],
     });
 
     const friendIds = friendships.map((friendship) => {
-      return userId.equals(friendship.userA)
-        ? friendship.userB
-        : friendship.userA;
+      return id === friendship.userA ? friendship.userB : friendship.userA;
     });
 
     const userFriends = await User.find({ _id: { $in: friendIds } });
@@ -207,24 +205,22 @@ export const getAllReceivedRequests = async (req, res) => {
 
 export const searchNonFriendsByName = async (req, res) => {
   try {
-    const { userId } = req.params;
+    const { id } = req.params;
     const { name } = req.query;
 
     const userFriendships = await Friendship.find({
       $or: [
-        { userA: userId, status: "accepted" },
-        { userB: userId, status: "accepted" },
+        { userA: id, status: "accepted" },
+        { userB: id, status: "accepted" },
       ],
     });
 
     const friendIds = userFriendships.map((friendship) => {
-      return userId.equals(friendship.userA)
-        ? friendship.userB
-        : friendship.userA;
+      return id === friendship.userA ? friendship.user : friendship.userA;
     });
 
     const nonFriendUsers = await User.find({
-      _id: { $nin: [...friendIds, userId] },
+      _id: { $nin: [...friendIds, id] },
       $or: [
         { username: { $regex: name, $options: "i" } },
         { firstName: { $regex: name, $options: "i" } },

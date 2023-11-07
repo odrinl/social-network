@@ -7,22 +7,29 @@ const token = localStorage.getItem("token");
 
 const SearchCard = (data) => {
   const [endPoint, setEndPoint] = useState("");
-  const [isRequestSent, setIsRequestSent] = useState(true);
-
+  const [otherUserId, setOtherUserId] = useState("");
+  const [currentData, setCurrentData] = useState(data.data)
+  
+  
   const onSuccess = () => {
-    setIsRequestSent((prevIsRequestSent) => !prevIsRequestSent);
+
+    setCurrentData((prevData) => prevData.filter((user) => user._id !== otherUserId));
+    
   };
+
 
   const { isLoading, error, performFetch, cancelFetch } = useFetch(
     endPoint,
     onSuccess
   );
 
-  const handleFriendRequest = () => {};
-
   useEffect(() => {
     return cancelFetch;
   }, []);
+
+  useEffect(()=> {
+    setCurrentData(data.data)
+  },[data.data])
 
   useEffect(() => {
     performFetch({
@@ -33,6 +40,7 @@ const SearchCard = (data) => {
       },
     });
   }, [endPoint]);
+
 
   let statusComponent = null;
   if (error != null) {
@@ -49,8 +57,8 @@ const SearchCard = (data) => {
     <Container>
       <ScrollableContainer>
         <FriendGrid>
-          {data.data && data.data.length > 0 ? (
-            data.data.map((user) => (
+          {currentData && currentData.length > 0 ? (
+            currentData.map((user) => (
               <FriendItem key={user._id}>
                 <ProfilePic
                   src={user.profilePic ? user.profilePic : sparePic}
@@ -62,13 +70,12 @@ const SearchCard = (data) => {
                 <ButtonContainer>
                   <FriendButton
                     onClick={() => {
-                      handleFriendRequest();
+                      setOtherUserId(user._id)
                       setEndPoint(`/users/${userId}/${user._id}`);
                     }}
                   >
-                    {isRequestSent ? "Add friend" : "Cancel request"}
+                    Add Friend
                   </FriendButton>
-                  <RemoveButton>Remove</RemoveButton>
                 </ButtonContainer>
               </FriendItem>
             ))
@@ -148,14 +155,6 @@ const ButtonContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-`;
-const RemoveButton = styled.button`
-  background-color: #c6b6c2;
-  color: white;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
 `;
 
 const FriendButton = styled.button`

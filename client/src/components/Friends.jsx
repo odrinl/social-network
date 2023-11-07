@@ -16,18 +16,6 @@ const Friends = () => {
   const [data, setData] = useState([]);
   const [endPoint, setEndPoint] = useState(`/users/${userId}/friends`);
 
-  let statusComponent = null;
-  const handleEndPoint = () => {
-    if (category === "friends") {
-      setEndPoint(`/users/${userId}/friends`);
-    } else if (category === "search") {
-      setEndPoint(`/users/${userId}/searchNonFriendsByName?name=${input}`);
-    } else if (category === "friends-requests") {
-      setEndPoint(`/users/${userId}/getAllReceivedRequests`);
-    } else {
-      setEndPoint(`/users/${userId}/getAllSentRequests`);
-    }
-  };
 
   const onSuccess = (response) => {
     setData(response);
@@ -37,10 +25,6 @@ const Friends = () => {
     endPoint,
     onSuccess
   );
-
-  const handleSelect = () => {
-    handleEndPoint();
-  };
 
   useEffect(() => {
     return cancelFetch;
@@ -55,6 +39,8 @@ const Friends = () => {
       },
     });
   }, [endPoint]);
+
+  let statusComponent = null;
   if (error != null) {
     statusComponent = (
       <div>Error while trying to get data from sever: {error.toString()}</div>
@@ -73,6 +59,7 @@ const Friends = () => {
   } else if (category === "search") {
     cardComponent = <SearchCard data={data.nonFriends} />;
   }
+  
 
   return (
     <Container>
@@ -82,7 +69,7 @@ const Friends = () => {
           onChange={(e) => {
             setInput(e.target.value);
             setCategory("search");
-            handleSelect();
+            setEndPoint(`/users/${userId}/searchNonFriendsByName?name=${input}`);
           }}
           type="text"
           value={input}
@@ -95,7 +82,7 @@ const Friends = () => {
           <li
             onClick={() => {
               setCategory("friends");
-              handleSelect();
+              setEndPoint(`/users/${userId}/friends`);
             }}
           >
             MyFriends
@@ -103,7 +90,7 @@ const Friends = () => {
           <li
             onClick={() => {
               setCategory("friends-requests");
-              handleSelect();
+              setEndPoint(`/users/${userId}/getAllReceivedRequests`);
             }}
           >
             Friends Requests
@@ -111,7 +98,7 @@ const Friends = () => {
           <li
             onClick={() => {
               setCategory("sent-requests");
-              handleSelect();
+              setEndPoint(`/users/${userId}/getAllSentRequests`);
             }}
           >
             Sent requests
