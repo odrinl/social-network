@@ -8,7 +8,7 @@ import FriendRequestCard from "./Cards/FriendsRequestsCard";
 import useFetch from "../hooks/useFetch";
 const userId = localStorage.getItem("userId");
 const token = localStorage.getItem("token");
-console.log("userId"+userId);
+console.log("userId" + userId);
 
 const Friends = () => {
   const [category, setCategory] = useState("friends");
@@ -58,7 +58,7 @@ const Friends = () => {
   } else if (category === "search") {
     cardComponent = <SearchCard data={data.nonFriends} />;
   }
-console.log(data.friends)
+  console.log(data.friends);
   return (
     <Container>
       <SearchContainer>
