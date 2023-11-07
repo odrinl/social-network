@@ -69,7 +69,6 @@ const FriendRequestCard = (data) => {
                     onClick={() => {
                       setOtherUserId(user._id);
                       setEndPoint(`/users/${user._id}/${userId}/accept`);
-                      
                     }}
                   >
                     Accept

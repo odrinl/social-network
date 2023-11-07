@@ -9,7 +9,6 @@ import useFetch from "../hooks/useFetch";
 const userId = localStorage.getItem("userId");
 const token = localStorage.getItem("token");
 
-
 const Friends = () => {
   const [category, setCategory] = useState("friends");
   const [data, setData] = useState([]);
@@ -57,7 +56,7 @@ const Friends = () => {
   } else if (category === "search") {
     cardComponent = <SearchCard data={data.nonFriends} />;
   }
-  
+
   return (
     <Container>
       <SearchContainer>
