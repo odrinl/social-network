@@ -18,6 +18,7 @@ function LoginUser() {
     setPassword("");
     setLoggedIn(true);
     localStorage.setItem("token", response.token);
+    localStorage.setItem("username", response.user.username);
   };
   const { isLoading, error, performFetch } = useFetch("/auth/login", onSuccess);
 
