@@ -281,7 +281,7 @@ export const unfriendUser = async (req, res) => {
     if (!friendship) {
       return res
         .status(404)
-        .json({ message: "Friendship not found or not accepted." });
+        .send({ message: "Friendship not found or not accepted." });
     }
 
     await friendship.remove();
@@ -290,6 +290,6 @@ export const unfriendUser = async (req, res) => {
       .status(200)
       .json({ success: true, message: "Friendship unfriended successfully." });
   } catch (error) {
-    res.status(500).json({ message: "Friendship unfriending failed." });
+    res.status(500).send({ message: "Friendship unfriending failed." });
   }
 };
