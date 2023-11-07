@@ -31,7 +31,7 @@ const SentRequestCard = (data) => {
 
   useEffect(() => {
     performFetch({
-      method: "POST",
+      method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",

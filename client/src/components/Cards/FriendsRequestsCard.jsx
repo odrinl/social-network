@@ -10,7 +10,6 @@ const FriendRequestCard = (data) => {
   const [otherUserId, setOtherUserId] = useState("");
   const [currentData, setCurrentData] = useState(data.data);
 
-  console.log(currentData);
   const onSuccess = () => {
     setCurrentData((prevData) =>
       prevData.filter((user) => user._id !== otherUserId)
@@ -32,7 +31,7 @@ const FriendRequestCard = (data) => {
 
   useEffect(() => {
     performFetch({
-      method: "POST",
+      method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
@@ -69,7 +68,8 @@ const FriendRequestCard = (data) => {
                   <FriendButton
                     onClick={() => {
                       setOtherUserId(user._id);
-                      setEndPoint(`/users/${userId}/${user._id}/accept`);
+                      setEndPoint(`/users/${user._id}/${userId}/accept`);
+                      
                     }}
                   >
                     Accept
@@ -77,7 +77,7 @@ const FriendRequestCard = (data) => {
                   <FriendButton
                     onClick={() => {
                       setOtherUserId(user._id);
-                      setEndPoint(`/users/${userId}/${user._id}/reject`);
+                      setEndPoint(`/users/${user._id}/${userId}/reject`);
                     }}
                   >
                     Reject

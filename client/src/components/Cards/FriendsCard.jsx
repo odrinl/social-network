@@ -10,7 +10,6 @@ const FriendCard = (data) => {
   const [otherUserId, setOtherUserId] = useState("");
   const [currentData, setCurrentData] = useState(data.data);
 
-  console.log(currentData);
   const onSuccess = () => {
     setCurrentData((prevData) =>
       prevData.filter((user) => user._id !== otherUserId)
@@ -32,7 +31,7 @@ const FriendCard = (data) => {
 
   useEffect(() => {
     performFetch({
-      method: "POST",
+      method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",

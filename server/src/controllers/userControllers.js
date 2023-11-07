@@ -1,5 +1,6 @@
 import Friendship from "../models/Friendship.js";
 import User from "../models/User.js";
+import { ObjectId } from "mongodb";
 
 export const getUser = async (req, res) => {
   try {
@@ -230,22 +231,22 @@ export const getAllReceivedRequests = async (req, res) => {
 
 export const searchNonFriendsByName = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { userId } = req.params;
     const { name } = req.query;
 
     const userFriendships = await Friendship.find({
-      $or: [
-        { userA: id, status: "accepted" },
-        { userB: id, status: "accepted" },
-      ],
+      $or: [{ userA: ObjectId(userId) }, { userB: ObjectId(userId) }],
     });
 
     const friendIds = userFriendships.map((friendship) => {
-      return id === friendship.userA ? friendship.user : friendship.userA;
+      if (String(userId) === String(friendship.userA)) {
+        return String(friendship.userB);
+      } else {
+        return String(friendship.userA);
+      }
     });
-
     const nonFriendUsers = await User.find({
-      _id: { $nin: [...friendIds, id] },
+      _id: { $nin: [...friendIds, ObjectId(userId)] },
       $or: [
         { username: { $regex: name, $options: "i" } },
         { firstName: { $regex: name, $options: "i" } },
