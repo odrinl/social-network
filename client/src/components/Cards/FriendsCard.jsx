@@ -69,7 +69,7 @@ const FriendCard = (data) => {
                   <FriendButton
                     onClick={() => {
                       setOtherUserId(user._id);
-                      setEndPoint(`/users/${userId}/${user._id}`);
+                      setEndPoint(`/users/${userId}/${user._id}/unfriend`);
                     }}
                   >
                     Unfriend
