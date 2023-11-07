@@ -44,13 +44,9 @@ const Home = () => {
                 <h2>Events</h2>
               </div>
               <div className="container block">
+                <SignOutButton />
                 <EventSideSection />
               </div>
-            </div>
-          </div>
-          <div className="container column">
-            <div className="sign-out-button-container">
-              <SignOutButton />
             </div>
           </div>
         </div>
