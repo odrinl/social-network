@@ -19,7 +19,6 @@ export const getUser = async (req, res) => {
     res.status(500).send({ message: "Error while fetching user." });
   }
 };
-
 export const getUserFriends = async (req, res) => {
   try {
     const { userId } = req.params;
@@ -152,7 +151,6 @@ export const rejectFriendRequest = async (req, res) => {
     res.status(500).send({ message: "Friend request rejection failed." });
   }
 };
-
 
 export const getNonFriendUsers = async (req, res) => {
   try {
@@ -295,4 +293,3 @@ export const unfriendUser = async (req, res) => {
     res.status(500).send({ message: "Friendship unfriending failed." });
   }
 };
-
