@@ -1,71 +1,91 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const FriendSideSection = () => {
   return (
     <Container>
       <Item>
-        <FriendAvatar
-          src="https://c.animaapp.com/shx7UmdF/img/ellipse-10@2x.png"
-          alt="Kierra Gentry"
-        />
-        <FriendName>Kierra Gentry</FriendName>
+        <StyledLink to="/home/other-user-profile">
+          <FriendAvatar
+            src="https://c.animaapp.com/shx7UmdF/img/ellipse-10@2x.png"
+            alt="Kierra Gentry"
+          />
+          <FriendName>Kierra Gentry</FriendName>
+        </StyledLink>
+      </Item>
+
+      <Item>
+        <StyledLink to="/home/other-user-profile">
+          <FriendAvatar
+            src="https://c.animaapp.com/shx7UmdF/img/ellipse-12@2x.png"
+            alt="Cierra Vega"
+          />
+          <FriendName>Cierra Vega</FriendName>
+        </StyledLink>
       </Item>
       <Item>
-        <FriendAvatar
-          src="https://c.animaapp.com/shx7UmdF/img/ellipse-12@2x.png"
-          alt="Cierra Vega"
-        />
-        <FriendName>Cierra Vega</FriendName>
+        <StyledLink to="/home/other-user-profile">
+          <FriendAvatar
+            src="https://c.animaapp.com/shx7UmdF/img/ellipse-16@2x.png"
+            alt="Alvaro Mcgee"
+          />
+          <FriendName>Alvaro Mcgee</FriendName>
+        </StyledLink>
       </Item>
       <Item>
-        <FriendAvatar
-          src="https://c.animaapp.com/shx7UmdF/img/ellipse-16@2x.png"
-          alt="Alvaro Mcgee"
-        />
-        <FriendName>Alvaro Mcgee</FriendName>
+        <StyledLink to="/home/other-user-profile">
+          <FriendAvatar
+            src="https://c.animaapp.com/shx7UmdF/img/ellipse-10@2x.png"
+            alt="Kierra Gentry"
+          />
+          <FriendName>Kierra Gentry</FriendName>
+        </StyledLink>
       </Item>
       <Item>
-        <FriendAvatar
-          src="https://c.animaapp.com/shx7UmdF/img/ellipse-10@2x.png"
-          alt="Kierra Gentry"
-        />
-        <FriendName>Kierra Gentry</FriendName>
+        <StyledLink to="/home/other-user-profile">
+          <FriendAvatar
+            src="https://c.animaapp.com/shx7UmdF/img/ellipse-12@2x.png"
+            alt="Cierra Vega"
+          />
+          <FriendName>Cierra Vega</FriendName>
+        </StyledLink>
       </Item>
       <Item>
-        <FriendAvatar
-          src="https://c.animaapp.com/shx7UmdF/img/ellipse-12@2x.png"
-          alt="Cierra Vega"
-        />
-        <FriendName>Cierra Vega</FriendName>
+        <StyledLink to="/home/other-user-profile">
+          <FriendAvatar
+            src="https://c.animaapp.com/shx7UmdF/img/ellipse-16@2x.png"
+            alt="Alvaro Mcgee"
+          />
+          <FriendName>Alvaro Mcgee</FriendName>
+        </StyledLink>
       </Item>
       <Item>
-        <FriendAvatar
-          src="https://c.animaapp.com/shx7UmdF/img/ellipse-16@2x.png"
-          alt="Alvaro Mcgee"
-        />
-        <FriendName>Alvaro Mcgee</FriendName>
+        <StyledLink to="/home/other-user-profile">
+          <FriendAvatar
+            src="https://c.animaapp.com/shx7UmdF/img/ellipse-10@2x.png"
+            alt="Kierra Gentry"
+          />
+          <FriendName>Kierra Gentry</FriendName>
+        </StyledLink>
       </Item>
       <Item>
-        <FriendAvatar
-          src="https://c.animaapp.com/shx7UmdF/img/ellipse-10@2x.png"
-          alt="Kierra Gentry"
-        />
-        <FriendName>Kierra Gentry</FriendName>
+        <StyledLink to="/home/other-user-profile">
+          <FriendAvatar
+            src="https://c.animaapp.com/shx7UmdF/img/ellipse-12@2x.png"
+            alt="Cierra Vega"
+          />
+          <FriendName>Cierra Vega</FriendName>
+        </StyledLink>
       </Item>
       <Item>
-        <FriendAvatar
-          src="https://c.animaapp.com/shx7UmdF/img/ellipse-12@2x.png"
-          alt="Cierra Vega"
-        />
-        <FriendName>Cierra Vega</FriendName>
-      </Item>
-      <Item>
-        <FriendAvatar
-          src="https://c.animaapp.com/shx7UmdF/img/ellipse-16@2x.png"
-          alt="Alvaro Mcgee"
-        />
-        <FriendName>Alvaro Mcgee</FriendName>
+        <StyledLink to="/home/other-user-profile">
+          <FriendAvatar
+            src="https://c.animaapp.com/shx7UmdF/img/ellipse-16@2x.png"
+            alt="Alvaro Mcgee"
+          />
+          <FriendName>Alvaro Mcgee</FriendName>
+        </StyledLink>
       </Item>
     </Container>
   );
@@ -78,6 +98,16 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    color: #0055aa;
+  }
+`;
 const Item = styled.div`
   display: flex;
   align-items: center;

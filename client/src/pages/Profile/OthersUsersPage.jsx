@@ -3,21 +3,22 @@ import Nav from "../../components/Nav";
 import CreatePost from "../../components/CreatePost";
 import logo from "../../../public/logo.png";
 
-import Myprofile from "../../components/profile/Myprofile";
 import FriendSideSection from "../../components/FriendSideSection";
 import EventSideSection from "../../components/EventSideSection";
 import MyPhotos from "../../components/profile/MyPhotos";
-import About from "../../components/profile/About";
+
 import MyPosts from "../../components/profile/MyPosts";
 import styled from "styled-components";
+import OtherUserProfile from "../../components/profile/others/OtherUserProfile";
+import OthersAbout from "../../components/profile/others/OthersAbout";
 
-const ProfilePage = () => {
+const OtherUserPage = () => {
   return (
     <div className="container wrapper">
       <div className="container homepage">
         <div className="container column">
           <div className="container block">
-            <About />
+            <OthersAbout />
           </div>
 
           <div className="container block">
@@ -34,8 +35,8 @@ const ProfilePage = () => {
               <Nav />
             </div>
           </div>
-          <Myprofile />
 
+          <OtherUserProfile />
           <CreatePost />
           <Content>
             <MyPosts />
@@ -62,4 +63,4 @@ const Content = styled.div`
   @media (max-width: 768px) {
   }
 `;
-export default ProfilePage;
+export default OtherUserPage;

@@ -10,6 +10,7 @@ import SharedArea from "./components/SharedArea";
 import Feed from "./components/Feed";
 import Events from "./components/Events";
 import Friends from "./components/Friends";
+import OtherUserPage from "./pages/Profile/OthersUsersPage";
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
         <Route path="/login" element={<LoginUser />} />
         <Route path="/register" element={<CreateUser />} />
         <Route path="/home/my-profile" element={<ProfilePage />} />
+        <Route path="/home/other-user-profile" element={<OtherUserPage />} />
       </Routes>
     </>
   );

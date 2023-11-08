@@ -43,8 +43,40 @@ const EventSideSection = () => {
         />
         <DetailsWrapper>
           <Details>
+            <EventName>Party</EventName>
+            <EventDate>18 November</EventDate>
+          </Details>
+          <EventLink
+            alt="Vector"
+            src="https://c.animaapp.com/shx7UmdF/img/vector-7.svg"
+          ></EventLink>
+        </DetailsWrapper>
+      </Item>
+      <Item>
+        <EventImage
+          src="https://c.animaapp.com/shx7UmdF/img/rectangle-117-2@2x.png"
+          alt="Party"
+        />
+        <DetailsWrapper>
+          <Details>
             <EventName>New Year Eve</EventName>
             <EventDate>31 December</EventDate>
+          </Details>
+          <EventLink
+            alt="Vector"
+            src="https://c.animaapp.com/shx7UmdF/img/vector-7.svg"
+          ></EventLink>
+        </DetailsWrapper>
+      </Item>
+      <Item>
+        <EventImage
+          src="https://c.animaapp.com/shx7UmdF/img/rectangle-117-2@2x.png"
+          alt="Party"
+        />
+        <DetailsWrapper>
+          <Details>
+            <EventName>Party</EventName>
+            <EventDate>18 November</EventDate>
           </Details>
           <EventLink
             alt="Vector"
