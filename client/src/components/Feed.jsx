@@ -32,14 +32,23 @@ const Feed = () => {
     performFetch(options);
   };
 
-  const onPostCreate = (post) => {
-    setPosts([post, ...posts]);
+  const onPostCreate = () => {
+    fetchPosts();
+  };
+
+  const onPostDelete = () => {
+    fetchPosts();
   };
 
   useEffect(() => {
     fetchPosts();
     return cancelFetch;
   }, []);
+
+  const isOwner = (post) => {
+    const userName = localStorage.getItem("username");
+    return userName === post.username;
+  };
 
   return (
     <Container>
@@ -49,7 +58,14 @@ const Feed = () => {
       ) : error ? (
         <p>Error: {error.message}</p>
       ) : (
-        posts.map((post) => <Post key={post._id} post={post} />)
+        posts.map((post) => (
+          <Post
+            key={post._id}
+            post={post}
+            onPostDelete={onPostDelete}
+            isOwner={isOwner(post)}
+          />
+        ))
       )}
     </Container>
   );

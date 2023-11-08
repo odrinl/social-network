@@ -16,13 +16,13 @@ const Nav = () => {
         </StyledNavLink>
       </NavItem>
       <NavItem>
-        <StyledNavLink to="/home/events">Events</StyledNavLink>
-      </NavItem>
-      <NavItem>
         <StyledNavLink to="/home/friends">Friends</StyledNavLink>
       </NavItem>
       <NavItem>
         <StyledNavLink to="/home/my-profile">My profile</StyledNavLink>
+      </NavItem>
+      <NavItem>
+        <StyledNavLink to="/home/events">Sign Out</StyledNavLink>
       </NavItem>
     </NavList>
   );

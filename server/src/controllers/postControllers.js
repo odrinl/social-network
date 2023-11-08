@@ -1,5 +1,6 @@
 import asyncHandler from "express-async-handler";
 import User from "../models/User.js";
+import mongoose from "mongoose";
 
 // Get all posts
 export const getAllPosts = asyncHandler(async (req, res) => {
@@ -55,6 +56,41 @@ export const createPost = asyncHandler(async (req, res) => {
   res.status(201).json({
     success: true,
     message: "Post created successfully",
-    post: { _id: Math.random(), ...newPost },
+    post: { ...newPost },
+  });
+});
+
+export const deletePost = asyncHandler(async (req, res) => {
+  const { id } = req.body;
+  const userId = req.user._id;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    res.status(400);
+    throw new Error("Invalid postId");
+  }
+
+  const user = await User.findById(userId);
+
+  if (!user) {
+    res.status(404);
+    throw new Error("User not found");
+  }
+
+  // Find the post with the given id and remove it from the user's posts
+  const updatedUser = await User.findOneAndUpdate(
+    { _id: userId },
+    { $pull: { posts: { _id: id } } },
+    { new: true }
+  );
+
+  if (!updatedUser) {
+    res.status(404);
+    throw new Error("Post not found");
+  }
+
+  res.status(200).json({
+    success: true,
+    message: "Post deleted successfully",
+    post: { ...updatedUser },
   });
 });
