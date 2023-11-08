@@ -29,6 +29,7 @@ const CreateUser = () => {
     setPassword("");
     setConfirmPassword("");
     localStorage.setItem("token", response.token);
+    localStorage.setItem("username", response.user.username);
     navigate("/home");
   };
 

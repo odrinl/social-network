@@ -1,13 +1,22 @@
 import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router";
 import styled from "styled-components";
 
 const Nav = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const isFeedActive = () => {
     return location.pathname === "/home";
   };
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userName");
+    navigate("/login");
+  };
+
   return (
     <NavList>
       <NavItem>
@@ -16,13 +25,13 @@ const Nav = () => {
         </StyledNavLink>
       </NavItem>
       <NavItem>
-        <StyledNavLink to="/home/events">Events</StyledNavLink>
-      </NavItem>
-      <NavItem>
         <StyledNavLink to="/home/friends">Friends</StyledNavLink>
       </NavItem>
       <NavItem>
         <StyledNavLink to="/home/my-profile">My profile</StyledNavLink>
+      </NavItem>
+      <NavItem>
+        <StyledLogoutLink onClick={logout}>Sign Out</StyledLogoutLink>
       </NavItem>
     </NavList>
   );
@@ -53,5 +62,16 @@ const StyledNavLink = styled(NavLink)`
 
   &.active {
     color: var(--nav-active-color);
+  }
+`;
+
+const StyledLogoutLink = styled.a`
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+  transition: color 0.3s;
+
+  &:hover {
+    color: var(--nav-hover-color);
   }
 `;

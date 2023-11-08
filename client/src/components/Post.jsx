@@ -3,8 +3,43 @@ import styled from "styled-components";
 import { FaThumbsUp, FaComment, FaShare } from "react-icons/fa";
 import PropTypes from "prop-types";
 import TimeAgo from "react-timeago";
+import useFetch from "../hooks/useFetch";
 
-const Post = ({ post }) => {
+const Post = ({ post, onPostDelete, isOwner }) => {
+  const onReceived = () => {
+    onPostDelete();
+  };
+
+  const { performFetch } = useFetch("/posts/delete", onReceived);
+  const token = localStorage.getItem("token");
+
+  const handlePostDelete = () => {
+    const isConfirmed = window.confirm(
+      "Are you sure you want to delete this post?"
+    );
+
+    if (isConfirmed) {
+      if (post && post._id) {
+        const options = {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ id: post._id }),
+        };
+
+        performFetch(options);
+      }
+    }
+  };
+
+  Post.propTypes = {
+    post: PropTypes.object.isRequired,
+    onPostDelete: PropTypes.func.isRequired,
+    isOwner: PropTypes.bool.isRequired,
+  };
+
   return (
     <Container>
       <PostTitle>
@@ -19,6 +54,9 @@ const Post = ({ post }) => {
             <TimeAgo date={post.timestamp} />
           </Time>
         </UserName>
+        {isOwner && (
+          <DeleteButton onClick={handlePostDelete}>Delete</DeleteButton>
+        )}
       </PostTitle>
       <PostText>{post.text}</PostText>
       <PostFooter>
@@ -38,6 +76,7 @@ const Post = ({ post }) => {
 
 Post.propTypes = {
   post: PropTypes.object.isRequired,
+  onPostDelete: PropTypes.func.isRequired,
 };
 
 export default Post;
@@ -69,6 +108,7 @@ const ProfileImage = styled.img`
 
 const UserName = styled.div`
   font-size: 1.2rem;
+  flex-grow: 1;
 `;
 
 const Time = styled.p`
@@ -94,4 +134,11 @@ const Button = styled.div`
   opacity: 0.4;
   margin-left: 1.5rem;
   font-size: 2rem;
+`;
+
+const DeleteButton = styled.div`
+  display: flex;
+  color: red;
+  cursor: pointer;
+  align-self: flex-start;
 `;
