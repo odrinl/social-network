@@ -12,6 +12,7 @@ const token = localStorage.getItem("token");
 const Friends = () => {
   const [category, setCategory] = useState("friends");
   const [data, setData] = useState([]);
+  const [input, setInput] = useState("");
   const [endPoint, setEndPoint] = useState(`/users/${userId}/friends`);
 
   const onSuccess = (response) => {
@@ -67,7 +68,9 @@ const Friends = () => {
             setEndPoint(
               `/users/${userId}/searchNonFriendsByName?name=${e.target.value}`
             );
+            setInput(e.target.value);
           }}
+          value={input}
           type="text"
           placeholder="Search person"
         />
@@ -79,6 +82,7 @@ const Friends = () => {
             onClick={() => {
               setCategory("friends");
               setEndPoint(`/users/${userId}/friends`);
+              setInput("");
             }}
           >
             MyFriends
@@ -87,6 +91,7 @@ const Friends = () => {
             onClick={() => {
               setCategory("friends-requests");
               setEndPoint(`/users/${userId}/getAllReceivedRequests`);
+              setInput("");
             }}
           >
             Friends Requests
@@ -95,6 +100,7 @@ const Friends = () => {
             onClick={() => {
               setCategory("sent-requests");
               setEndPoint(`/users/${userId}/getAllSentRequests`);
+              setInput("");
             }}
           >
             Sent requests

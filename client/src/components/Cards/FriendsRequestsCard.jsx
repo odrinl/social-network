@@ -30,6 +30,7 @@ const FriendRequestCard = (data) => {
   }, [data.data]);
 
   useEffect(() => {
+    if(!endPoint){return}
     performFetch({
       method: "PUT",
       headers: {
@@ -45,7 +46,7 @@ const FriendRequestCard = (data) => {
       <div>Error while trying to get data from sever: {error.toString()}</div>
     );
   } else if (isLoading) {
-    statusComponent = <div>Creating user....</div>;
+    statusComponent = <div>Loading....</div>;
   }
 
   const sparePic =
@@ -85,7 +86,7 @@ const FriendRequestCard = (data) => {
               </FriendItem>
             ))
           ) : (
-            <div>No friends to display.</div>
+            <ErrorDiv>No friends to display.</ErrorDiv>
           )}
         </FriendGrid>
         {statusComponent}
@@ -122,10 +123,27 @@ const ScrollableContainer = styled.div`
 
 const FriendGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
   gap: 16px;
   max-width: 800px;
   margin: 0 auto;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  @media (min-width: 250px) and (max-width: 450px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  @media (min-width: 450px) and (max-width: 770px) {
+    grid-template-columns: repeat(2, 1fr); 
+  }
+
+  @media (min-width: 770px) and (max-width: 1000px) {
+    grid-template-columns: repeat(1, 1fr); /* 750-1000px: 1 column */
+  }
+
+  @media (min-width: 1000px) and (max-width: 1200px) {
+    grid-template-columns: repeat(2, 1fr); /* 1000-1200px: 2 columns */
+  }
 `;
 
 const FriendItem = styled.div`
@@ -172,4 +190,13 @@ const FriendButton = styled.button`
   margin: 8px 10px 8px 0;
 `;
 
+const ErrorDiv = styled.button`
+  background-color: #b5d4e8;
+  color: black;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  margin: 8px 10px 8px 0;
+  width: 200px;
+`;
 export default FriendRequestCard;
