@@ -80,7 +80,7 @@ const SearchCard = (data) => {
               </FriendItem>
             ))
           ) : (
-            <div>No friends to display.</div>
+            <ErrorDiv>No friends to display.</ErrorDiv>
           )}
         </FriendGrid>
         {statusComponent}
@@ -182,6 +182,15 @@ const FriendButton = styled.button`
   border-radius: 4px;
   cursor: pointer;
   margin: 8px 10px 8px 0;
+`;
+const ErrorDiv = styled.button`
+  background-color: #b5d4e8;
+  color: black;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  margin: 8px 10px 8px 0;
+  width: 200px;
 `;
 
 export default SearchCard;
