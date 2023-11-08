@@ -30,7 +30,9 @@ const FriendRequestCard = (data) => {
   }, [data.data]);
 
   useEffect(() => {
-    if(!endPoint){return}
+    if (!endPoint) {
+      return;
+    }
     performFetch({
       method: "PUT",
       headers: {
@@ -134,7 +136,7 @@ const FriendGrid = styled.div`
   }
 
   @media (min-width: 450px) and (max-width: 770px) {
-    grid-template-columns: repeat(2, 1fr); 
+    grid-template-columns: repeat(2, 1fr);
   }
 
   @media (min-width: 770px) and (max-width: 1000px) {
