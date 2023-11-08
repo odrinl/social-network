@@ -32,9 +32,7 @@ export const getUserFriends = async (req, res) => {
     });
 
     const friendIds = friendships.map((friendship) => {
-      return userId.equals(friendship.userA)
-        ? friendship.userB
-        : friendship.userA;
+      return userId === friendship.userA ? friendship.userB : friendship.userA;
     });
 
     const userFriends = await User.find({ _id: { $in: friendIds } });
@@ -76,6 +74,33 @@ export const sendFriendRequest = async (req, res) => {
     });
   } catch (error) {
     res.status(500).send({ message: "Friend request failed." });
+  }
+};
+
+export const cancelFriendRequest = async (req, res) => {
+  try {
+    const { senderId, receiverId } = req.params;
+
+    const existingFriendship = await Friendship.findOne({
+      userA: senderId,
+      userB: receiverId,
+      status: "pending",
+    });
+
+    if (!existingFriendship) {
+      return res.status(404).send({
+        message: "Friend request not found or already accepted/rejected.",
+      });
+    }
+
+    await existingFriendship.remove();
+
+    res.status(200).json({
+      success: true,
+      message: "Friend request canceled successfully.",
+    });
+  } catch (error) {
+    res.status(500).send({ message: "Friend request cancellation failed." });
   }
 };
 
@@ -127,3 +152,147 @@ export const rejectFriendRequest = async (req, res) => {
     res.status(500).send({ message: "Friend request rejection failed." });
   }
 };
+
+
+export const getNonFriendUsers = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    const userFriendships = await Friendship.find({
+      $or: [
+        { userA: userId, status: "accepted" },
+        { userB: userId, status: "accepted" },
+      ],
+    });
+
+    const friendIds = userFriendships.map((friendship) => {
+      return userId === friendship.userA ? friendship.userB : friendship.userA;
+    });
+
+    const nonFriendUsers = await User.find({
+      _id: { $nin: [...friendIds, userId] },
+    });
+
+    res.status(200).json({
+      success: true,
+      nonFriends: nonFriendUsers,
+    });
+  } catch (error) {
+    res.status(500).send({ message: "Error while fetching non-friends." });
+  }
+};
+
+export const getAllSentRequests = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    const sentRequests = await Friendship.find({
+      userA: userId,
+      status: "pending",
+    });
+
+    const receiverIds = sentRequests.map((request) => request.userB);
+
+    const receivers = await User.find({ _id: { $in: receiverIds } });
+
+    res.status(200).json({
+      success: true,
+      sentRequests: receivers,
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .send({ message: "Error while fetching sent friend requests." });
+  }
+};
+
+export const getAllReceivedRequests = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    const receivedRequests = await Friendship.find({
+      userB: userId,
+      status: "pending",
+    });
+
+    const senderIds = receivedRequests.map((request) => request.userA);
+
+    const senders = await User.find({ _id: { $in: senderIds } });
+
+    res.status(200).json({
+      success: true,
+      receivedRequests: senders,
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .send({ message: "Error while fetching received friend requests." });
+  }
+};
+
+export const searchNonFriendsByName = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { name } = req.query;
+
+    const userFriendships = await Friendship.find({
+      $or: [
+        { userA: userId, status: "accepted" },
+        { userB: userId, status: "accepted" },
+      ],
+    });
+
+    const friendIds = userFriendships.map((friendship) => {
+      return userId.equals(friendship.userA)
+        ? friendship.userB
+        : friendship.userA;
+    });
+
+    const nonFriendUsers = await User.find({
+      _id: { $nin: [...friendIds, userId] },
+      $or: [
+        { username: { $regex: name, $options: "i" } },
+        { firstName: { $regex: name, $options: "i" } },
+        { lastName: { $regex: name, $options: "i" } },
+      ],
+    });
+
+    res.status(200).json({
+      success: true,
+      nonFriends: nonFriendUsers,
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .send({ message: "Error while searching for non-friends by name." });
+  }
+};
+
+export const unfriendUser = async (req, res) => {
+  try {
+    const { userId, friendId } = req.params;
+
+    const friendship = await Friendship.findOne({
+      $or: [
+        { userA: userId, userB: friendId },
+        { userA: friendId, userB: userId },
+      ],
+      status: "accepted",
+    });
+
+    if (!friendship) {
+      return res
+        .status(404)
+        .send({ message: "Friendship not found or not accepted." });
+    }
+
+    await friendship.remove();
+
+    res
+      .status(200)
+      .json({ success: true, message: "Friendship unfriended successfully." });
+  } catch (error) {
+    res.status(500).send({ message: "Friendship unfriending failed." });
+  }
+};
+
