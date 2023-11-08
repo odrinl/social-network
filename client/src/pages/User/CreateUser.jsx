@@ -30,6 +30,7 @@ const CreateUser = () => {
     setConfirmPassword("");
     localStorage.setItem("token", response.token);
     localStorage.setItem("userId", response.user._id);
+    localStorage.setItem("username", response.user.username);
     navigate("/home");
   };
 
