@@ -12,7 +12,7 @@
     "start": "node ./src/index",
     "dev": "nodemon ./src/index",
     "code-style-check": "npm run prettier && npm run lint",
-    "pre-commit": "npm run code-style-check",
+    "pre-commit": "npm run autofix",
     "autofix": "npm run lint:fix && npm run prettier:fix",
     "lint": "eslint ./src",
     "lint:fix": "eslint ./src --fix",

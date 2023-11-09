@@ -29,7 +29,7 @@ module.exports = {
   plugins: ["react"],
   rules: {
     quotes: ["error", "double"],
-    "no-console": "error",
+    "no-console": process.env.NODE_ENV === "production" ? "error" : "off",
   },
   settings: {
     react: {
