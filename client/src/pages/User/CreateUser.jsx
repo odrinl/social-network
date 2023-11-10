@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState } from "react";
 import styled from "styled-components";
 import Input from "../../components/Input";
 import useFetch from "../../hooks/useFetch";
@@ -13,6 +13,10 @@ const CreateUser = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
+  const isEmailValid = () => {
+    return email.includes("@");
+  };
+
   const isPasswordValid = () => {
     const validPattern = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/;
     return validPattern.test(password);
@@ -23,6 +27,11 @@ const CreateUser = () => {
   const togglePasswordVisibility = () => {
     setShowPassword((prevState) => !prevState);
   };
+
+  const isFormValid = () => {
+    return isEmailValid() && isPasswordValid() && isPasswordConfirmValid();
+  };
+
   const onSuccess = (response) => {
     setUsername("");
     setEmail("");
@@ -39,18 +48,21 @@ const CreateUser = () => {
     onSuccess
   );
 
-  useEffect(() => {
+useEffect(() => {
     return cancelFetch;
   }, []);
   const handleSubmit = (e) => {
     e.preventDefault();
-    performFetch({
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ username, email, password }),
-    });
+
+    if (isFormValid()) {
+      performFetch({
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ username, email, password }),
+      });
+    }
   };
   let statusComponent = null;
   if (error != null) {
@@ -85,11 +97,18 @@ const CreateUser = () => {
             </GuideList>
           </InputField>
           <InputField>
-            <StyledInput
+          <StyledInput
               name="email"
               value={email}
               placeholder="Email"
               onChange={(value) => setEmail(value)}
+              style={{
+                backgroundColor: email.trim() !== ""
+                ? isEmailValid()
+                  ? "rgba(217, 250, 190, 0.5)"
+                  : "rgba(255, 96, 82, 0.5)"
+                : "auto",
+              }}
               data-testid={TEST_ID.emailInput}
             />
             <GuideList>
