@@ -68,7 +68,7 @@ const CreateUser = () => {
   if (error != null) {
     statusComponent = (
       <div data-testid={TEST_ID.errorContainer}>
-        Error while trying to create user: {error.toString()}
+        {error.toString()}
       </div>
     );
   } else if (isLoading) {
@@ -168,7 +168,9 @@ const CreateUser = () => {
             Submit
           </StyledButton>
         </form>
+        <ErrorDiv>
         {statusComponent}
+        </ErrorDiv>
       </Container>
     </FormContainer>
   );
@@ -262,7 +264,7 @@ const StyledButton = styled.button`
   outline: 0 !important;
   background: #3b4a47;
   font-size: 1.5rem;
-  margin-top: 25px;
+  margin-bottom: 25px;
   color: white;
   cursor: pointer;
   font-weight: bolder;
@@ -284,5 +286,17 @@ const IconWrapper = styled.div`
     &:hover {
       color: #0099ff;
     }
+  }
+`;
+
+const ErrorDiv = styled.div`
+  height: 50px;
+  width: 100%;
+  font-size: 17px;
+  align-self: stretch;
+  padding: 5px;
+  margin:2opx;
+  @media (max-width: 768px) {
+    height: 40px;
   }
 `;
