@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import useFetch from "../hooks/useFetch";
+import useFetch from "../../../hooks/useFetch";
 
 const userId = localStorage.getItem("userId");
 const token = localStorage.getItem("token");
@@ -14,13 +14,12 @@ export const fakeData = {
     "https://th.bing.com/th?id=OIP.zcvn4QV1z5E7vQOFDLP6UQHaC2&w=350&h=134&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2",
 };
 
-const MyProfileSideSection = () => {
-  const [data, setData] = useState(fakeData);
+const OtherUserProfile = () => {
+  const [data, setData] = useState([]);
 
   const onSuccess = (response) => {
     setData(response);
   };
-
   const { isLoading, error, performFetch, cancelFetch } = useFetch(
     `/users/${userId}`,
     onSuccess
@@ -42,41 +41,49 @@ const MyProfileSideSection = () => {
 
   return (
     <Container>
-      <ProfilePicContainer>
-        <ProfilePic src={fakeData.profilePic} alt="Profile Pic" />
-      </ProfilePicContainer>
       {isLoading && <LoadingDiv>Loading....</LoadingDiv>}
       {!isLoading && error && (
         <ErrorDiv>
           Error while trying to get data from the server: {error.toString()}
         </ErrorDiv>
       )}
-      {!isLoading && !error && data.success && (
-        <TextWrapper>@ {data.user.username}</TextWrapper>
+      {!isLoading && !error && (
+        <>
+          <CoverPhotoContainer>
+            <CoverPhoto src={fakeData.coverPhoto} alt="Cover Photo" />
+          </CoverPhotoContainer>
+          <ProfileInfo>
+            <ProfilePicContainer>
+              <ProfilePic src={fakeData.profilePic} alt="Profile Pic" />
+            </ProfilePicContainer>
+            {data.success && (
+              <div>
+                <h1>@ {data.user.username}</h1>
+
+                <p>{`${fakeData.friends} Friends`}</p>
+              </div>
+            )}
+          </ProfileInfo>
+        </>
       )}
     </Container>
   );
 };
 
-export default MyProfileSideSection;
-
 const Container = styled.div`
-  height: 13rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
+  width: 100%;
 `;
 
-const TextWrapper = styled.div`
-  font-family: "Comfortaa", Helvetica;
-  font-size: 32px;
-  font-weight: 400;
-  height: 36px;
-  left: 90px;
-  letter-spacing: -0.48px;
-  line-height: normal;
-  text-align: center;
-  white-space: nowrap;
+const CoverPhotoContainer = styled.div`
+  position: relative;
+`;
+
+const CoverPhoto = styled.img`
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 0.8rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 `;
 
 const ProfilePicContainer = styled.div`
@@ -84,15 +91,30 @@ const ProfilePicContainer = styled.div`
 `;
 
 const ProfilePic = styled.img`
-  width: 120px;
-  height: 120px;
+  width: 140px;
+  height: 140px;
   border-radius: 50%;
   border: 5px solid #fff;
   object-fit: cover;
-
+  margin-top: -75px;
+  margin-left: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 `;
 
+const ProfileInfo = styled.div`
+  display: flex;
+  align-items: center;
+
+  h1 {
+    font-size: 17px;
+    margin-right: 10px;
+  }
+
+  p {
+    color: #666;
+    font-size: 14px;
+  }
+`;
 const LoadingDiv = styled.div`
   text-align: center;
   margin: 20px 0;
@@ -106,3 +128,4 @@ const ErrorDiv = styled.div`
   border-radius: 4px;
   margin: 8px 0;
 `;
+export default OtherUserProfile;
