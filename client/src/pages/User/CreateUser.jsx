@@ -67,9 +67,7 @@ const CreateUser = () => {
   let statusComponent = null;
   if (error != null) {
     statusComponent = (
-      <div data-testid={TEST_ID.errorContainer}>
-        {error.toString()}
-      </div>
+      <div data-testid={TEST_ID.errorContainer}>{error.toString()}</div>
     );
   } else if (isLoading) {
     statusComponent = (
@@ -168,9 +166,7 @@ const CreateUser = () => {
             Submit
           </StyledButton>
         </form>
-        <ErrorDiv>
-        {statusComponent}
-        </ErrorDiv>
+        <ErrorDiv>{statusComponent}</ErrorDiv>
       </Container>
     </FormContainer>
   );
@@ -295,7 +291,7 @@ const ErrorDiv = styled.div`
   font-size: 17px;
   align-self: stretch;
   padding: 5px;
-  margin:2opx;
+  margin: 2opx;
   @media (max-width: 768px) {
     height: 40px;
   }

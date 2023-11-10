@@ -68,9 +68,7 @@ const useFetch = (route, onReceived) => {
       if (jsonResult.success === true) {
         onReceived(jsonResult);
       } else {
-        setError(
-          jsonResult.msg || jsonResult.error
-        );
+        setError(jsonResult.msg || jsonResult.error);
       }
 
       setIsLoading(false);
