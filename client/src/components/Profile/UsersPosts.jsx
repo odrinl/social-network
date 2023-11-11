@@ -1,16 +1,23 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import Post from "./Post";
-import CreatePost from "./CreatePost";
-import useFetch from "../hooks/useFetch";
 
-const Feed = () => {
+import useFetch from "../../hooks/useFetch";
+import CreatePost from "../CreatePost";
+import Post from "../Post";
+
+const UsersPosts = () => {
   const [posts, setPosts] = useState([]);
 
   const token = localStorage.getItem("token");
 
   const onReceived = (response) => {
-    const sortedPosts = response.posts.sort((a, b) => {
+    const userName = localStorage.getItem("username");
+
+    const userPosts = response.posts.filter(
+      (post) => post.username === userName
+    );
+
+    const sortedPosts = userPosts.sort((a, b) => {
       return new Date(b.timestamp) - new Date(a.timestamp);
     });
 
@@ -73,12 +80,12 @@ const Feed = () => {
   );
 };
 
-export default Feed;
+export default UsersPosts;
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  height: 50rem;
+  height: 40rem;
   margin-top: 1rem;
 `;
 const PostsContainer = styled.div`

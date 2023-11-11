@@ -52,6 +52,7 @@ body {
   background-color: var(--homepage-wrapper-background-color);
   margin: var(--homepage-margin-padding);
   flex-direction: column;
+  margin-top: 4.5rem;
 }
 
 .block {
