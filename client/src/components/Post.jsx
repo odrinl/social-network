@@ -1,17 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { FaThumbsUp, FaComment, FaShare } from "react-icons/fa";
 import PropTypes from "prop-types";
 import TimeAgo from "react-timeago";
 import useFetch from "../hooks/useFetch";
 
-const Post = ({ post, onPostDelete, isOwner }) => {
-  const onReceived = () => {
-    onPostDelete();
+const Post = ({ post, onPostChanged, isOwner }) => {
+  const token = localStorage.getItem("token");
+
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [postContent, setPostContent] = useState(post.text);
+
+  const toggleEditMode = () => {
+    setIsEditMode(!isEditMode);
   };
 
-  const { performFetch } = useFetch("/posts/delete", onReceived);
-  const token = localStorage.getItem("token");
+  const onReceived = () => {
+    onPostChanged();
+  };
+
+  const { performFetch: performDeleteFetch } = useFetch(
+    "/posts/delete",
+    onReceived
+  );
+
+  const { performFetch: performEditFetch } = useFetch(
+    "/posts/edit",
+    onReceived
+  );
 
   const handlePostDelete = () => {
     const isConfirmed = window.confirm(
@@ -29,14 +45,34 @@ const Post = ({ post, onPostDelete, isOwner }) => {
           body: JSON.stringify({ id: post._id }),
         };
 
-        performFetch(options);
+        performDeleteFetch(options);
       }
+    }
+  };
+
+  const handleSaveChanges = () => {
+    if (!postContent) {
+      alert("Text field cannot be empty");
+      return;
+    }
+    if (post && post._id && postContent) {
+      const options = {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ id: post._id, text: postContent }),
+      };
+
+      performEditFetch(options);
+      setIsEditMode(false);
     }
   };
 
   Post.propTypes = {
     post: PropTypes.object.isRequired,
-    onPostDelete: PropTypes.func.isRequired,
+    onPostChanged: PropTypes.func.isRequired,
     isOwner: PropTypes.bool.isRequired,
   };
 
@@ -55,11 +91,30 @@ const Post = ({ post, onPostDelete, isOwner }) => {
           </Time>
         </UserName>
         {isOwner && (
-          <DeleteButton onClick={handlePostDelete}>Delete</DeleteButton>
+          <>
+            {isEditMode ? (
+              <CancelButton onClick={toggleEditMode}>Cancel</CancelButton>
+            ) : (
+              <EditButton onClick={toggleEditMode}>Edit</EditButton>
+            )}
+            <DeleteButton onClick={handlePostDelete}>Delete</DeleteButton>
+          </>
         )}
       </PostTitle>
-      <PostText>{post.text}</PostText>
+      {isEditMode ? (
+        <Text
+          value={postContent}
+          onChange={(e) => setPostContent(e.target.value)}
+        ></Text>
+      ) : (
+        <PostText>{post.text}</PostText>
+      )}
       <PostFooter>
+        {isEditMode && (
+          <SaveChangesButton onClick={handleSaveChanges}>
+            Save Changes
+          </SaveChangesButton>
+        )}
         <Button>
           <FaThumbsUp />
         </Button>
@@ -118,6 +173,7 @@ const Time = styled.p`
 const PostText = styled.p`
   font-size: 1.1rem;
   line-height: 2rem;
+  overflow-wrap: break-word;
 `;
 
 const PostFooter = styled.div`
@@ -138,7 +194,57 @@ const Button = styled.div`
 
 const DeleteButton = styled.div`
   display: flex;
+  color: grey;
+  cursor: pointer;
+  align-self: flex-start;
+`;
+
+const EditButton = styled.div`
+  display: flex;
+  color: grey;
+  cursor: pointer;
+  align-self: flex-start;
+  margin-right: 1rem;
+`;
+
+const SaveChangesButton = styled.button`
+  background-color: #4caf50;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-right: 1rem;
+
+  &:hover {
+    background-color: #45a049;
+  }
+`;
+
+const CancelButton = styled.div`
+  display: flex;
   color: red;
   cursor: pointer;
   align-self: flex-start;
+  margin-right: 1rem;
+
+  &:hover {
+    color: #d32f2f;
+  }
+`;
+
+const Text = styled.textarea`
+  margin-top: 0.5rem;
+  display: flex;
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 5.97px;
+  height: 41px;
+  resize: none;
+  margin-left: 0.5rem;
+  font-family: var(--font-family);
+  font-size: 1rem;
+  text-align: left;
+  padding: 0.5rem;
 `;

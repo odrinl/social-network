@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useFetch from "../../hooks/useFetch";
 import styled from "styled-components";
 
@@ -13,6 +13,10 @@ function LoginUser() {
   const [loggedIn, setLoggedIn] = useState(false);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    return cancelFetch;
+  }, []);
+
   const onSuccess = (response) => {
     setEmail("");
     setPassword("");
@@ -21,7 +25,10 @@ function LoginUser() {
     localStorage.setItem("userId", response.user._id);
     localStorage.setItem("username", response.user.username);
   };
-  const { isLoading, error, performFetch } = useFetch("/auth/login", onSuccess);
+  const { isLoading, error, performFetch, cancelFetch } = useFetch(
+    "/auth/login",
+    onSuccess
+  );
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -40,6 +47,7 @@ function LoginUser() {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
   if (loggedIn) {
     navigate("/home");
     return null;
