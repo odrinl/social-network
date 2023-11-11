@@ -3,25 +3,19 @@ import styled from "styled-components";
 import Post from "./Post";
 import CreatePost from "./CreatePost";
 import useFetch from "../hooks/useFetch";
-
 const Feed = () => {
   const [posts, setPosts] = useState([]);
-
   const token = localStorage.getItem("token");
-
   const onReceived = (response) => {
     const sortedPosts = response.posts.sort((a, b) => {
       return new Date(b.timestamp) - new Date(a.timestamp);
     });
-
     setPosts(sortedPosts);
   };
-
   const { performFetch, cancelFetch, isLoading, error } = useFetch(
     "/posts/get",
     onReceived
   );
-
   const fetchPosts = () => {
     const options = {
       method: "GET",
@@ -31,25 +25,21 @@ const Feed = () => {
     };
     performFetch(options);
   };
-
   const onPostChanged = () => {
     fetchPosts();
   };
-
   useEffect(() => {
     fetchPosts();
     return cancelFetch;
   }, []);
-
   const isOwner = (post) => {
     const userName = localStorage.getItem("username");
     return userName === post.username;
   };
-
   return (
     <Container>
+      <CreatePost onPostCreate={onPostChanged} />
       <PostsContainer>
-        <CreatePost onPostCreate={onPostChanged} />
         {isLoading ? (
           <p>Loading...</p>
         ) : error ? (
@@ -68,9 +58,7 @@ const Feed = () => {
     </Container>
   );
 };
-
 export default Feed;
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;
