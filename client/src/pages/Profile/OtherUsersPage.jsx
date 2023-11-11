@@ -5,8 +5,9 @@ import logo from "../../../public/logo.png";
 import FriendSideSection from "../../components/FriendSideSection";
 
 import EventSideSection from "../../components/EventSideSection";
-import UsersPosts from "../../components/Profile/UsersPosts";
+
 import OtherUserProfile from "../../components/Profile/OthersProfile/OtherUserProfile";
+import UsersPosts from "../../components/profile/UsersPosts";
 
 const OtherUsersPage = () => {
   return (

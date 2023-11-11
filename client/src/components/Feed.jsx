@@ -48,8 +48,8 @@ const Feed = () => {
 
   return (
     <Container>
-      <CreatePost onPostCreate={onPostChanged} />
       <PostsContainer>
+        <CreatePost onPostCreate={onPostChanged} />
         {isLoading ? (
           <p>Loading...</p>
         ) : error ? (

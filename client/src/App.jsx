@@ -8,8 +8,9 @@ import LoginUser from "./pages/User/LoginUser";
 import ProfilePage from "./pages/Profile/ProfilePage";
 import SharedArea from "./components/SharedArea";
 import Feed from "./components/Feed";
-import Events from "./components/Events";
+
 import Friends from "./components/Friends";
+import Myprofile from "./components/profile/Myprofile";
 
 const App = () => {
   return (
@@ -19,7 +20,7 @@ const App = () => {
         <Route path="/home" element={<Home />}>
           <Route index element={<SharedArea />} />
           <Route path="/home/" element={<Feed />} />
-          <Route path="/home/events" element={<Events />} />
+          <Route path="/home/myprofile/" element={<Myprofile />} />
           <Route path="/home/friends" element={<Friends />} />
         </Route>
         <Route path="/home/users" element={<UserList />} />

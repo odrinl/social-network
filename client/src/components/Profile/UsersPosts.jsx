@@ -39,7 +39,7 @@ const UsersPosts = () => {
     performFetch(options);
   };
 
-  const onPostCreate = () => {
+  const onPostChanged = () => {
     fetchPosts();
   };
 
@@ -59,23 +59,22 @@ const UsersPosts = () => {
 
   return (
     <Container>
-      <CreatePost onPostCreate={onPostCreate} />
-      <PostsContainer>
-        {isLoading ? (
-          <p>Loading...</p>
-        ) : error ? (
-          <p>Error: {error.message}</p>
-        ) : (
-          posts.map((post) => (
-            <Post
-              key={post._id}
-              post={post}
-              onPostDelete={onPostDelete}
-              isOwner={isOwner(post)}
-            />
-          ))
-        )}
-      </PostsContainer>
+      <CreatePost onPostCreate={onPostChanged} />
+
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : error ? (
+        <p>Error: {error.message}</p>
+      ) : (
+        posts.map((post) => (
+          <Post
+            key={post._id}
+            post={post}
+            onPostDelete={onPostDelete}
+            isOwner={isOwner(post)}
+          />
+        ))
+      )}
     </Container>
   );
 };
@@ -87,12 +86,4 @@ const Container = styled.div`
   flex-direction: column;
   height: 40rem;
   margin-top: 1rem;
-`;
-const PostsContainer = styled.div`
-  height: 100%;
-  overflow-y: auto;
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    width: 0 !important;
-  }
 `;

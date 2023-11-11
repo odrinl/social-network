@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import useFetch from "../../hooks/useFetch";
+import UsersPosts from "./UsersPosts";
+
+// import UsersPosts from "./UsersPosts";
 
 const userId = localStorage.getItem("userId");
 const token = localStorage.getItem("token");
@@ -45,43 +48,59 @@ const Myprofile = () => {
   }, []);
 
   return (
-    <Container>
-      {isLoading && <LoadingDiv>Loading....</LoadingDiv>}
-      {!isLoading && error && (
-        <ErrorDiv>
-          Error while trying to get data from the server: {error.toString()}
-        </ErrorDiv>
-      )}
-      {!isLoading && !error && (
-        <>
-          <CoverPhotoContainer>
-            <CoverPhoto
-              src={data.coverPhoto || placeholderCoverPhoto}
-              alt="Cover Photo"
-            />
-          </CoverPhotoContainer>
-          <ProfileInfo>
-            <ProfilePicContainer>
-              <ProfilePic
-                src={data.profilePic || placeholderProfilePic}
-                alt="Profile Pic"
+    <ProfileContainer>
+      <Container>
+        {isLoading && <LoadingDiv>Loading....</LoadingDiv>}
+        {!isLoading && error && (
+          <ErrorDiv>
+            Error while trying to get data from the server: {error.toString()}
+          </ErrorDiv>
+        )}
+        {!isLoading && !error && (
+          <>
+            <CoverPhotoContainer>
+              <CoverPhoto
+                src={data.coverPhoto || placeholderCoverPhoto}
+                alt="Cover Photo"
               />
-            </ProfilePicContainer>
-            {data.success && (
-              <div>
-                <h1>@ {data.user.username}</h1>
-                <p>{`${fakeData.friends} Friends`}</p>
-              </div>
-            )}
-          </ProfileInfo>
-        </>
-      )}
-    </Container>
+            </CoverPhotoContainer>
+            <ProfileInfo>
+              <ProfilePicContainer>
+                <ProfilePic
+                  src={data.profilePic || placeholderProfilePic}
+                  alt="Profile Pic"
+                />
+              </ProfilePicContainer>
+              {data.success && (
+                <div>
+                  <h1>@ {data.user.username}</h1>
+                  <p>{`${fakeData.friends} Friends`}</p>
+                </div>
+              )}
+            </ProfileInfo>
+          </>
+        )}
+
+        <UsersPosts />
+      </Container>
+    </ProfileContainer>
   );
 };
 
 const Container = styled.div`
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  margin-top: 1rem;
+`;
+
+const ProfileContainer = styled.div`
+  height: 100%;
+  overflow-y: auto;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    width: 0 !important;
+  }
 `;
 
 const CoverPhotoContainer = styled.div`
@@ -94,6 +113,9 @@ const CoverPhoto = styled.img`
   object-fit: cover;
   border-radius: 0.8rem;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  @media (max-width: 767px) {
+    height: 180px;
+  }
 `;
 
 const ProfilePicContainer = styled.div`
@@ -109,6 +131,10 @@ const ProfilePic = styled.img`
   margin-top: -75px;
   margin-left: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  @media (max-width: 767px) {
+    width: 120px;
+    height: 120px;
+  }
 `;
 
 const ProfileInfo = styled.div`
@@ -123,6 +149,17 @@ const ProfileInfo = styled.div`
   p {
     color: #666;
     font-size: 14px;
+  }
+  @media (max-width: 767px) {
+    h1 {
+      font-size: 14px;
+      margin-right: 10px;
+    }
+
+    p {
+      color: #666;
+      font-size: 11px;
+    }
   }
 `;
 
