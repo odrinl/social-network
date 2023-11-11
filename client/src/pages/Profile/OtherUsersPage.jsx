@@ -6,18 +6,13 @@ import FriendSideSection from "../../components/FriendSideSection";
 
 import EventSideSection from "../../components/EventSideSection";
 import UsersPosts from "../../components/Profile/UsersPosts";
-import Myprofile from "../../components/Profile/Myprofile";
-import MyProfileSideSection from "../../components/MyProfileSideSection";
+import OtherUserProfile from "../../components/Profile/OthersProfile/OtherUserProfile";
 
-const ProfilePage = () => {
-  const userId = "someUserId";
+const OtherUsersPage = () => {
   return (
     <div className="container wrapper">
       <div className="container homepage">
         <div className="container column">
-          <div className="container block">
-            <MyProfileSideSection />
-          </div>
           <div className="container block">
             <FriendSideSection />
           </div>
@@ -32,8 +27,7 @@ const ProfilePage = () => {
               <Nav />
             </div>
           </div>
-          <Myprofile userId={userId} />
-
+          <OtherUserProfile />
           <UsersPosts />
         </div>
         <div className="container column">
@@ -46,4 +40,4 @@ const ProfilePage = () => {
   );
 };
 
-export default ProfilePage;
+export default OtherUsersPage;
