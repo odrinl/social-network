@@ -70,16 +70,5 @@ const Feed = () => {
 export default Feed;
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 50rem;
-  margin-top: 1rem;
-`;
-const PostsContainer = styled.div`
-  height: 100%;
-  overflow-y: auto;
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    width: 0 !important;
-  }
+  height: fit-content;
 `;
