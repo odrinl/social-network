@@ -32,11 +32,7 @@ const Feed = () => {
     performFetch(options);
   };
 
-  const onPostCreate = () => {
-    fetchPosts();
-  };
-
-  const onPostDelete = () => {
+  const onPostChanged = () => {
     fetchPosts();
   };
 
@@ -52,7 +48,7 @@ const Feed = () => {
 
   return (
     <Container>
-      <CreatePost onPostCreate={onPostCreate} />
+      <CreatePost onPostCreate={onPostChanged} />
       <PostsContainer>
         {isLoading ? (
           <p>Loading...</p>
@@ -63,7 +59,7 @@ const Feed = () => {
             <Post
               key={post._id}
               post={post}
-              onPostDelete={onPostDelete}
+              onPostChanged={onPostChanged}
               isOwner={isOwner(post)}
             />
           ))
