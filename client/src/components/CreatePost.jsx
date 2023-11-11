@@ -95,7 +95,8 @@ const Text = styled.textarea`
   margin-left: 0.5rem;
   font-family: var(--font-family);
   font-size: 1rem;
-  text-align: center;
+  text-align: left;
+  padding: 0.6rem;
 `;
 
 const PostButton = styled.button`

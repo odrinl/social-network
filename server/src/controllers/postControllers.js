@@ -94,3 +94,41 @@ export const deletePost = asyncHandler(async (req, res) => {
     post: { ...updatedUser },
   });
 });
+
+export const editPost = asyncHandler(async (req, res) => {
+  const { id, text } = req.body;
+  const userId = req.user._id;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    res.status(400);
+    throw new Error("Invalid postId");
+  }
+
+  const user = await User.findById(userId);
+
+  if (!user) {
+    res.status(404);
+    throw new Error("User not found");
+  }
+
+  // Find the post with the given id and update its text
+  const updatedUser = await User.findOneAndUpdate(
+    { _id: userId, "posts._id": id },
+    { $set: { "posts.$.text": text } },
+    { new: true }
+  );
+
+  if (!updatedUser) {
+    res.status(404);
+    throw new Error("Post not found");
+  }
+
+  // Retrieve the updated post
+  const updatedPost = updatedUser.posts.find((post) => post._id.equals(id));
+
+  res.status(200).json({
+    success: true,
+    message: "Post edited successfully",
+    post: { ...updatedPost.toObject() },
+  });
+});
