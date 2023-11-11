@@ -49,20 +49,22 @@ const Feed = () => {
   return (
     <Container>
       <CreatePost onPostCreate={onPostChanged} />
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : error ? (
-        <p>Error: {error.message}</p>
-      ) : (
-        posts.map((post) => (
-          <Post
-            key={post._id}
-            post={post}
-            onPostChanged={onPostChanged}
-            isOwner={isOwner(post)}
-          />
-        ))
-      )}
+      <PostsContainer>
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : error ? (
+          <p>Error: {error.message}</p>
+        ) : (
+          posts.map((post) => (
+            <Post
+              key={post._id}
+              post={post}
+              onPostChanged={onPostChanged}
+              isOwner={isOwner(post)}
+            />
+          ))
+        )}
+      </PostsContainer>
     </Container>
   );
 };
@@ -70,5 +72,16 @@ const Feed = () => {
 export default Feed;
 
 const Container = styled.div`
-  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  height: 50rem;
+  margin-top: 1rem;
+`;
+const PostsContainer = styled.div`
+  height: 100%;
+  overflow-y: auto;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    width: 0 !important;
+  }
 `;
