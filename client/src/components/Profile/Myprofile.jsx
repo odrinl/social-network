@@ -14,6 +14,11 @@ export const fakeData = {
     "https://th.bing.com/th?id=OIP.zcvn4QV1z5E7vQOFDLP6UQHaC2&w=350&h=134&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2",
 };
 
+const placeholderProfilePic =
+  "https://via.placeholder.com/140x140?text=Profile+Pic";
+const placeholderCoverPhoto =
+  "https://via.placeholder.com/1000x240?text=Cover+Photo";
+
 const Myprofile = () => {
   const [data, setData] = useState([]);
 
@@ -50,16 +55,21 @@ const Myprofile = () => {
       {!isLoading && !error && (
         <>
           <CoverPhotoContainer>
-            <CoverPhoto src={fakeData.coverPhoto} alt="Cover Photo" />
+            <CoverPhoto
+              src={data.coverPhoto || placeholderCoverPhoto}
+              alt="Cover Photo"
+            />
           </CoverPhotoContainer>
           <ProfileInfo>
             <ProfilePicContainer>
-              <ProfilePic src={fakeData.profilePic} alt="Profile Pic" />
+              <ProfilePic
+                src={data.profilePic || placeholderProfilePic}
+                alt="Profile Pic"
+              />
             </ProfilePicContainer>
             {data.success && (
               <div>
                 <h1>@ {data.user.username}</h1>
-
                 <p>{`${fakeData.friends} Friends`}</p>
               </div>
             )}
@@ -115,6 +125,7 @@ const ProfileInfo = styled.div`
     font-size: 14px;
   }
 `;
+
 const LoadingDiv = styled.div`
   text-align: center;
   margin: 20px 0;
@@ -128,4 +139,5 @@ const ErrorDiv = styled.div`
   border-radius: 4px;
   margin: 8px 0;
 `;
+
 export default Myprofile;

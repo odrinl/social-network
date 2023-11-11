@@ -14,6 +14,9 @@ export const fakeData = {
     "https://th.bing.com/th?id=OIP.zcvn4QV1z5E7vQOFDLP6UQHaC2&w=350&h=134&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2",
 };
 
+const placeholderProfilePic =
+  "https://via.placeholder.com/120x120?text=Profile+Pic";
+
 const MyProfileSideSection = () => {
   const [data, setData] = useState(fakeData);
 
@@ -43,7 +46,10 @@ const MyProfileSideSection = () => {
   return (
     <Container>
       <ProfilePicContainer>
-        <ProfilePic src={fakeData.profilePic} alt="Profile Pic" />
+        <ProfilePic
+          src={data.profilePic || placeholderProfilePic}
+          alt="Profile Pic"
+        />
       </ProfilePicContainer>
       {isLoading && <LoadingDiv>Loading....</LoadingDiv>}
       {!isLoading && error && (
@@ -89,7 +95,6 @@ const ProfilePic = styled.img`
   border-radius: 50%;
   border: 5px solid #fff;
   object-fit: cover;
-
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 `;
 
