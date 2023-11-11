@@ -13,6 +13,10 @@ const CreateUser = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
+  const isEmailValid = () => {
+    return email.includes("@");
+  };
+
   const isPasswordValid = () => {
     const validPattern = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/;
     return validPattern.test(password);
@@ -23,6 +27,11 @@ const CreateUser = () => {
   const togglePasswordVisibility = () => {
     setShowPassword((prevState) => !prevState);
   };
+
+  const isFormValid = () => {
+    return isEmailValid() && isPasswordValid() && isPasswordConfirmValid();
+  };
+
   const onSuccess = (response) => {
     setUsername("");
     setEmail("");
@@ -44,20 +53,21 @@ const CreateUser = () => {
   }, []);
   const handleSubmit = (e) => {
     e.preventDefault();
-    performFetch({
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ username, email, password }),
-    });
+
+    if (isFormValid()) {
+      performFetch({
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ username, email, password }),
+      });
+    }
   };
   let statusComponent = null;
   if (error != null) {
     statusComponent = (
-      <div data-testid={TEST_ID.errorContainer}>
-        Error while trying to create user: {error.toString()}
-      </div>
+      <div data-testid={TEST_ID.errorContainer}>{error.toString()}</div>
     );
   } else if (isLoading) {
     statusComponent = (
@@ -90,6 +100,14 @@ const CreateUser = () => {
               value={email}
               placeholder="Email"
               onChange={(value) => setEmail(value)}
+              style={{
+                backgroundColor:
+                  email.trim() !== ""
+                    ? isEmailValid()
+                      ? "rgba(217, 250, 190, 0.5)"
+                      : "rgba(255, 96, 82, 0.5)"
+                    : "auto",
+              }}
               data-testid={TEST_ID.emailInput}
             />
             <GuideList>
@@ -148,7 +166,7 @@ const CreateUser = () => {
             Submit
           </StyledButton>
         </form>
-        {statusComponent}
+        <ErrorDiv>{statusComponent}</ErrorDiv>
       </Container>
     </FormContainer>
   );
@@ -242,7 +260,7 @@ const StyledButton = styled.button`
   outline: 0 !important;
   background: #3b4a47;
   font-size: 1.5rem;
-  margin-top: 25px;
+  margin-bottom: 25px;
   color: white;
   cursor: pointer;
   font-weight: bolder;
@@ -264,5 +282,17 @@ const IconWrapper = styled.div`
     &:hover {
       color: #0099ff;
     }
+  }
+`;
+
+const ErrorDiv = styled.div`
+  height: 50px;
+  width: 100%;
+  font-size: 17px;
+  align-self: stretch;
+  padding: 5px;
+  margin: 2opx;
+  @media (max-width: 768px) {
+    height: 40px;
   }
 `;
