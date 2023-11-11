@@ -22,7 +22,6 @@ const Welcome = () => {
 
 export default Welcome;
 
-
 const Container = styled.div`
   min-width: 40%;
   height: 85vh;
