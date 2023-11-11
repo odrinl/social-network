@@ -47,7 +47,7 @@ const Feed = () => {
   };
 
   return (
-<Container>
+    <Container>
       <CreatePost onPostCreate={onPostChanged} />
       {isLoading ? (
         <p>Loading...</p>
