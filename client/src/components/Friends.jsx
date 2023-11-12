@@ -86,8 +86,9 @@ const Friends = () => {
               setInput("");
             }}
           >
-            My<br />
-           Friends
+            My
+            <br />
+            Friends
           </li>
           <li
             className={category === "friends-requests" ? "active" : ""}
@@ -97,7 +98,9 @@ const Friends = () => {
               setInput("");
             }}
           >
-            Friends<br />Requests
+            Friends
+            <br />
+            Requests
           </li>
           <li
             className={category === "sent-requests" ? "active" : ""}
@@ -107,7 +110,9 @@ const Friends = () => {
               setInput("");
             }}
           >
-            Sent<br />Requests
+            Sent
+            <br />
+            Requests
           </li>
         </ul>
       </FriendsNav>
@@ -163,15 +168,15 @@ const FriendsNav = styled.div`
       cursor: pointer;
       transition: color 0.3s;
 
-    &:hover {
-      transform: scale(1.1);
-      transition: transform 0.3s ease-in-out;
-      color: var(--nav-hover-color);
-    }
+      &:hover {
+        transform: scale(1.1);
+        transition: transform 0.3s ease-in-out;
+        color: var(--nav-hover-color);
+      }
 
-    &.active {
-      color: var(--nav-active-color);
-    }
+      &.active {
+        color: var(--nav-active-color);
+      }
     }
   }
 
