@@ -19,7 +19,7 @@ const placeholderProfilePic =
 const placeholderCoverPhoto =
   "https://via.placeholder.com/1000x240?text=Cover+Photo";
 
-const Myprofile = () => {
+const MyProfileComponent = () => {
   const [data, setData] = useState([]);
 
   const onSuccess = (response) => {
@@ -80,6 +80,8 @@ const Myprofile = () => {
   );
 };
 
+export default MyProfileComponent;
+
 const Container = styled.div`
   width: 100%;
 `;
@@ -139,5 +141,3 @@ const ErrorDiv = styled.div`
   border-radius: 4px;
   margin: 8px 0;
 `;
-
-export default Myprofile;
