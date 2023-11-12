@@ -45,7 +45,7 @@ function LoginUser() {
     onSuccess
   );
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     setInputError({ email: false, password: false });
 
