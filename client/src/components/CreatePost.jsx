@@ -12,6 +12,7 @@ const CreatePost = ({ onPostCreate }) => {
 
   const { performFetch, isLoading } = useFetch("/posts/create", onReceived);
   const token = localStorage.getItem("token");
+  const userId = localStorage.getItem("userId");
 
   const handlePostCreate = () => {
     if (text.trim() !== "") {
@@ -21,7 +22,7 @@ const CreatePost = ({ onPostCreate }) => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ text }),
+        body: JSON.stringify({ userId: userId, text: text }),
       };
 
       performFetch(options);

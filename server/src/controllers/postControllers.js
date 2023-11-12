@@ -31,8 +31,7 @@ export const getUserPosts = asyncHandler(async (req, res) => {
 export const likePost = () => null;
 
 export const createPost = asyncHandler(async (req, res) => {
-  const { text } = req.body;
-  const userId = req.user._id; // Assuming you have user information in req.user
+  const { userId, text } = req.body;
 
   // Find the user by ID
   const user = await User.findById(userId);
@@ -61,8 +60,7 @@ export const createPost = asyncHandler(async (req, res) => {
 });
 
 export const deletePost = asyncHandler(async (req, res) => {
-  const { id } = req.body;
-  const userId = req.user._id;
+  const { userId, id } = req.body;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     res.status(400);
@@ -96,8 +94,7 @@ export const deletePost = asyncHandler(async (req, res) => {
 });
 
 export const editPost = asyncHandler(async (req, res) => {
-  const { id, text } = req.body;
-  const userId = req.user._id;
+  const { userId, id, text } = req.body;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     res.status(400);
