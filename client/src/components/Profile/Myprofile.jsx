@@ -3,8 +3,6 @@ import styled from "styled-components";
 import useFetch from "../../hooks/useFetch";
 import UsersPosts from "./UsersPosts";
 
-// import UsersPosts from "./UsersPosts";
-
 const userId = localStorage.getItem("userId");
 const token = localStorage.getItem("token");
 
