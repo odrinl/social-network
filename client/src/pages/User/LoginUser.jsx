@@ -14,6 +14,12 @@ function LoginUser() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (loggedIn) {
+      navigate("/home");
+    }
+  }, [loggedIn]);
+
+  useEffect(() => {
     return cancelFetch;
   }, []);
 
@@ -48,66 +54,60 @@ function LoginUser() {
     setShowPassword(!showPassword);
   };
 
-  if (loggedIn) {
-    navigate("/home");
-    return null;
-  } else {
-    return (
-      <FormWrapper>
-        <FormContainer>
-          <FormMain>
-            <Heading>
-              <span className="#3b4a47">LOG</span>{" "}
-              <span className="black">IN</span>
-            </Heading>
-            <Form onSubmit={handleLogin}>
-              <InputContainer>
-                <InputField
-                  type="email"
-                  id="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  aria-label="Email"
-                  aria-required="true"
-                />
-                <InputField
-                  type={showPassword ? "text" : "password"}
-                  id="password"
-                  placeholder="Enter your password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  aria-label="Password"
-                  aria-required="true"
-                />
-                <PasswordToggle onClick={togglePasswordVisibility}>
-                  {showPassword ? <FaEye /> : <FaEyeSlash />}
-                </PasswordToggle>
-              </InputContainer>
-              <SubmitButton id="button">LOG IN</SubmitButton>
-              <RememberMe>
-                <StyledCheckboxLabel htmlFor="remember">
-                  <StyledCheckbox
-                    type="checkbox"
-                    id="remember"
-                    name="remember"
-                  />
-                  Remember me
-                </StyledCheckboxLabel>
-              </RememberMe>
-              <ForgotLink className="forgotLink">
-                <FaLock style={{ color: "black", marginRight: "5px" }} /> Forgot
-                password?
-              </ForgotLink>
-            </Form>
-            {error && <ErrorText>{error}</ErrorText>}
-            {isLoading && <p>Loading...</p>}
-          </FormMain>
-        </FormContainer>
-      </FormWrapper>
-    );
-  }
+  return (
+    <FormWrapper>
+      <FormContainer>
+        <FormMain>
+          <Heading>
+            <span className="#3b4a47">LOG</span>{" "}
+            <span className="black">IN</span>
+          </Heading>
+          <Form onSubmit={handleLogin}>
+            <InputContainer>
+              <InputField
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                aria-label="Email"
+                aria-required="true"
+                autoComplete="email"
+              />
+              <InputField
+                type={showPassword ? "text" : "password"}
+                id="password"
+                placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                aria-label="Password"
+                aria-required="true"
+                autoComplete="current-password"
+              />
+              <PasswordToggle onClick={togglePasswordVisibility}>
+                {showPassword ? <FaEye /> : <FaEyeSlash />}
+              </PasswordToggle>
+            </InputContainer>
+            <SubmitButton id="button">LOG IN</SubmitButton>
+            <RememberMe>
+              <StyledCheckboxLabel htmlFor="remember">
+                <StyledCheckbox type="checkbox" id="remember" name="remember" />
+                Remember me
+              </StyledCheckboxLabel>
+            </RememberMe>
+            <ForgotLink className="forgotLink">
+              <FaLock style={{ color: "black", marginRight: "5px" }} /> Forgot
+              password?
+            </ForgotLink>
+          </Form>
+          {error && <ErrorText>{error}</ErrorText>}
+          {isLoading && <p>Loading...</p>}
+        </FormMain>
+      </FormContainer>
+    </FormWrapper>
+  );
 }
+
 export default LoginUser;
 
 const FormWrapper = styled.div`

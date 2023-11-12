@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { FaThumbsUp, FaComment, FaShare } from "react-icons/fa";
 import PropTypes from "prop-types";
@@ -12,6 +12,13 @@ const Post = ({ post, onPostChanged, isOwner }) => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [postContent, setPostContent] = useState(post.text);
 
+  useEffect(() => {
+    return () => {
+      cancelDeleteFetch();
+      cancelEditFetch();
+    };
+  }, []);
+
   const toggleEditMode = () => {
     setIsEditMode(!isEditMode);
   };
@@ -20,15 +27,11 @@ const Post = ({ post, onPostChanged, isOwner }) => {
     onPostChanged();
   };
 
-  const { performFetch: performDeleteFetch } = useFetch(
-    "/posts/delete",
-    onReceived
-  );
+  const { performFetch: performDeleteFetch, cancelFetch: cancelDeleteFetch } =
+    useFetch("/posts/delete", onReceived);
 
-  const { performFetch: performEditFetch } = useFetch(
-    "/posts/edit",
-    onReceived
-  );
+  const { performFetch: performEditFetch, cancelFetch: cancelEditFetch } =
+    useFetch("/posts/edit", onReceived);
 
   const handlePostDelete = () => {
     const isConfirmed = window.confirm(
@@ -132,11 +135,6 @@ const Post = ({ post, onPostChanged, isOwner }) => {
       </PostFooter>
     </Container>
   );
-};
-
-Post.propTypes = {
-  post: PropTypes.object.isRequired,
-  onPostDelete: PropTypes.func.isRequired,
 };
 
 export default Post;

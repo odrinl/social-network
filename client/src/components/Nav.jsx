@@ -29,7 +29,7 @@ const Nav = () => {
         <StyledNavLink to="/home/friends">Friends</StyledNavLink>
       </NavItem>
       <NavItem>
-        <StyledNavLink to="/home/my-profile">My profile</StyledNavLink>
+        <StyledNavLink to="/home/myprofile">My profile</StyledNavLink>
       </NavItem>
       <NavItem>
         <StyledLogoutLink onClick={logout}>Sign Out</StyledLogoutLink>
