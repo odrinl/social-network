@@ -15,7 +15,7 @@ const Nav = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
     localStorage.removeItem("userId");
-    navigate("/login");
+    navigate("/");
   };
 
   return (
