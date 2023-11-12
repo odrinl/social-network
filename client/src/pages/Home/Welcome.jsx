@@ -23,9 +23,7 @@ const Welcome = () => {
               </StyledLink>
             </StyledListItem>
           </StyledList>
-          <AdditionalSentence>
-            Brings everyone closer ...
-          </AdditionalSentence>
+          <AdditionalSentence>Brings everyone closer ...</AdditionalSentence>
         </Container>
       </FormContainer>
     </FormWrapper>
