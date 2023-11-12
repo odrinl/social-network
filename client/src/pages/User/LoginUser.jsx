@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useFetch from "../../hooks/useFetch";
 import styled from "styled-components";
 
 import "../../index.css";
-import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
 import { useNavigate } from "react-router";
 function LoginUser() {
@@ -13,6 +13,16 @@ function LoginUser() {
   const [loggedIn, setLoggedIn] = useState(false);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (loggedIn) {
+      navigate("/home");
+    }
+  }, [loggedIn]);
+
+  useEffect(() => {
+    return cancelFetch;
+  }, []);
+
   const onSuccess = (response) => {
     setEmail("");
     setPassword("");
@@ -21,7 +31,10 @@ function LoginUser() {
     localStorage.setItem("userId", response.user._id);
     localStorage.setItem("username", response.user.username);
   };
-  const { isLoading, error, performFetch } = useFetch("/auth/login", onSuccess);
+  const { isLoading, error, performFetch, cancelFetch } = useFetch(
+    "/auth/login",
+    onSuccess
+  );
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -40,18 +53,16 @@ function LoginUser() {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-  if (loggedIn) {
-    navigate("/home");
-    return null;
-  } else {
-    return (
+
+  return (
+    <FormWrapper>
       <FormContainer>
         <FormMain>
           <Heading>
             <span className="#3b4a47">LOG</span>{" "}
             <span className="black">IN</span>
           </Heading>
-          <form onSubmit={handleLogin}>
+          <Form onSubmit={handleLogin}>
             <InputContainer>
               <InputField
                 type="email"
@@ -61,6 +72,7 @@ function LoginUser() {
                 onChange={(e) => setEmail(e.target.value)}
                 aria-label="Email"
                 aria-required="true"
+                autoComplete="email"
               />
               <InputField
                 type={showPassword ? "text" : "password"}
@@ -70,118 +82,117 @@ function LoginUser() {
                 onChange={(e) => setPassword(e.target.value)}
                 aria-label="Password"
                 aria-required="true"
+                autoComplete="current-password"
               />
               <PasswordToggle onClick={togglePasswordVisibility}>
-                {showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
+                {showPassword ? <FaEye /> : <FaEyeSlash />}
               </PasswordToggle>
             </InputContainer>
             <SubmitButton id="button">LOG IN</SubmitButton>
             <RememberMe>
-              <input type="checkbox" id="rememberMe" name="rememberMe" />
-              <label htmlFor="rememberMe">Remember me</label>
+              <StyledCheckboxLabel htmlFor="remember">
+                <StyledCheckbox type="checkbox" id="remember" name="remember" />
+                Remember me
+              </StyledCheckboxLabel>
             </RememberMe>
             <ForgotLink className="forgotLink">
               <FaLock style={{ color: "black", marginRight: "5px" }} /> Forgot
               password?
             </ForgotLink>
-          </form>
+          </Form>
           {error && <ErrorText>{error}</ErrorText>}
           {isLoading && <p>Loading...</p>}
         </FormMain>
       </FormContainer>
-    );
-  }
+    </FormWrapper>
+  );
 }
+
+export default LoginUser;
+
+const FormWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+`;
+
 const FormContainer = styled.div`
   display: flex;
-  align-items: center;
+  width: 100%;
+  min-width: 350px;
   justify-content: center;
-  height: 100vh;
-  @media (max-width: 768px) {
-    height: 100vh;
-  }
 `;
+
 const FormMain = styled.div`
-  min-width: 40%;
-  height: 85vh;
-  margin: 30px auto;
   display: flex;
+  width: 450px;
+  margin: 1rem;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  background-color: rgb(255, 255, 255);
-  padding: 40px;
+  padding: 2rem 3.5rem;
   box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.3);
-  position: relative;
   overflow: hidden;
   border-radius: 20px;
   border: 3px solid #90467f;
-  @media (max-width: 768px) {
-    width: 80%;
-  }
 `;
+
 const Heading = styled.h1`
   font-size: 40px;
+  margin-top: 1rem;
   color: #3b4a47;
   font-weight: 800;
   font-family: Inter;
-  text-shadow: 0px 0px 30px rgba(0, 0, 0, 0.4);
-  z-index: 2;
   .white {
     color: white;
   }
   .black {
     color: #90467f;
   }
-  @media (max-width: 768px) {
-  }
 `;
+
+const Form = styled.form`
+  display: flex;
+  margin: 20px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`;
+
 const InputContainer = styled.div`
   position: relative;
+
+  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-  margin-top: 5rem;
-  width: 100%;
-  @media (max-width: 768px) {
-    margin-top: 1.5rem;
-    width: 100%;
-  }
+  margin-top: 2rem;
+  font-size: 15px;
 `;
+
 const InputField = styled.input`
-  width: 100%;
   height: 50px;
-  border: none;
-  box-shadow: 0px 0px 70px rgba(0, 0, 0, 0.3);
-  border-bottom: 2px solid rgb(173, 173, 173);
+  font-size: 17px;
+  width: 100%;
   margin: 30px 0;
-  font-size: 1.4rem;
-  font-weight: 500;
-  box-sizing: border-box;
-  padding-left: 30px;
-  border-radius: 1rem;
-  transition: border-bottom 0.3s, box-shadow 0.3s;
-  @media (max-width: 768px) {
-    height: 50px;
-    margin: 15px 0;
-    font-size: 1rem;
-  }
+  align-self: stretch;
+  border-radius: 12px;
+  border: 1px solid rgba(102, 102, 102, 0.35);
+  padding: 5px;
   &:focus {
     outline: none;
-    border-bottom: 3px solid rgb(199, 114, 255);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
   }
   &:hover {
-    border-bottom: 3px solid #ff0090;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
   }
 `;
+
 const PasswordToggle = styled.div`
   position: absolute;
   right: 10px;
-  top: 75%;
+  top: 76%;
   transform: translateY(-50%);
   cursor: pointer;
   svg {
@@ -193,22 +204,20 @@ const PasswordToggle = styled.div`
     }
   }
 `;
+
 const SubmitButton = styled.button`
-  z-index: 2;
-  position: relative;
-  padding: 15px 15px;
-  width: 14rem;
-  border-radius: 1rem;
-  border: 0 !important;
-  outline: 0 !important;
-  background: #3b4a47;
-  font-size: 1.5rem;
-  margin-top: 25px;
+  height: 50px;
+  width: 12rem;
+  border-radius: 12px;
+  border: 0;
+  outline: 0;
+  background: #90467f;
+  font-size: 17px;
+  margin-top: 1.5rem;
   color: white;
   cursor: pointer;
   font-weight: bolder;
-  box-shadow: 0px 0px 70px rgba(0, 0, 0, 0.9);
-  cursor: pointer;
+
   &:hover {
     transform: scale(1.1);
     transition: transform 0.3s ease-in-out;
@@ -216,85 +225,45 @@ const SubmitButton = styled.button`
       box-shadow: none;
     }
   }
-  @media (max-width: 768px) {
-    width: 100%;
-    margin-top: 15px;
-    font-size: 1.2rem;
-  }
 `;
-const ErrorText = styled.p`
-  color: red;
-  font-size: 1.4rem;
-  margin-top: 1rem;
-`;
+
 const RememberMe = styled.div`
   display: flex;
   align-items: center;
   margin: 40px 0;
-  font-size: 1.4em;
+  font-size: 1rem;
   font-weight: bolder;
   color: #939393;
-  input[type="checkbox"] {
-    display: none;
-  }
-  @media (max-width: 768px) {
-    font-size: 1rem;
-    margin: 15px 0;
-  }
-  label {
-    position: relative;
-    cursor: pointer;
-    padding-left: 30px;
-    &:before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 12px;
-      height: 12px;
-      border: 2px solid #90467f;
-      border-radius: 3px;
-      background-color: white;
-    }
-    &:after {
-      content: "";
-      position: absolute;
-      left: 6px;
-      top: 6px;
-      width: 8px;
-      height: 8px;
-      border: solid #0099ff;
-      border-width: 0 2px 2px 0;
-      transform: rotate(45deg);
-      display: none;
-    }
-  }
-  input[type="checkbox"]:checked + label:before {
-    background-color: #0099ff;
-    border: 2px solid #0099ff;
-  }
-  input[type="checkbox"]:checked + label:after {
-    display: block;
-  }
 `;
+
+const StyledCheckboxLabel = styled.label`
+  display: flex;
+  align-items: flex-end;
+`;
+
+const StyledCheckbox = styled.input`
+  margin-right: 1rem;
+  cursor: pointer;
+  width: 19px;
+  height: 19px;
+`;
+
+const ErrorText = styled.p`
+  color: red;
+  font-size: 1rem;
+`;
+
 const ForgotLink = styled.a`
-  z-index: 2;
   cursor: pointer;
   position: relative;
-  font-size: 1.4em;
+  font-size: 1rem;
+  margin-bottom: 1rem;
   font-weight: bolder;
   color: #0099ff;
-  margin: 30px 0;
   text-decoration: none;
-  padding: 8px 0px;
   border-radius: 20px;
   transition: color 0.3s;
   &:hover {
     color: #166fe5;
   }
-  @media (max-width: 768px) {
-    font-size: 1rem;
-    margin: 15px 0;
-  }
 `;
-export default LoginUser;

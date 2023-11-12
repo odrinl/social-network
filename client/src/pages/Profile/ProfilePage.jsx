@@ -6,7 +6,7 @@ import FriendSideSection from "../../components/FriendSideSection";
 
 import EventSideSection from "../../components/EventSideSection";
 import UsersPosts from "../../components/Profile/UsersPosts";
-import Myprofile from "../../components/Profile/Myprofile";
+import MyProfileComponent from "../../components/Profile/MyProfileComponent";
 import MyProfileSideSection from "../../components/MyProfileSideSection";
 
 const ProfilePage = () => {
@@ -32,7 +32,7 @@ const ProfilePage = () => {
               <Nav />
             </div>
           </div>
-          <Myprofile userId={userId} />
+          <MyProfileComponent userId={userId} />
 
           <UsersPosts />
         </div>

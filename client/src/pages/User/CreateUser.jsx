@@ -76,162 +76,165 @@ const CreateUser = () => {
   }
 
   return (
-    <FormContainer>
-      <Container>
-        <Heading>
-          <span className="white">SIGN</span> <span className="black">UP</span>
-        </Heading>
-        <form onSubmit={handleSubmit}>
-          <InputField>
-            <StyledInput
-              name="username"
-              placeholder="Username"
-              value={username}
-              onChange={(value) => setUsername(value)}
-              data-testid={TEST_ID.nameInput}
-            />
-            <GuideList>
-              <li>No spaces in the username</li>
-            </GuideList>
-          </InputField>
-          <InputField>
-            <StyledInput
-              name="email"
-              value={email}
-              placeholder="Email"
-              onChange={(value) => setEmail(value)}
-              style={{
-                backgroundColor:
-                  email.trim() !== ""
-                    ? isEmailValid()
-                      ? "rgba(217, 250, 190, 0.5)"
-                      : "rgba(255, 96, 82, 0.5)"
-                    : "auto",
-              }}
-              data-testid={TEST_ID.emailInput}
-            />
-            <GuideList>
-              <li>Enter a valid email</li>
-            </GuideList>
-          </InputField>
-          <InputField>
-            <StyledInput
-              name="password"
-              value={password}
-              placeholder="Password"
-              onChange={(value) => setPassword(value)}
-              type={showPassword ? "text" : "password"}
-              style={{
-                backgroundColor:
-                  password.trim() !== ""
-                    ? isPasswordValid()
-                      ? "rgba(217, 250, 190, 0.5)"
-                      : "rgba(255, 96, 82, 0.5)"
-                    : "auto",
-              }}
-              data-testid={TEST_ID.emailInput}
-            />
-            <IconWrapper onClick={togglePasswordVisibility}>
-              {showPassword ? <FaEye /> : <FaEyeSlash />}
-            </IconWrapper>
-            <GuideList>
-              <li>At least 8 characters including letters and numbers</li>
-            </GuideList>
-          </InputField>
-          <InputField>
-            <StyledInput
-              name="confirm password"
-              value={confirmPassword}
-              placeholder="Confirm your password"
-              onChange={(value) => setConfirmPassword(value)}
-              type={showPassword ? "text" : "password"}
-              style={{
-                backgroundColor:
-                  confirmPassword.trim() !== ""
-                    ? isPasswordConfirmValid()
-                      ? "rgba(217, 250, 190, 0.5)"
-                      : "rgba(255, 96, 82, 0.5)"
-                    : "auto",
-              }}
-              data-testid={TEST_ID.emailInput}
-            />
-            <IconWrapper onClick={togglePasswordVisibility}>
-              {showPassword ? <FaEye /> : <FaEyeSlash />}
-            </IconWrapper>
-            <GuideList>
-              <li>Re-Enter your password</li>
-            </GuideList>
-          </InputField>
-          <StyledButton type="submit" data-testid={TEST_ID.submitButton}>
-            Submit
-          </StyledButton>
-        </form>
-        <ErrorDiv>{statusComponent}</ErrorDiv>
-      </Container>
-    </FormContainer>
+    <FormWrapper>
+      <FormContainer>
+        <Container>
+          <Heading>
+            <span className="white">SIGN</span>{" "}
+            <span className="black">UP</span>
+          </Heading>
+          <Form onSubmit={handleSubmit}>
+            <InputField>
+              <StyledInput
+                name="username"
+                placeholder="Username"
+                value={username}
+                onChange={(value) => setUsername(value)}
+                data-testid={TEST_ID.nameInput}
+              />
+              <GuideList>
+                <li>No spaces in the username</li>
+              </GuideList>
+            </InputField>
+            <InputField>
+              <StyledInput
+                name="email"
+                value={email}
+                placeholder="Email"
+                onChange={(value) => setEmail(value)}
+                style={{
+                  backgroundColor:
+                    email.trim() !== ""
+                      ? isEmailValid()
+                        ? "rgba(217, 250, 190, 0.5)"
+                        : "rgba(255, 96, 82, 0.5)"
+                      : "auto",
+                }}
+                data-testid={TEST_ID.emailInput}
+              />
+              <GuideList>
+                <li>Enter a valid email</li>
+              </GuideList>
+            </InputField>
+            <InputField>
+              <StyledInput
+                name="password"
+                value={password}
+                placeholder="Password"
+                onChange={(value) => setPassword(value)}
+                type={showPassword ? "text" : "password"}
+                style={{
+                  backgroundColor:
+                    password.trim() !== ""
+                      ? isPasswordValid()
+                        ? "rgba(217, 250, 190, 0.5)"
+                        : "rgba(255, 96, 82, 0.5)"
+                      : "auto",
+                }}
+                data-testid={TEST_ID.emailInput}
+              />
+              <IconWrapper onClick={togglePasswordVisibility}>
+                {showPassword ? <FaEye /> : <FaEyeSlash />}
+              </IconWrapper>
+              <GuideList>
+                <li>At least 8 characters including letters and numbers</li>
+              </GuideList>
+            </InputField>
+            <InputField>
+              <StyledInput
+                name="confirm password"
+                value={confirmPassword}
+                placeholder="Confirm your password"
+                onChange={(value) => setConfirmPassword(value)}
+                type={showPassword ? "text" : "password"}
+                style={{
+                  backgroundColor:
+                    confirmPassword.trim() !== ""
+                      ? isPasswordConfirmValid()
+                        ? "rgba(217, 250, 190, 0.5)"
+                        : "rgba(255, 96, 82, 0.5)"
+                      : "auto",
+                }}
+                data-testid={TEST_ID.emailInput}
+              />
+              <IconWrapper onClick={togglePasswordVisibility}>
+                {showPassword ? <FaEye /> : <FaEyeSlash />}
+              </IconWrapper>
+              <GuideList>
+                <li>Re-Enter your password</li>
+              </GuideList>
+            </InputField>
+            <StyledButton type="submit" data-testid={TEST_ID.submitButton}>
+              SUBMIT
+            </StyledButton>
+          </Form>
+          <ErrorDiv>{statusComponent}</ErrorDiv>
+        </Container>
+      </FormContainer>
+    </FormWrapper>
   );
 };
 export default CreateUser;
-// Styled components
+
+const FormWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+`;
+
 const FormContainer = styled.div`
   display: flex;
+  width: 100%;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  @media (max-width: 768px) {
-  }
 `;
+
 const Container = styled.div`
-  min-width: 40%;
-  height: 85vh;
-  margin: 30px auto;
   display: flex;
+  margin: 1rem;
+  width: 500px;
+  min-width: 340px;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  background-color: rgb(255, 255, 255);
   padding: 40px;
-  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.3);
-  position: relative;
   overflow: hidden;
   border-radius: 20px;
   border: 3px solid #90467f;
-  @media (max-width: 768px) {
-    width: 80%;
-  }
+  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.3);
 `;
 const Heading = styled.h1`
   font-size: 40px;
+  margin-bottom: 1rem;
   color: #3b4a47;
   font-weight: 800;
   font-family: Inter;
-  text-shadow: 0px 0px 30px rgba(0, 0, 0, 0.4);
-  z-index: 2;
+  rgba(0, 0, 0, 0.4);
   .white {
     color: #3b4a47;
   }
   .black {
     color: #90467f;
   }
-  @media (max-width: 768px) {
-  }
 `;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
 const InputField = styled.div`
   width: 100%;
-  margin: 20px auto 20px;
+  margin: 12px 0;
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: left;
   font-size: 15px;
 `;
-const GuideList = styled.ul`
-  margin: 5px auto 5px 0px;
-  display: flex;
-  font-color: gray;
-  color: gray;
-  list-style: none;
-`;
+
 const StyledInput = styled(Input)`
   height: 50px;
   width: 100%;
@@ -247,28 +250,38 @@ const StyledInput = styled(Input)`
   &:hover {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
   }
-  @media (max-width: 768px) {
-    height: 40px;
-  }
 `;
+
+const GuideList = styled.ul`
+  margin: 5px auto 5px 0px;
+  display: flex;
+  font-color: gray;
+  color: gray;
+  list-style: none;
+`;
+
 const StyledButton = styled.button`
-  position: relative;
-  padding: 15px 15px;
-  width: 14rem;
-  border-radius: 1rem;
-  border: 0 !important;
-  outline: 0 !important;
-  background: #3b4a47;
-  font-size: 1.5rem;
-  margin-bottom: 25px;
+  height: 50px;
+  width: 12rem;
+  border-radius: 12px;
+  border: 0;
+  outline: 0;
+  background: #90467f;
+  font-size: 17px;
+  margin-top: 1rem;
   color: white;
   cursor: pointer;
   font-weight: bolder;
+
   &:hover {
-    box-shadow: 0 0 10px 5px rgba(144, 70, 127, 0.5);
-    transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    transform: scale(1.1);
+    transition: transform 0.3s ease-in-out;
+    .SubmitButton:active {
+      box-shadow: none;
+    }
   }
 `;
+
 const IconWrapper = styled.div`
   position: absolute;
   right: 10px;
@@ -286,13 +299,8 @@ const IconWrapper = styled.div`
 `;
 
 const ErrorDiv = styled.div`
-  height: 50px;
-  width: 100%;
   font-size: 17px;
-  align-self: stretch;
   padding: 5px;
-  margin: 2opx;
-  @media (max-width: 768px) {
-    height: 40px;
-  }
+  margin-top: 1rem;
+  color: red;
 `;

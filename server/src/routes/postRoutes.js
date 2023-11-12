@@ -4,17 +4,17 @@ import {
   getUserPosts,
   createPost,
   deletePost,
+  editPost,
   likePost,
 } from "../controllers/postControllers.js";
-import { protect } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
+router.get("/get", getAllPosts);
+router.post("/create", createPost);
+router.delete("/delete", deletePost);
+router.put("/edit", editPost);
+router.get("/:userId/posts", getUserPosts);
 
-router.get("/get", protect, getAllPosts);
-router.post("/create", protect, createPost);
-router.delete("/delete", protect, deletePost);
-router.get("/:userId/posts", protect, getUserPosts);
-
-router.put("/:id/like", protect, likePost);
+router.put("/:id/like", likePost);
 
 export default router;

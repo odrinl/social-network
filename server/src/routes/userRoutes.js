@@ -12,24 +12,23 @@ import {
   cancelFriendRequest,
   unfriendUser,
 } from "../controllers/userControllers.js";
-import { protect } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
-router.get("/:userId", protect, getUser);
-router.get("/:userId/friends", protect, getUserFriends);
+router.get("/:userId", getUser);
+router.get("/:userId/friends", getUserFriends);
 
-router.post("/:senderId/:receiverId", protect, sendFriendRequest);
-router.delete("/:senderId/:receiverId/cancel", protect, cancelFriendRequest);
+router.post("/:senderId/:receiverId", sendFriendRequest);
+router.delete("/:senderId/:receiverId/cancel", cancelFriendRequest);
 
-router.put("/:senderId/:receiverId/accept", protect, acceptFriendRequest);
-router.put("/:senderId/:receiverId/reject", protect, rejectFriendRequest);
+router.put("/:senderId/:receiverId/accept", acceptFriendRequest);
+router.put("/:senderId/:receiverId/reject", rejectFriendRequest);
 
-router.get("/:userId/nonFriendUsers", protect, getNonFriendUsers);
-router.get("/:userId/getAllSentRequests", protect, getAllSentRequests);
-router.get("/:userId/getAllReceivedRequests", protect, getAllReceivedRequests);
+router.get("/:userId/nonFriendUsers", getNonFriendUsers);
+router.get("/:userId/getAllSentRequests", getAllSentRequests);
+router.get("/:userId/getAllReceivedRequests", getAllReceivedRequests);
 
-router.get("/:userId/searchNonFriendsByName", protect, searchNonFriendsByName);
+router.get("/:userId/searchNonFriendsByName", searchNonFriendsByName);
 
-router.delete("/:userId/:friendId/unfriend", protect, unfriendUser);
+router.delete("/:userId/:friendId/unfriend", unfriendUser);
 export default router;
