@@ -7,7 +7,7 @@ import Welcome from "./pages/Home/Welcome";
 import LoginUser from "./pages/User/LoginUser";
 import SharedArea from "./components/SharedArea";
 import Feed from "./components/Feed";
-import MyProfile from "./components/Profile/MyProfile";
+import MyProfileComponent from "./components/Profile/MyProfileComponent";
 import Friends from "./components/Friends";
 
 const App = () => {
@@ -18,7 +18,7 @@ const App = () => {
         <Route path="/home/*" element={<Home />}>
           <Route index element={<SharedArea />} />
           <Route path="feed" element={<Feed />} />
-          <Route path="myprofile" element={<MyProfile />} />
+          <Route path="myprofile" element={<MyProfileComponent />} />
           <Route path="friends" element={<Friends />} />
         </Route>
         <Route path="/home/users" element={<UserList />} />
