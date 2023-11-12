@@ -210,7 +210,6 @@ const Heading = styled.h1`
   color: #3b4a47;
   font-weight: 800;
   font-family: Inter;
-  rgba(0, 0, 0, 0.4);
   .white {
     color: #3b4a47;
   }
