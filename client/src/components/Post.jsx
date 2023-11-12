@@ -7,6 +7,7 @@ import useFetch from "../hooks/useFetch";
 
 const Post = ({ post, onPostChanged, isOwner }) => {
   const token = localStorage.getItem("token");
+  const userId = localStorage.getItem("userId");
 
   const [isEditMode, setIsEditMode] = useState(false);
   const [postContent, setPostContent] = useState(post.text);
@@ -35,14 +36,14 @@ const Post = ({ post, onPostChanged, isOwner }) => {
     );
 
     if (isConfirmed) {
-      if (post && post._id) {
+      if (userId && post && post._id) {
         const options = {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({ id: post._id }),
+          body: JSON.stringify({ userId: userId, id: post._id }),
         };
 
         performDeleteFetch(options);
@@ -62,7 +63,11 @@ const Post = ({ post, onPostChanged, isOwner }) => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ id: post._id, text: postContent }),
+        body: JSON.stringify({
+          userId: userId,
+          id: post._id,
+          text: postContent,
+        }),
       };
 
       performEditFetch(options);
