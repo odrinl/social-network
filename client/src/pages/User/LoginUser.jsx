@@ -6,12 +6,21 @@ import "../../index.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
 import { useNavigate } from "react-router";
+
 function LoginUser() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [inputError, setInputError] = useState({
+    email: false,
+    password: false,
+  });
   const navigate = useNavigate();
+
+  const isEmailValid = () => {
+    return email.includes("@");
+  };
 
   useEffect(() => {
     if (loggedIn) {
@@ -38,10 +47,16 @@ function LoginUser() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    if (!email || !password) {
-      performFetch({
-        error: "Email and password are required",
-      });
+    setInputError({ email: false, password: false });
+
+    if (!email.trim()) {
+      setInputError((prev) => ({ ...prev, email: true }));
+    }
+    if (!password.trim()) {
+      setInputError((prev) => ({ ...prev, password: true }));
+    }
+
+    if (!email.trim() || !password.trim()) {
       return;
     }
     performFetch({
@@ -50,6 +65,7 @@ function LoginUser() {
       body: JSON.stringify({ email, password }),
     });
   };
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -70,9 +86,19 @@ function LoginUser() {
                 placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                onInput={(e) => setEmail(e.target.value)}
                 aria-label="Email"
                 aria-required="true"
                 autoComplete="email"
+                style={{
+                  backgroundColor: !email.trim()
+                    ? inputError.email
+                      ? "rgba(255, 96, 82, 0.5)"
+                      : "white"
+                    : isEmailValid()
+                    ? "rgba(217, 250, 190, 0.5)"
+                    : "rgba(255, 96, 82, 0.5)",
+                }}
               />
               <InputField
                 type={showPassword ? "text" : "password"}
@@ -83,6 +109,13 @@ function LoginUser() {
                 aria-label="Password"
                 aria-required="true"
                 autoComplete="current-password"
+                style={{
+                  backgroundColor: !password.trim()
+                    ? inputError.password
+                      ? "rgba(255, 96, 82, 0.5)"
+                      : "white"
+                    : "rgba(217, 250, 190, 0.5)",
+                }}
               />
               <PasswordToggle onClick={togglePasswordVisibility}>
                 {showPassword ? <FaEye /> : <FaEyeSlash />}
@@ -248,7 +281,7 @@ const StyledCheckbox = styled.input`
   height: 19px;
 `;
 
-const ErrorText = styled.p`
+const ErrorText = styled.div`
   color: red;
   font-size: 1rem;
 `;
