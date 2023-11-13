@@ -79,31 +79,40 @@ const Friends = () => {
       <FriendsNav>
         <ul>
           <li
+            className={category === "friends" ? "active" : ""}
             onClick={() => {
               setCategory("friends");
               setEndPoint(`/users/${userId}/friends`);
               setInput("");
             }}
           >
-            MyFriends
+            My
+            <br />
+            Friends
           </li>
           <li
+            className={category === "friends-requests" ? "active" : ""}
             onClick={() => {
               setCategory("friends-requests");
               setEndPoint(`/users/${userId}/getAllReceivedRequests`);
               setInput("");
             }}
           >
-            Friends Requests
+            Friends
+            <br />
+            Requests
           </li>
           <li
+            className={category === "sent-requests" ? "active" : ""}
             onClick={() => {
               setCategory("sent-requests");
               setEndPoint(`/users/${userId}/getAllSentRequests`);
               setInput("");
             }}
           >
-            Sent requests
+            Sent
+            <br />
+            Requests
           </li>
         </ul>
       </FriendsNav>
@@ -135,10 +144,10 @@ const FriendsNav = styled.div`
   margin-top: 20px;
   align-items: center;
   justify-content: center;
-  height: 40px;
-  width: 80%;
   background-color: white;
-  border-radius: 10px;
+  border-radius: 12px;
+  height: 40px;
+  width: 100%;
 
   ul {
     list-style: none;
@@ -148,19 +157,40 @@ const FriendsNav = styled.div`
     justify-content: center;
 
     li {
-      margin: 0 15px;
-      font-size: 16px;
+      height: 40px;
+      border-radius: 12px;
+      font-size: 15px;
+      margin-top: 5px;
+      color: black;
+      cursor: pointer;
+      text-align: center;
+      display: flex;
       cursor: pointer;
       transition: color 0.3s;
 
       &:hover {
-        color: #e68965; /* Change the color on hover */
+        transform: scale(1.1);
+        transition: transform 0.3s ease-in-out;
+        color: var(--nav-hover-color);
+      }
+
+      &.active {
+        color: var(--nav-active-color);
       }
     }
   }
 
-  @media (max-width: 768px) {
-    /* Add responsive styles here */
+  @media (min-width: 1200px) {
+    width: 60%;
+  }
+  li {
+    margin: 0 15px;
+  }
+  @media (min-width: 500px) and (max-width: 770px) {
+    width: 65%;
+  }
+  li {
+    margin: 0 15px;
   }
 `;
 
