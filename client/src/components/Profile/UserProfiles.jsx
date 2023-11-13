@@ -1,31 +1,22 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import useFetch from "../../hooks/useFetch";
-import UsersPosts from "./UsersPosts";
+import { useParams } from "react-router-dom";
 
-const userId = localStorage.getItem("userId");
 const token = localStorage.getItem("token");
 
-export const fakeData = {
-  username: "Sophie",
-  friends: 2,
-  profilePic:
-    "https://th.bing.com/th/id/OIP.vQcH6uRqJd1SIpce-41uUgHaLH?w=146&h=219&c=7&r=0&o=5&dpr=1.3&pid=1.7",
-  coverPhoto:
-    "https://th.bing.com/th?id=OIP.zcvn4QV1z5E7vQOFDLP6UQHaC2&w=350&h=134&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2",
+const handleFriendRequest = () => {
+  console.log("Friend request handled");
 };
 
-const placeholderProfilePic =
-  "https://via.placeholder.com/140x140?text=Profile+Pic";
-const placeholderCoverPhoto =
-  "https://via.placeholder.com/1000x240?text=Cover+Photo";
-
-const MyProfileComponent = () => {
+const OtherUserProfile = () => {
   const [data, setData] = useState([]);
+  const { userId } = useParams();
 
   const onSuccess = (response) => {
     setData(response);
   };
+
   const { isLoading, error, performFetch, cancelFetch } = useFetch(
     `/users/${userId}`,
     onSuccess
@@ -43,7 +34,7 @@ const MyProfileComponent = () => {
         "Content-Type": "application/json",
       },
     });
-  }, []);
+  }, [userId]); // Include userId as a dependency to re-fetch data when it changes
 
   return (
     <Container>
@@ -56,42 +47,31 @@ const MyProfileComponent = () => {
       {!isLoading && !error && (
         <>
           <CoverPhotoContainer>
-            <CoverPhoto
-              src={data.coverPhoto || placeholderCoverPhoto}
-              alt="Cover Photo"
-            />
+            <CoverPhoto src={data.coverPhoto} alt="Cover Photo" />
           </CoverPhotoContainer>
           <ProfileInfo>
             <ProfilePicContainer>
-              <ProfilePic
-                src={data.profilePic || placeholderProfilePic}
-                alt="Profile Pic"
-              />
+              <ProfilePic src={data.profilePic} alt="Profile Pic" />
             </ProfilePicContainer>
             {data.success && (
               <div>
                 <h1>@ {data.user.username}</h1>
-                <p>{`${fakeData.friends} Friends`}</p>
+                <p>{`${data.friends} Friends`}</p>
+
+                <FriendButton onClick={handleFriendRequest}>
+                  {data.user.isFriend ? "Unfriend" : "Add Friend"}
+                </FriendButton>
               </div>
             )}
           </ProfileInfo>
         </>
       )}
-      <UsersPosts />
     </Container>
   );
 };
 
-export default MyProfileComponent;
-
 const Container = styled.div`
   width: 100%;
-  height: 100%;
-  overflow-y: auto;
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    width: 0 !important;
-  }
 `;
 
 const CoverPhotoContainer = styled.div`
@@ -149,3 +129,15 @@ const ErrorDiv = styled.div`
   border-radius: 4px;
   margin: 8px 0;
 `;
+
+const FriendButton = styled.button`
+  // Add your button styling here
+  padding: 8px 16px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+`;
+
+export default OtherUserProfile;

@@ -59,8 +59,8 @@ const UsersPosts = () => {
 
   return (
     <Container>
-      <CreatePost onPostCreate={onPostCreate} />
       <PostsContainer>
+        <CreatePost onPostCreate={onPostCreate} />
         {isLoading ? (
           <p>Loading...</p>
         ) : error ? (
@@ -88,11 +88,4 @@ const Container = styled.div`
   height: 40rem;
   margin-top: 1rem;
 `;
-const PostsContainer = styled.div`
-  height: 100%;
-  overflow-y: auto;
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    width: 0 !important;
-  }
-`;
+const PostsContainer = styled.div``;
