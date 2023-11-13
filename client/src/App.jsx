@@ -9,6 +9,7 @@ import SharedArea from "./components/SharedArea";
 import Feed from "./components/Feed";
 import MyProfileComponent from "./components/Profile/MyProfileComponent";
 import Friends from "./components/Friends";
+import OtherUserProfile from "./components/Profile/OthersProfile/OtherUserProfile";
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
         <Route path="/home/users" element={<UserList />} />
         <Route path="/login" element={<LoginUser />} />
         <Route path="/register" element={<CreateUser />} />
+        <Route path="othersprofile/:userId" element={<OtherUserProfile />} />
       </Routes>
     </>
   );

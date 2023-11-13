@@ -4,6 +4,7 @@ import Feed from "./Feed";
 import Events from "./Events";
 import Friends from "./Friends";
 import MyProfileComponent from "./Profile/MyProfileComponent";
+import OtherUserProfile from "./Profile/OthersProfile/OtherUserProfile";
 
 const SharedArea = () => {
   return (
@@ -13,6 +14,7 @@ const SharedArea = () => {
         <Route path="events" element={<Events />} />
         <Route path="friends" element={<Friends />} />
         <Route path="myprofile" element={<MyProfileComponent />} />
+        <Route path="othersprofile/:userId" element={<OtherUserProfile />} />
       </Routes>
     </>
   );
