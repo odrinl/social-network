@@ -20,22 +20,29 @@ export const getUser = async (req, res) => {
     res.status(500).send({ message: "Error while fetching user." });
   }
 };
+
 export const getUserFriends = async (req, res) => {
   try {
     const { userId } = req.params;
 
     const friendships = await Friendship.find({
       $or: [
-        { userA: userId, status: "accepted" },
-        { userB: userId, status: "accepted" },
+        { userA: ObjectId(userId), status: "accepted" },
+        { userB: ObjectId(userId), status: "accepted" },
       ],
     });
 
-    const friendIds = friendships.map((friendship) => {
-      return userId === friendship.userA ? friendship.userB : friendship.userA;
-    });
+    const friendIds = friendships
+      .map((friendship) => {
+        return userId === friendship.userA.toString()
+          ? friendship.userB
+          : friendship.userA;
+      })
+      .filter((friendId) => friendId.toString() !== userId); // Compare against ObjectId instance
 
-    const userFriends = await User.find({ _id: { $in: friendIds } });
+    const userFriends = await User.find({
+      _id: { $in: friendIds.map((id) => ObjectId(id)) },
+    }); // Convert friendIds to ObjectId instances
 
     res.status(200).json({
       success: true,
