@@ -72,7 +72,7 @@ const Friends = () => {
           }}
           value={input}
           type="text"
-          placeholder="Search person"
+          placeholder="Search People"
         />
       </SearchContainer>
 

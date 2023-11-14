@@ -29,10 +29,10 @@ const Nav = () => {
         <StyledNavLink to="/home/friends">Friends</StyledNavLink>
       </NavItem>
       <NavItem>
-        <StyledNavLink to="/home/myprofile">My profile</StyledNavLink>
+        <StyledNavLink to="/home/myprofile">Profile</StyledNavLink>
       </NavItem>
       <NavItem>
-        <StyledLogoutLink onClick={logout}>Sign Out</StyledLogoutLink>
+        <StyledLogoutLink onClick={logout}>Logout</StyledLogoutLink>
       </NavItem>
     </NavList>
   );
@@ -41,11 +41,13 @@ const Nav = () => {
 export default Nav;
 
 const NavList = styled.ul`
+  background-color: white;
+  border-radius: 12px;
   list-style: none;
-  justify-content: flex-end;
-  padding: 0;
+  justify-content: space-between;
+  padding:10px;
   display: flex;
-  flex-wrap: wrap;
+  margin-bottom: 30px;
 `;
 
 const NavItem = styled.li`
