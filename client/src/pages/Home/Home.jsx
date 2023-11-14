@@ -13,7 +13,7 @@ const Home = () => {
       <div className="container wrapper">
         <div className="container homepage">
           <div className="container column">
-          <div className="container logo">
+            <div className="container logo">
               <div className="container">
                 <img src={logo} alt="logo" />
               </div>
@@ -31,11 +31,8 @@ const Home = () => {
             </div>
           </div>
           <div className="container middle-column">
-            
-              
-                <Nav />
-              
-          
+            <Nav />
+
             <SharedArea />
           </div>
           <div className="container column">

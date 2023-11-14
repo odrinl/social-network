@@ -45,9 +45,10 @@ const NavList = styled.ul`
   border-radius: 12px;
   list-style: none;
   justify-content: space-between;
-  padding:10px;
+  padding: 10px;
   display: flex;
-  margin-bottom: 30px;
+  margin-top: 15px;
+  margin-bottom: 35px;
 `;
 
 const NavItem = styled.li`
