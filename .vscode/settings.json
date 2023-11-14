@@ -1,9 +1,5 @@
 {
   "editor.formatOnSave": true,
   "editor.tabSize": 2,
-  "cSpell.words": [
-    "autofix",
-    "testid",
-    "toastify"
-  ],
+  "cSpell.words": ["autofix", "testid", "timeago", "toastify"]
 }

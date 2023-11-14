@@ -13,6 +13,11 @@ const Home = () => {
       <div className="container wrapper">
         <div className="container homepage">
           <div className="container column">
+            <div className="container logo">
+              <div className="container">
+                <img src={logo} alt="logo" />
+              </div>
+            </div>
             <div className="container block my-profile">
               <MyProfileSideSection />
             </div>
@@ -26,15 +31,8 @@ const Home = () => {
             </div>
           </div>
           <div className="container middle-column">
-            <div className="container logo">
-              <div className="container">
-                <img src={logo} alt="logo" />
-              </div>
+            <Nav />
 
-              <div className="container nav">
-                <Nav />
-              </div>
-            </div>
             <SharedArea />
           </div>
           <div className="container column">
