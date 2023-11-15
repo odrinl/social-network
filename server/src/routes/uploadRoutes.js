@@ -1,14 +1,18 @@
 import express from "express";
 import multer from "multer";
 import User from "../models/User.js";
+import path from "path";
+
 const router = express.Router();
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "uploads/uploadImages");
+    cb(null, "uploads"); // Save files directly in the "uploads" directory
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + "-" + file.originalname);
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    const fileExtension = path.extname(file.originalname);
+    cb(null, file.fieldname + "-" + uniqueSuffix + fileExtension);
   },
 });
 
@@ -31,7 +35,9 @@ router.post(
       user.profilePicture = req.file.filename;
       await user.save();
 
-      res.json({ success: true, profilePictureUrl: user.profilePicture });
+      const profilePictureUrl = `/uploadImages/${user.profilePicture}`;
+
+      res.json({ success: true, profilePictureUrl });
     } catch (error) {
       res.status(500).send({ success: false, error: "Internal Server Error" });
     }
