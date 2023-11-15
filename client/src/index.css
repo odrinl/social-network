@@ -99,7 +99,6 @@ body {
   left: 40px;
 }
 
-
 /* Add media queries for responsiveness */
 @media (max-width: 768px) {
   .container {

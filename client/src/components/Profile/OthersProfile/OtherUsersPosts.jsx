@@ -5,7 +5,7 @@ import useFetch from "../../../hooks/useFetch";
 import Post from "../../Post";
 
 // eslint-disable-next-line react/prop-types
-const OtherUsersPosts = ( {profileId} ) => {
+const OtherUsersPosts = ({ profileId }) => {
   const [posts, setPosts] = useState([]);
   const token = localStorage.getItem("token");
 
@@ -49,11 +49,7 @@ const OtherUsersPosts = ( {profileId} ) => {
           <p>Error: {error.message}</p>
         ) : (
           posts.map((post) => (
-            <Post
-              key={post._id}
-              post={post}
-              isOwner={isOwner(post)}
-            />
+            <Post key={post._id} post={post} isOwner={isOwner(post)} />
           ))
         )}
       </PostsContainer>
