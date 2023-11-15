@@ -52,7 +52,7 @@ body {
   background-color: var(--homepage-wrapper-background-color);
   margin: var(--homepage-margin-padding);
   flex-direction: column;
-  margin-top: 4.5rem;
+  margin-top: 5rem;
 }
 
 .block {
@@ -94,10 +94,11 @@ body {
 .logo img {
   position: relative;
   width: 175px;
-  height: 50px;
+  height: 45px;
   bottom: 40px;
   left: 40px;
 }
+
 
 /* Add media queries for responsiveness */
 @media (max-width: 768px) {
@@ -123,6 +124,7 @@ body {
 
   .events {
     display: none;
+    margin-top: 10px;
   }
 
   :root {

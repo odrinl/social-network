@@ -32,8 +32,8 @@ const FriendSlideSection = () => {
       },
     });
   }, []);
-  const handleProfileClick = (friendUserId) => {
-    navigate(`/othersprofile/${friendUserId}`);
+  const handleProfileClick = (profileId) => {
+    navigate(`/home/user-profile/${profileId}`);
   };
 
   return (

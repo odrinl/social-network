@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams} from "react-router-dom";
 import useFetch from "../../../hooks/useFetch";
 import { fakeData } from "../MyProfileComponent";
+import OtherUsersPosts from "./OtherUsersPosts";
 
 const token = localStorage.getItem("token");
 
@@ -21,15 +22,14 @@ const OtherUserProfile = () => {
     },
   });
 
-  const { userId } = useParams();
-  const navigate = useNavigate();
+  const { profileId } = useParams();
 
   const onSuccess = (response) => {
     setData(response);
   };
 
   const { isLoading, error, performFetch, cancelFetch } = useFetch(
-    `/users/${userId}`,
+    `/users/${profileId}`,
     onSuccess
   );
 
@@ -49,11 +49,10 @@ const OtherUserProfile = () => {
 
   const handleFriendRequestClick = () => {
     handleFriendRequest();
-    navigate(`/othersprofile/${userId}`);
   };
 
   return (
-    <Container>
+    <UserProfile>
       {isLoading && <LoadingDiv>Loading....</LoadingDiv>}
       {!isLoading && error && (
         <ErrorDiv>
@@ -82,13 +81,24 @@ const OtherUserProfile = () => {
           </ProfileInfo>
         </>
       )}
-    </Container>
+      <PostsContainer>
+        <OtherUsersPosts profileId={profileId} />
+      </PostsContainer>
+    </UserProfile>
   );
 };
 
-const Container = styled.div`
-  width: 100%;
+const UserProfile = styled.div`
+margin-top:18px;
+width: 100%;
+height: 100%;
+overflow-y: auto;
+scrollbar-width: none;
+&::-webkit-scrollbar {
+  width: 0 !important;
+}
 `;
+
 
 const CoverPhotoContainer = styled.div`
   position: relative;
@@ -155,4 +165,6 @@ const FriendButton = styled.button`
   cursor: pointer;
 `;
 
+const PostsContainer = styled.div`
+`;
 export default OtherUserProfile;

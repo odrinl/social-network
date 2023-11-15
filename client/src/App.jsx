@@ -19,13 +19,15 @@ const App = () => {
         <Route path="/home/*" element={<Home />}>
           <Route index element={<SharedArea />} />
           <Route path="feed" element={<Feed />} />
-          <Route path="myprofile" element={<MyProfileComponent />} />
           <Route path="friends" element={<Friends />} />
+          <Route path="myprofile" element={<MyProfileComponent />} />
+          <Route path="user-profile/:profileId" element={<OtherUserProfile />} />
+             
         </Route>
         <Route path="/home/users" element={<UserList />} />
         <Route path="/login" element={<LoginUser />} />
         <Route path="/register" element={<CreateUser />} />
-        <Route path="othersprofile/:userId" element={<OtherUserProfile />} />
+        
       </Routes>
     </>
   );
