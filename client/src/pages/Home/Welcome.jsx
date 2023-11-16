@@ -5,10 +5,6 @@ import styled from "styled-components";
 const Welcome = () => {
   return (
     <Container>
-      <ImageContaner>
-        <BackgroundImage />
-      </ImageContaner>
-
       <Content>
         <LogoContainer>
           <Logo>
@@ -32,76 +28,44 @@ const Welcome = () => {
 };
 
 const Container = styled.div`
-  justify-content: center;
-  padding: 2rem;
   display: flex;
-  color: #fff;
-  font-family: "Arial", sans-serif;
-
-  margin: 5rem;
-  border-radius: 20px;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: center;
-    padding: 0.4rem;
-    height: 85vh;
-    margin: 3rem;
-    border: none;
-  }
-`;
-
-const ImageContaner = styled.div`
-  flex: 0.5;
-`;
-
-const BackgroundImage = styled.div`
-  width: 100%;
-  height: 100%;
-  background: url("https://digitalcanvasme.com/wp-content/uploads/2021/02/SMM.png")
-    center/contain no-repeat;
-  background-size: fill;
-  background-position: center;
-  @media (max-width: 768px) {
-    display: none;
-  }
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 `;
 
 const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
   text-align: center;
-  padding: 2rem;
-  border: 3.5px solid #90467f;
-  border-radius: 16px;
+  color: #2c3e50;
 
   @media (max-width: 768px) {
+    border: 3.5px solid #90467f;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2.5rem;
+    border-radius: 16px;
   }
 `;
 
 const LogoContainer = styled.div`
   display: flex;
   align-items: center;
-  background: #90467f;
-  border-radius: 1rem;
-  box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.3);
+  justify-content: center;
+  margin-bottom: 3rem;
 `;
 
 const Logo = styled.h1`
   font-size: 5rem;
   font-weight: bold;
-  margin-bottom: 20px;
-  position: relative;
-  display: flex;
-  padding: 1.5rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-
+  padding: 1rem;
+  background: #90467f;
+  border-radius: 1rem;
+  box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.3);
   @media (max-width: 768px) {
     font-size: 2rem;
     padding: 0.8rem;
-    margin-bottom: 5px;
   }
 `;
 
@@ -114,29 +78,22 @@ const Net = styled.span`
 `;
 
 const WelcomeMessage = styled.p`
-  font-size: 4.5rem;
+  font-size: 3rem;
   font-weight: bold;
-  color: #2a99d1;
-  width: 50rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  font-family: "Agbalumo", sans-serif;
-
+  margin: 10px 0;
   @media (max-width: 768px) {
-    font-size: 2.8rem;
-    width: 100%;
+    font-size: 2rem;
+    padding: 0.8rem;
   }
 `;
 
 const AdditionalSentence = styled.p`
-  font-size: 3rem;
-  width: 40rem;
-  color: gray;
-  font-family: "Agbalumo", sans-serif;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-
+  font-size: 2rem;
+  margin-bottom: 30px;
+  margin-bottom: 3rem;
   @media (max-width: 768px) {
-    font-size: 1.8rem;
-    width: 80%;
+    font-size: 1.5rem;
+    padding: 0.8rem;
   }
 `;
 
@@ -148,24 +105,21 @@ const ButtonsContainer = styled.div`
 const StyledLink = styled(Link)`
   display: inline-block;
   margin: 0 10px;
-  padding: 30px 100px;
+  padding: 15px 50px;
   color: #fff;
   font-weight: bold;
   text-decoration: none;
-  font-size: 1.5rem;
-  border-radius: 4rem;
+  font-size: 1.2rem;
+  border-radius: 10px;
   transition: background-color 0.3s ease;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-  box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.3);
 
   &:hover {
-    background-color: #e0a800;
+    background-color: #3498db;
   }
 
   @media (max-width: 768px) {
-    padding: 10px 10px;
-    width: 9rem;
-    font-size: 0.8rem;
+    font-size: 1rem;
+    padding: 10px 40px;
   }
 `;
 
@@ -175,10 +129,6 @@ const LoginButton = styled(StyledLink)`
 
 const SignUpButton = styled(StyledLink)`
   background: #90467f;
-  margin-right: 1rem;
-
-  @media (max-width: 768px) {
-    margin-right: 0;
-  }
 `;
+
 export default Welcome;
