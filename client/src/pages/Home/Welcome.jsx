@@ -9,25 +9,27 @@ const Welcome = () => {
         <BackgroundImageContainer>
           <BackgroundImage />
         </BackgroundImageContainer>
-
-        <Content>
-          <LogoContainer>
-            <Logo>
-              <Aziel>Aziel</Aziel>
-              <Net>Net</Net>
-            </Logo>
-          </LogoContainer>
-          <WelcomeMessage>
-            Welcome to AzielNet - Connecting Refugees in Netherlands
-          </WelcomeMessage>
-          <AdditionalSentence>
-            A safe space for refugees to connect, share, and support each other.
-          </AdditionalSentence>
-          <ButtonsContainer>
-            <SignUpButton to="/register">Sign Up</SignUpButton>
-            <LoginButton to="/login">Login</LoginButton>
-          </ButtonsContainer>
-        </Content>
+        <ContentContainer>
+          <Content>
+            <LogoContainer>
+              <Logo>
+                <Aziel>Aziel</Aziel>
+                <Net>Net</Net>
+              </Logo>
+            </LogoContainer>
+            <WelcomeMessage>
+              Welcome to AzielNet - Connecting Refugees in Netherlands
+            </WelcomeMessage>
+            <AdditionalSentence>
+              A safe space for refugees to connect, share, and support each
+              other.
+            </AdditionalSentence>
+            <ButtonsContainer>
+              <SignUpButton to="/register">Sign Up</SignUpButton>
+              <LoginButton to="/login">Login</LoginButton>
+            </ButtonsContainer>
+          </Content>
+        </ContentContainer>
       </Container>
     </FormWrapper>
   );
@@ -38,6 +40,8 @@ const FormWrapper = styled.div`
   width: 100%;
   height: 100vh;
   justify-content: center;
+  background: red;
+  padding: 20rem;
 
   align-items: center;
   @media (max-width: 768px) {
@@ -52,7 +56,8 @@ const Container = styled.div`
   font-family: "Arial", sans-serif;
   border: 3.5px solid #90467f;
   border-radius: 20px;
-  min-width: 2000px;
+  width: 120rem;
+  background: yellow;
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -65,7 +70,9 @@ const Container = styled.div`
 `;
 
 const BackgroundImageContainer = styled.div`
-  flex: 2;
+  background: green;
+  width: 1000px;
+
   @media (max-width: 768px) {
     display: none;
   }
@@ -84,7 +91,13 @@ const BackgroundImage = styled.div`
   }
 `;
 
+const ContentContainer = styled.div`
+  width: 900px;
+  background: gray;
+`;
+
 const Content = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
