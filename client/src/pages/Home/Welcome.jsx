@@ -4,115 +4,176 @@ import styled from "styled-components";
 
 const Welcome = () => {
   return (
-    <FormWrapper>
-      <FormContainer>
-        <Container>
-          <Heading>
-            <span className="white">AZIEL</span>{" "}
-            <span className="black">NET</span>
-          </Heading>
-          <StyledList>
-            <StyledListItem>
-              <StyledLink to="/login">
-                <StyledButton>Login</StyledButton>
-              </StyledLink>
-            </StyledListItem>
-            <StyledListItem>
-              <StyledLink to="/register">
-                <StyledButton>Register</StyledButton>
-              </StyledLink>
-            </StyledListItem>
-          </StyledList>
-          <AdditionalSentence>Brings everyone closer ...</AdditionalSentence>
-        </Container>
-      </FormContainer>
-    </FormWrapper>
+    <Container>
+      <BackgroundImage />
+
+      <Content>
+        <LogoContainer>
+          <Logo>
+            <Aziel>Aziel</Aziel>
+            <Net>Net</Net>
+          </Logo>
+        </LogoContainer>
+        <WelcomeMessage>
+          Welcome to AzielNet - Connecting Refugees in Netherlands
+        </WelcomeMessage>
+        <AdditionalSentence>
+          A safe space for refugees to connect, share, and support each other.
+        </AdditionalSentence>
+        <ButtonsContainer>
+          <SignUpButton to="/register">Sign Up</SignUpButton>
+          <LoginButton to="/login">Login</LoginButton>
+        </ButtonsContainer>
+      </Content>
+    </Container>
   );
 };
 
-export default Welcome;
-
-const FormWrapper = styled.div`
-  display: flex;
-  width: 100%;
-  height: 100vh;
-  justify-content: center;
-  align-items: center;
-`;
-
-const FormContainer = styled.div`
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-`;
-
 const Container = styled.div`
+  position: relative;
+  height: 90vh;
+  padding: 2rem;
   display: flex;
-  margin: 1rem;
-  width: 500px;
-  min-width: 340px;
+  color: #fff;
+  font-family: "Arial", sans-serif;
+  border: 3.5px solid #90467f;
+  margin: 5rem;
+  border-radius: 20px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    padding: 0.4rem;
+    height: 85vh;
+    margin: 3rem;
+    border: none;
+  }
+`;
+
+const BackgroundImage = styled.div`
+  flex: 1.6;
+  background: url("https://digitalcanvasme.com/wp-content/uploads/2021/02/SMM.png")
+    center/contain no-repeat;
+  background-size: contain;
+  background-position: center;
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
+
+const Content = styled.div`
+  flex: 1;
+  display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 40px;
-  overflow: hidden;
-  border-radius: 20px;
-  border: 3px solid #90467f;
-  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.3);
-`;
+  justify-content: space-between;
+  text-align: center;
+  padding: 2rem;
+  border: 3.5px solid #90467f;
+  border-radius: 16px;
 
-const Heading = styled.h1`
-  font-size: 40px;
-  margin-bottom: 1rem;
-  color: #3b4a47;
-  font-weight: 800;
-  font-family: Inter;
-  .white {
-    color: #3b4a47;
-  }
-  .black {
-    color: #90467f;
+  @media (max-width: 768px) {
   }
 `;
 
-const StyledList = styled.ul`
-  list-style: none;
-  padding: 0;
-  margin: 0;
-`;
-
-const StyledListItem = styled.li`
-  margin: 0;
-  padding: 0;
-`;
-
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: inherit;
-`;
-
-const StyledButton = styled.button`
-  height: 50px;
-  width: 12rem;
-  border-radius: 12px;
-  border: 0;
-  outline: 0;
+const LogoContainer = styled.div`
+  display: flex;
+  align-items: center;
   background: #90467f;
-  font-size: 17px;
-  margin-top: 1rem;
-  color: white;
-  cursor: pointer;
-  font-weight: bolder;
+  border-radius: 1rem;
+  box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.3);
+`;
 
-  &:hover {
-    transform: scale(1.1);
-    transition: transform 0.3s ease-in-out;
+const Logo = styled.h1`
+  font-size: 5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  position: relative;
+  display: flex;
+  padding: 1.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+    padding: 0.8rem;
+    margin-bottom: 5px;
+  }
+`;
+
+const Aziel = styled.span`
+  color: #3b4a47;
+`;
+
+const Net = styled.span`
+  color: white;
+`;
+
+const WelcomeMessage = styled.p`
+  font-size: 4.5rem;
+  font-weight: bold;
+  color: #2a99d1;
+  width: 50rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  font-family: "Agbalumo", sans-serif;
+
+  @media (max-width: 768px) {
+    font-size: 2.8rem;
+    width: 100%;
   }
 `;
 
 const AdditionalSentence = styled.p`
-  margin-top: 1rem;
-  font-size: 20px;
-  color: #b3a69d;
-  font-weight: 500;
+  font-size: 3rem;
+  width: 40rem;
+  color: gray;
+  font-family: "Agbalumo", sans-serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+
+  @media (max-width: 768px) {
+    font-size: 1.8rem;
+    width: 80%;
+  }
 `;
+
+const ButtonsContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const StyledLink = styled(Link)`
+  display: inline-block;
+  margin: 0 10px;
+  padding: 30px 100px;
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 1.5rem;
+  border-radius: 4rem;
+  transition: background-color 0.3s ease;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+  box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.3);
+
+  &:hover {
+    background-color: #e0a800;
+  }
+
+  @media (max-width: 768px) {
+    padding: 10px 10px;
+    width: 9rem;
+    font-size: 0.8rem;
+  }
+`;
+
+const LoginButton = styled(StyledLink)`
+  background: #90467f;
+`;
+
+const SignUpButton = styled(StyledLink)`
+  background: #90467f;
+  margin-right: 1rem;
+
+  @media (max-width: 768px) {
+    margin-right: 0;
+  }
+`;
+export default Welcome;

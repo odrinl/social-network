@@ -80,6 +80,10 @@ const ScrollableContainer = styled.div`
   border: 1px solid #dddfe2;
   border-radius: 8px;
   padding: 10px;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    width: 0 !important;
+  }
 `;
 
 const FriendList = styled.div`
