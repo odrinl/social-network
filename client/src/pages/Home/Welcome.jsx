@@ -4,65 +4,88 @@ import styled from "styled-components";
 
 const Welcome = () => {
   return (
-    <Container>
-      <BackgroundImage />
+    <FormWrapper>
+      <Container>
+        <BackgroundImageContainer>
+          <BackgroundImage />
+        </BackgroundImageContainer>
 
-      <Content>
-        <LogoContainer>
-          <Logo>
-            <Aziel>Aziel</Aziel>
-            <Net>Net</Net>
-          </Logo>
-        </LogoContainer>
-        <WelcomeMessage>
-          Welcome to AzielNet - Connecting Refugees in Netherlands
-        </WelcomeMessage>
-        <AdditionalSentence>
-          A safe space for refugees to connect, share, and support each other.
-        </AdditionalSentence>
-        <ButtonsContainer>
-          <SignUpButton to="/register">Sign Up</SignUpButton>
-          <LoginButton to="/login">Login</LoginButton>
-        </ButtonsContainer>
-      </Content>
-    </Container>
+        <Content>
+          <LogoContainer>
+            <Logo>
+              <Aziel>Aziel</Aziel>
+              <Net>Net</Net>
+            </Logo>
+          </LogoContainer>
+          <WelcomeMessage>
+            Welcome to AzielNet - Connecting Refugees in Netherlands
+          </WelcomeMessage>
+          <AdditionalSentence>
+            A safe space for refugees to connect, share, and support each other.
+          </AdditionalSentence>
+          <ButtonsContainer>
+            <SignUpButton to="/register">Sign Up</SignUpButton>
+            <LoginButton to="/login">Login</LoginButton>
+          </ButtonsContainer>
+        </Content>
+      </Container>
+    </FormWrapper>
   );
 };
 
+const FormWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  justify-content: center;
+
+  align-items: center;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    padding: 20px;
+  }
+`;
 const Container = styled.div`
-  position: relative;
-  height: 90vh;
   padding: 2rem;
   display: flex;
   color: #fff;
   font-family: "Arial", sans-serif;
   border: 3.5px solid #90467f;
-  margin: 5rem;
   border-radius: 20px;
+  width: 130rem;
 
   @media (max-width: 768px) {
     flex-direction: column;
     align-items: center;
     padding: 0.4rem;
-    height: 85vh;
+    height: 100vh;
     margin: 3rem;
     border: none;
+    width: 100%;
+  }
+`;
+
+const BackgroundImageContainer = styled.div`
+  flex: 2;
+  @media (max-width: 768px) {
+    display: none;
   }
 `;
 
 const BackgroundImage = styled.div`
-  flex: 1.6;
   background: url("https://digitalcanvasme.com/wp-content/uploads/2021/02/SMM.png")
     center/contain no-repeat;
   background-size: contain;
   background-position: center;
+  height: 100%;
+  width: 100%;
+
   @media (max-width: 768px) {
     display: none;
   }
 `;
 
 const Content = styled.div`
-  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -85,12 +108,12 @@ const LogoContainer = styled.div`
 `;
 
 const Logo = styled.h1`
-  font-size: 5rem;
+  font-size: 4rem;
   font-weight: bold;
-  margin-bottom: 20px;
+
   position: relative;
   display: flex;
-  padding: 1.5rem;
+  padding: 1rem;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 
   @media (max-width: 768px) {
@@ -113,6 +136,7 @@ const WelcomeMessage = styled.p`
   font-weight: bold;
   color: #2a99d1;
   width: 50rem;
+  margin-bottom: 4rem;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   font-family: "Agbalumo", sans-serif;
 
@@ -126,6 +150,7 @@ const AdditionalSentence = styled.p`
   font-size: 3rem;
   width: 40rem;
   color: gray;
+  margin-bottom: 5rem;
   font-family: "Agbalumo", sans-serif;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 
@@ -143,7 +168,7 @@ const ButtonsContainer = styled.div`
 const StyledLink = styled(Link)`
   display: inline-block;
   margin: 0 10px;
-  padding: 30px 100px;
+  padding: 20px 100px;
   color: #fff;
   font-weight: bold;
   text-decoration: none;
