@@ -52,7 +52,7 @@ const Container = styled.div`
   font-family: "Arial", sans-serif;
   border: 3.5px solid #90467f;
   border-radius: 20px;
-  width: 130rem;
+  width: 100%; /* Change this line */
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -61,7 +61,6 @@ const Container = styled.div`
     height: 100vh;
     margin: 3rem;
     border: none;
-    width: 100%;
   }
 `;
 
