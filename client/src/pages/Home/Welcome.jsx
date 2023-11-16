@@ -47,20 +47,20 @@ const FormWrapper = styled.div`
 `;
 const Container = styled.div`
   padding: 2rem;
-  display: flex;
+  display: inline-flex;
   color: #fff;
   font-family: "Arial", sans-serif;
   border: 3.5px solid #90467f;
   border-radius: 20px;
-  width: 100%; /* Change this line */
+  min-width: 2000px;
 
   @media (max-width: 768px) {
     flex-direction: column;
     align-items: center;
     padding: 0.4rem;
-    height: 100vh;
     margin: 3rem;
     border: none;
+    min-width: 100%;
   }
 `;
 
