@@ -14,7 +14,7 @@ const SharedArea = () => {
         <Route path="events" element={<Events />} />
         <Route path="friends" element={<Friends />} />
         <Route path="myprofile" element={<MyProfileComponent />} />
-        <Route path="othersprofile/:userId" element={<OtherUserProfile />} />
+        <Route path="user-profile/:profileId" element={<OtherUserProfile />} />
       </Routes>
     </>
   );
