@@ -71,7 +71,9 @@ const SentRequestCard = (data) => {
                   alt={user.name}
                 />
                 <FriendInfo>
-                <Name onClick={() => handleProfileClick(user._id)}>{user.username}</Name>
+                  <Name onClick={() => handleProfileClick(user._id)}>
+                    {user.username}
+                  </Name>
                 </FriendInfo>
                 <ButtonContainer>
                   <FriendButton
@@ -170,13 +172,13 @@ const FriendInfo = styled.div`
 `;
 
 const Name = styled.h3`
-font-size: 1.25rem;
-text-align: left;
-cursor: pointer;
-transition: background-color 0.3s;
-&:hover {
-  color: #4576f5 ;
-}
+  font-size: 1.25rem;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  &:hover {
+    color: #4576f5;
+  }
 `;
 
 const ButtonContainer = styled.div`

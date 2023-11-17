@@ -83,7 +83,7 @@ const ScrollableContainer = styled.div`
   overflow-y: auto;
   scrollbar-width: none;
   &::-webkit-scrollbar {
-  width: 0 !important;
+    width: 0 !important;
   }
 `;
 

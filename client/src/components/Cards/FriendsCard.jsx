@@ -71,7 +71,9 @@ const FriendCard = (data) => {
                   alt={user.name}
                 />
                 <FriendInfo>
-                  <Name onClick={() => handleProfileClick(user._id)}>{user.username}</Name>
+                  <Name onClick={() => handleProfileClick(user._id)}>
+                    {user.username}
+                  </Name>
                 </FriendInfo>
                 <ButtonContainer>
                   <FriendButton
@@ -175,7 +177,7 @@ const Name = styled.h3`
   cursor: pointer;
   transition: background-color 0.3s;
   &:hover {
-    color: #4576f5 ;
+    color: #4576f5;
   }
 `;
 
