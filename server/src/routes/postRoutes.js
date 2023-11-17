@@ -2,6 +2,7 @@ import express from "express";
 import {
   getAllPosts,
   getUserPosts,
+  getFriendsPosts,
   createPost,
   deletePost,
   editPost,
@@ -10,6 +11,7 @@ import {
 
 const router = express.Router();
 router.get("/get", getAllPosts);
+router.get("/:userId/friends-posts", getFriendsPosts);
 router.post("/create", createPost);
 router.delete("/delete", deletePost);
 router.put("/edit", editPost);
