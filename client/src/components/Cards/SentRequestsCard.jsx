@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import useFetch from "../../hooks/useFetch";
+import { useNavigate } from "react-router-dom";
 
 const userId = localStorage.getItem("userId");
 const token = localStorage.getItem("token");
 
 const SentRequestCard = (data) => {
+  const navigate = useNavigate();
   const [endPoint, setEndPoint] = useState("");
   const [otherUserId, setOtherUserId] = useState("");
   const [currentData, setCurrentData] = useState(data.data);
@@ -42,6 +44,10 @@ const SentRequestCard = (data) => {
     });
   }, [endPoint]);
 
+  const handleProfileClick = (profileId) => {
+    navigate(`/home/user-profile/${profileId}`);
+  };
+
   let statusComponent = null;
   if (error != null) {
     statusComponent = (
@@ -65,7 +71,7 @@ const SentRequestCard = (data) => {
                   alt={user.name}
                 />
                 <FriendInfo>
-                  <Name>{user.username}</Name>
+                <Name onClick={() => handleProfileClick(user._id)}>{user.username}</Name>
                 </FriendInfo>
                 <ButtonContainer>
                   <FriendButton
@@ -164,8 +170,13 @@ const FriendInfo = styled.div`
 `;
 
 const Name = styled.h3`
-  font-size: 1.25rem;
-  text-align: left;
+font-size: 1.25rem;
+text-align: left;
+cursor: pointer;
+transition: background-color 0.3s;
+&:hover {
+  color: #4576f5 ;
+}
 `;
 
 const ButtonContainer = styled.div`

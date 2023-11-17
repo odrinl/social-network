@@ -45,7 +45,7 @@ const OtherUserProfile = () => {
         "Content-Type": "application/json",
       },
     });
-  }, []);
+  }, [profileId]);
 
   const handleFriendRequestClick = () => {
     handleFriendRequest();
