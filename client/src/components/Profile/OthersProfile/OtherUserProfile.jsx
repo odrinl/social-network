@@ -9,19 +9,12 @@ const token = localStorage.getItem("token");
 const userId = localStorage.getItem("userId");
 
 const OtherUserProfile = () => {
-  const [data, setData] = useState({
-    coverPhoto: "",
-    profilePic: "",
-    user: {
-      username: "",
-      friends: 3,
-      isFriend: false,
-    },
-  });
+  const [data, setData] = useState({});
   const [isFriend, setIsFriend] = useState("");
   const [endPoint, setEndPoint] = useState("");
   const [options, setOptions] = useState({});
   const [rerenderFlag, setRerenderFlag] = useState(false);
+  const [friendsNumber, setFriendsNumber] = useState(null);
 
   const { profileId } = useParams();
 
@@ -38,6 +31,10 @@ const OtherUserProfile = () => {
     setRerenderFlag((prevFlag) => !prevFlag);
   };
 
+  const onGetting = (response) => {
+    setFriendsNumber(response.friendsNumber);
+  }
+
   const {
     isLoading: dataLoading,
     error: dataError,
@@ -47,6 +44,9 @@ const OtherUserProfile = () => {
 
   const { performFetch: fetchFriendData, cancelFetch: cancelFriendFetch } =
     useFetch(`/users/${userId}/${profileId}/isFriend`, onReceive);
+
+  const { performFetch: fetchFriendsNumber, cancelFetch: cancelFriendsNumber } =
+    useFetch(`/users/${profileId}/friendsNumber`, onGetting);
 
   const { performFetch: fetchAction, cancelFetch: cancelAction } = useFetch(
     endPoint,
@@ -61,6 +61,9 @@ const OtherUserProfile = () => {
   }, []);
   useEffect(() => {
     return cancelFetch;
+  }, []);
+  useEffect(() => {
+    return cancelFriendsNumber;
   }, []);
 
   const handleAccept = () => {
@@ -129,6 +132,16 @@ const OtherUserProfile = () => {
   }, [profileId]);
 
   useEffect(() => {
+    fetchFriendsNumber({
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+  }, [profileId]);
+
+  useEffect(() => {
     fetchFriendData({
       method: "GET",
       headers: {
@@ -145,7 +158,6 @@ const OtherUserProfile = () => {
     fetchAction(options);
   }, [endPoint]);
 
-  console.log("isFriend", isFriend);
 
   return (
     <UserProfile>
@@ -167,7 +179,7 @@ const OtherUserProfile = () => {
             {data.success && (
               <div>
                 <h1>@ {data.user.username}</h1>
-                <p>{`${fakeData.friends} Friends`}</p>
+                <p>{`${friendsNumber} Friends`}</p>
 
                 {isFriend === "received_request" ? (
                   <>

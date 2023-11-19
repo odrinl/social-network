@@ -12,12 +12,14 @@ import {
   cancelFriendRequest,
   unfriendUser,
   isFriend,
+  getUserFriendsNumber,
 } from "../controllers/userControllers.js";
 
 const router = express.Router();
 
 router.get("/:userId", getUser);
 router.get("/:userId/friends", getUserFriends);
+router.get("/:userId/friendsNumber", getUserFriendsNumber);
 
 router.post("/:senderId/:receiverId", sendFriendRequest);
 router.delete("/:senderId/:receiverId/cancel", cancelFriendRequest);
