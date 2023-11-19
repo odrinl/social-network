@@ -18,11 +18,10 @@ const OtherUserProfile = () => {
       isFriend: false,
     },
   });
-  const[isFriend, setIsFriend] = useState("");
-  const[endPoint, setEndPoint] = useState("");
-  const[options, setOptions] = useState({});
-  const[rerenderFlag, setRerenderFlag] = useState(false);
-
+  const [isFriend, setIsFriend] = useState("");
+  const [endPoint, setEndPoint] = useState("");
+  const [options, setOptions] = useState({});
+  const [rerenderFlag, setRerenderFlag] = useState(false);
 
   const { profileId } = useParams();
 
@@ -37,22 +36,22 @@ const OtherUserProfile = () => {
   const onComplete = () => {
     console.log("action completed");
     setRerenderFlag((prevFlag) => !prevFlag);
-  }
+  };
 
-  const { isLoading: dataLoading, error: dataError, performFetch: fetchData, cancelFetch } = useFetch(
-    `/users/${profileId}`,
-    onSuccess
-  );
+  const {
+    isLoading: dataLoading,
+    error: dataError,
+    performFetch: fetchData,
+    cancelFetch,
+  } = useFetch(`/users/${profileId}`, onSuccess);
 
-  const { performFetch: fetchFriendData, cancelFetch: cancelFriendFetch } = useFetch(
-    `/users/${userId}/${profileId}/isFriend`,
-    onReceive
-  );
+  const { performFetch: fetchFriendData, cancelFetch: cancelFriendFetch } =
+    useFetch(`/users/${userId}/${profileId}/isFriend`, onReceive);
 
-  const {performFetch: fetchAction, cancelFetch: cancelAction} = useFetch(
-    endPoint ,
+  const { performFetch: fetchAction, cancelFetch: cancelAction } = useFetch(
+    endPoint,
     onComplete
-  )
+  );
 
   useEffect(() => {
     return cancelFriendFetch;
@@ -71,8 +70,8 @@ const OtherUserProfile = () => {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
-      }
-      });
+      },
+    });
   };
 
   const handleReject = () => {
@@ -82,8 +81,8 @@ const OtherUserProfile = () => {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
-      }
-      });
+      },
+    });
   };
 
   const handleUnfriend = () => {
@@ -93,8 +92,8 @@ const OtherUserProfile = () => {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
-      }
-      });
+      },
+    });
   };
 
   const handleAddFriend = () => {
@@ -104,8 +103,8 @@ const OtherUserProfile = () => {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
-      }
-      });
+      },
+    });
   };
 
   const handleCancelRequest = () => {
@@ -115,8 +114,8 @@ const OtherUserProfile = () => {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
-      }
-      });
+      },
+    });
   };
 
   useEffect(() => {
@@ -137,7 +136,7 @@ const OtherUserProfile = () => {
         "Content-Type": "application/json",
       },
     });
-  }, [profileId , rerenderFlag]);
+  }, [profileId, rerenderFlag]);
 
   useEffect(() => {
     if (!endPoint) {
@@ -147,7 +146,7 @@ const OtherUserProfile = () => {
   }, [endPoint]);
 
   console.log("isFriend", isFriend);
-  
+
   return (
     <UserProfile>
       {dataLoading && <LoadingDiv>Loading....</LoadingDiv>}
@@ -273,7 +272,7 @@ const ErrorDiv = styled.div`
 
 const Button = styled.button`
   padding: 8px 16px;
-  margin-right:10px;
+  margin-right: 10px;
   background-color: #3498db;
   color: #fff;
   border: none;
