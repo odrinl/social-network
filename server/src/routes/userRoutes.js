@@ -11,6 +11,7 @@ import {
   searchNonFriendsByName,
   cancelFriendRequest,
   unfriendUser,
+  isFriend,
 } from "../controllers/userControllers.js";
 
 const router = express.Router();
@@ -31,4 +32,7 @@ router.get("/:userId/getAllReceivedRequests", getAllReceivedRequests);
 router.get("/:userId/searchNonFriendsByName", searchNonFriendsByName);
 
 router.delete("/:userId/:friendId/unfriend", unfriendUser);
+
+router.get("/:userId/:friendId/isFriend", isFriend);
+
 export default router;

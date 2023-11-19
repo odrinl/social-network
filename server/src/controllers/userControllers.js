@@ -299,3 +299,60 @@ export const unfriendUser = async (req, res) => {
     res.status(500).send({ message: "Friendship unfriending failed." });
   }
 };
+
+export const isFriend = async (req, res) => {
+  try {
+    const { userId, friendId } = req.params;
+
+    const friendship = await Friendship.findOne({
+      $or: [
+        { userA: userId, userB: friendId, status: "accepted" },
+        { userA: friendId, userB: userId, status: "accepted" },
+      ],
+    });
+
+    if (friendship) {
+      // Users are friends
+      res.status(200).json({
+        success: true,
+        status: "friend",
+      });
+    } else {
+      const sentRequest = await Friendship.findOne({
+        userA: userId,
+        userB: friendId,
+        status: "pending",
+      });
+
+      const receivedRequest = await Friendship.findOne({
+        userA: friendId,
+        userB: userId,
+        status: "pending",
+      });
+
+      if (sentRequest) {
+        // A friend request is sent by the current user
+        res.status(200).json({
+          success: true,
+          status: "sent_request",
+        });
+      } else if (receivedRequest) {
+        // A friend request is received by the current user
+        res.status(200).json({
+          success: true,
+          status: "received_request",
+        });
+      } else {
+        // No friendship or pending requests
+        res.status(200).json({
+          success: true,
+          status: "not_friend",
+        });
+      }
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .send({ message: "Error while checking friendship status." });
+  }
+};
