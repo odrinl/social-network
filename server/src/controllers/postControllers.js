@@ -1,5 +1,7 @@
 import asyncHandler from "express-async-handler";
+import Friendship from "../models/Friendship.js";
 import User from "../models/User.js";
+import { ObjectId } from "mongodb";
 import mongoose from "mongoose";
 
 // Get all posts
@@ -11,6 +13,54 @@ export const getAllPosts = asyncHandler(async (req, res) => {
   const allPosts = users.reduce((posts, user) => posts.concat(user.posts), []);
 
   res.status(200).json({ success: true, posts: allPosts });
+});
+
+// Get all posts of user's friends
+export const getFriendsPosts = asyncHandler(async (req, res) => {
+  const { userId } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+    res.status(400).json({ error: "Invalid user ID" });
+    return;
+  }
+
+  const user = await User.findById(userId);
+
+  const friendships = await Friendship.find({
+    $or: [
+      { userA: ObjectId(userId), status: "accepted" },
+      { userB: ObjectId(userId), status: "accepted" },
+    ],
+  });
+
+  const friendIds = friendships.map((friendship) => {
+    return userId === friendship.userA.toString()
+      ? friendship.userB
+      : friendship.userA;
+  });
+
+  // Fetch posts for each friend
+  const allFriendsPosts = await Promise.all(
+    friendIds.map(async (friendId) => {
+      // Find each friend and retrieve their posts
+      const friend = await User.findById(friendId);
+
+      if (!friend) {
+        return [];
+      }
+
+      // Return the friend's posts
+      return friend.posts;
+    })
+  );
+
+  // Add user's posts to the array
+  allFriendsPosts.push(user.posts);
+
+  // Flatten the array of arrays into a single array of posts
+  const friendsPosts = allFriendsPosts.flat();
+
+  res.status(200).json({ success: true, posts: friendsPosts });
 });
 
 // Controller to get all posts of a specific user

@@ -3,11 +3,11 @@ import styled from "styled-components";
 import Post from "./Post";
 import CreatePost from "./CreatePost";
 import useFetch from "../hooks/useFetch";
+const userId = localStorage.getItem("userId");
+const token = localStorage.getItem("token");
 
 const Feed = () => {
   const [posts, setPosts] = useState([]);
-
-  const token = localStorage.getItem("token");
 
   const onReceived = (response) => {
     const sortedPosts = response.posts.sort((a, b) => {
@@ -18,7 +18,7 @@ const Feed = () => {
   };
 
   const { performFetch, cancelFetch, isLoading, error } = useFetch(
-    "/posts/get",
+    `/posts/${userId}/friends-posts`,
     onReceived
   );
 
