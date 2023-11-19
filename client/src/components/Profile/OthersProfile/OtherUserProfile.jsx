@@ -33,7 +33,7 @@ const OtherUserProfile = () => {
 
   const onGetting = (response) => {
     setFriendsNumber(response.friendsNumber);
-  }
+  };
 
   const {
     isLoading: dataLoading,
@@ -157,7 +157,6 @@ const OtherUserProfile = () => {
     }
     fetchAction(options);
   }, [endPoint]);
-
 
   return (
     <UserProfile>
