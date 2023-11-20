@@ -15,8 +15,6 @@ export const fakeData = {
     "https://th.bing.com/th?id=OIP.zcvn4QV1z5E7vQOFDLP6UQHaC2&w=350&h=134&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2",
 };
 
-const placeholderProfilePic =
-  "https://via.placeholder.com/140x140?text=Profile+Pic";
 const placeholderCoverPhoto =
   "https://via.placeholder.com/1000x240?text=Cover+Photo";
 
