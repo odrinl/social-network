@@ -41,41 +41,46 @@ const Nav = () => {
 export default Nav;
 
 const NavList = styled.ul`
-  background-color: white;
-  border-radius: 12px;
+  background-color: #90467f;
+  border-radius: 10px;
   list-style: none;
   justify-content: space-between;
-  padding: 10px;
+  padding: 20px;
   display: flex;
   margin-top: 15px;
-  margin-bottom: 35px;
+  margin-bottom: 18px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 `;
 
 const NavItem = styled.li`
-  margin-right: 20px;
+  margin-right: 10px;
 `;
 
 const StyledNavLink = styled(NavLink)`
   text-decoration: none;
-  color: black;
+  color: #ecf0f1;
+  font-weight: bold;
   transition: color 0.3s;
 
   &:hover {
-    color: var(--nav-hover-color);
+    color: #3498db;
+    border-bottom: 2px solid #3498db;
   }
 
   &.active {
-    color: var(--nav-active-color);
+    color: orange;
+    border-bottom: 2px solid orange;
   }
 `;
 
 const StyledLogoutLink = styled.a`
   text-decoration: none;
-  color: black;
+  color: #ecf0f1;
+  font-weight: bold;
   cursor: pointer;
   transition: color 0.3s;
 
   &:hover {
-    color: var(--nav-hover-color);
+    color: #2ecc71;
   }
 `;

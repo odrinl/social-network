@@ -72,14 +72,19 @@ const Container = styled.div`
   display: flex;
   width: 100%;
   flex-direction: column;
+  height: 28rem;
 `;
 
 const ScrollableContainer = styled.div`
   overflow-y: auto;
-  max-height: 400px;
-  border: 1px solid #dddfe2;
+  height: 100%;
+  border: 3px solid #90467f;
   border-radius: 8px;
   padding: 10px;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    width: 0 !important;
+  }
 `;
 
 const FriendList = styled.div`
