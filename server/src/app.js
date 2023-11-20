@@ -4,6 +4,7 @@ import cors from "cors";
 import userRoutes from "./routes/userRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import postRoutes from "./routes/postRoutes.js";
+import proxyRoutes from "./routes/proxyRoutes.js";
 
 // Create an express server
 const app = express();
@@ -21,5 +22,6 @@ app.use(cors());
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
+app.use("/api/proxy", proxyRoutes);
 
 export default app;
