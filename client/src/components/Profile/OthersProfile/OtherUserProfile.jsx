@@ -6,21 +6,15 @@ import { fakeData } from "../MyProfileComponent";
 import OtherUsersPosts from "./OtherUsersPosts";
 
 const token = localStorage.getItem("token");
-
-const handleFriendRequest = () => {
-  console.log("Friend request handled");
-};
+const userId = localStorage.getItem("userId");
 
 const OtherUserProfile = () => {
-  const [data, setData] = useState({
-    coverPhoto: "",
-    profilePic: "",
-    user: {
-      username: "",
-      friends: 3,
-      isFriend: false,
-    },
-  });
+  const [data, setData] = useState({});
+  const [isFriend, setIsFriend] = useState("");
+  const [endPoint, setEndPoint] = useState("");
+  const [options, setOptions] = useState({});
+  const [rerenderFlag, setRerenderFlag] = useState(false);
+  const [friendsNumber, setFriendsNumber] = useState(null);
 
   const { profileId } = useParams();
 
@@ -28,38 +22,151 @@ const OtherUserProfile = () => {
     setData(response);
   };
 
-  const { isLoading, error, performFetch, cancelFetch } = useFetch(
-    `/users/${profileId}`,
-    onSuccess
+  const onReceive = (response) => {
+    setIsFriend(response.status);
+  };
+
+  const onComplete = () => {
+    console.log("action completed");
+    setRerenderFlag((prevFlag) => !prevFlag);
+  };
+
+  const onGetting = (response) => {
+    setFriendsNumber(response.friendsNumber);
+  };
+
+  const {
+    isLoading: dataLoading,
+    error: dataError,
+    performFetch: fetchData,
+    cancelFetch,
+  } = useFetch(`/users/${profileId}`, onSuccess);
+
+  const { performFetch: fetchFriendData, cancelFetch: cancelFriendFetch } =
+    useFetch(`/users/${userId}/${profileId}/isFriend`, onReceive);
+
+  const { performFetch: fetchFriendsNumber, cancelFetch: cancelFriendsNumber } =
+    useFetch(`/users/${profileId}/friendsNumber`, onGetting);
+
+  const { performFetch: fetchAction, cancelFetch: cancelAction } = useFetch(
+    endPoint,
+    onComplete
   );
 
   useEffect(() => {
+    return cancelFriendFetch;
+  }, []);
+  useEffect(() => {
+    return cancelAction;
+  }, []);
+  useEffect(() => {
     return cancelFetch;
   }, []);
+  useEffect(() => {
+    return cancelFriendsNumber;
+  }, []);
+
+  const handleAccept = () => {
+    setEndPoint(`/users/${profileId}/${userId}/accept`);
+    setOptions({
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+  };
+
+  const handleReject = () => {
+    setEndPoint(`/users/${profileId}/${userId}/reject`);
+    setOptions({
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+  };
+
+  const handleUnfriend = () => {
+    setEndPoint(`/users/${userId}/${profileId}/unfriend`);
+    setOptions({
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+  };
+
+  const handleAddFriend = () => {
+    setEndPoint(`/users/${userId}/${profileId}`);
+    setOptions({
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+  };
+
+  const handleCancelRequest = () => {
+    setEndPoint(`/users/${userId}/${profileId}/cancel`);
+    setOptions({
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+  };
 
   useEffect(() => {
-    performFetch({
+    fetchData({
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
     });
-  }, []);
+  }, [profileId]);
 
-  const handleFriendRequestClick = () => {
-    handleFriendRequest();
-  };
+  useEffect(() => {
+    fetchFriendsNumber({
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+  }, [profileId]);
+
+  useEffect(() => {
+    fetchFriendData({
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+  }, [profileId, rerenderFlag]);
+
+  useEffect(() => {
+    if (!endPoint) {
+      return;
+    }
+    fetchAction(options);
+  }, [endPoint]);
 
   return (
     <UserProfile>
-      {isLoading && <LoadingDiv>Loading....</LoadingDiv>}
-      {!isLoading && error && (
+      {dataLoading && <LoadingDiv>Loading....</LoadingDiv>}
+      {!dataLoading && dataError && (
         <ErrorDiv>
-          Error while trying to get data from the server: {error.toString()}
+          Error while trying to get data from the server: {dataError.toString()}
         </ErrorDiv>
       )}
-      {!isLoading && !error && (
+      {!dataLoading && !dataError && (
         <>
           <CoverPhotoContainer>
             <CoverPhoto src={fakeData.coverPhoto} alt="Cover Photo" />
@@ -71,11 +178,30 @@ const OtherUserProfile = () => {
             {data.success && (
               <div>
                 <h1>@ {data.user.username}</h1>
-                <p>{`${fakeData.friends} Friends`}</p>
+                <p>{`${friendsNumber} Friends`}</p>
 
-                <FriendButton onClick={handleFriendRequestClick}>
-                  {data.user.isFriend ? "Unfriend" : "Add Friend"}
-                </FriendButton>
+                {isFriend === "received_request" ? (
+                  <>
+                    <Button onClick={handleAccept}>Accept</Button>
+                    <Button onClick={handleReject}>Reject</Button>
+                  </>
+                ) : (
+                  <Button
+                    onClick={
+                      isFriend === "friend"
+                        ? handleUnfriend
+                        : isFriend === "not_friend"
+                        ? handleAddFriend
+                        : handleCancelRequest
+                    }
+                  >
+                    {isFriend === "friend"
+                      ? "Unfriend"
+                      : isFriend === "not_friend"
+                      ? "Add Friend"
+                      : "Cancel Request"}
+                  </Button>
+                )}
               </div>
             )}
           </ProfileInfo>
@@ -155,8 +281,9 @@ const ErrorDiv = styled.div`
   margin: 8px 0;
 `;
 
-const FriendButton = styled.button`
+const Button = styled.button`
   padding: 8px 16px;
+  margin-right: 10px;
   background-color: #3498db;
   color: #fff;
   border: none;
