@@ -3,10 +3,10 @@ import styled from "styled-components";
 import Post from "./Post";
 import CreatePost from "./CreatePost";
 import useFetch from "../hooks/useFetch";
-const userId = localStorage.getItem("userId");
-const token = localStorage.getItem("token");
 
 const Feed = () => {
+  const userId = localStorage.getItem("userId");
+  const token = localStorage.getItem("token");
   const [posts, setPosts] = useState([]);
 
   const onReceived = (response) => {
@@ -39,7 +39,7 @@ const Feed = () => {
   useEffect(() => {
     fetchPosts();
     return cancelFetch;
-  }, []);
+  }, [userId]);
 
   const isOwner = (post) => {
     const userName = localStorage.getItem("username");

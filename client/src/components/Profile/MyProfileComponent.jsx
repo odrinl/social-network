@@ -3,9 +3,6 @@ import styled from "styled-components";
 import useFetch from "../../hooks/useFetch";
 import UsersPosts from "./UsersPosts";
 
-const userId = localStorage.getItem("userId");
-const token = localStorage.getItem("token");
-
 export const fakeData = {
   username: "Sophie",
   friends: 2,
@@ -21,6 +18,9 @@ const placeholderCoverPhoto =
   "https://via.placeholder.com/1000x240?text=Cover+Photo";
 
 const MyProfileComponent = () => {
+  const userId = localStorage.getItem("userId");
+  const token = localStorage.getItem("token");
+
   const [data, setData] = useState([]);
 
   const onSuccess = (response) => {
@@ -43,7 +43,7 @@ const MyProfileComponent = () => {
         "Content-Type": "application/json",
       },
     });
-  }, []);
+  }, [userId]);
 
   return (
     <Container>

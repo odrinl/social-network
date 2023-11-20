@@ -1,7 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Feed from "./Feed";
-import Events from "./Events";
 import Friends from "./Friends";
 import MyProfileComponent from "./Profile/MyProfileComponent";
 import OtherUserProfile from "./Profile/OthersProfile/OtherUserProfile";
@@ -11,7 +10,6 @@ const SharedArea = () => {
     <>
       <Routes>
         <Route path="/" element={<Feed />} />
-        <Route path="events" element={<Events />} />
         <Route path="friends" element={<Friends />} />
         <Route path="myprofile" element={<MyProfileComponent />} />
         <Route path="user-profile/:profileId" element={<OtherUserProfile />} />
