@@ -60,21 +60,23 @@ const NewsSideSection = () => {
 
   return (
     <Container>
-      {isLoading && <p>Loading...</p>}
-      {error && <p>Error: {"Something went wrong"}</p>}
-
-      {articles.map((article, index) => (
-        <Item key={index}>
-          <Details>
-            <NewsDate>{article.date}</NewsDate>
-            <NewsName>
-              <ArticleLink to={article.link}>{article.title}</ArticleLink>
-            </NewsName>
-          </Details>
-
-          <p className="article__description">{article.description}</p>
-        </Item>
-      ))}
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : error ? (
+        <p>Error: {error.message}</p>
+      ) : (
+        articles.map((article, index) => (
+          <Item key={index}>
+            <Details>
+              <NewsDate>{article.date}</NewsDate>
+              <NewsName>
+                <ArticleLink to={article.link}>{article.title}</ArticleLink>
+              </NewsName>
+            </Details>
+            <NewsText>{article.description}</NewsText>
+          </Item>
+        ))
+      )}
     </Container>
   );
 };
@@ -109,4 +111,8 @@ const NewsDate = styled.div`
 const ArticleLink = styled(Link)`
   text-decoration: none;
   color: #1877f2;
+`;
+
+const NewsText = styled.div`
+  text-align: justify;
 `;
