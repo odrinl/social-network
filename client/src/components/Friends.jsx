@@ -6,10 +6,10 @@ import SentRequestCard from "./Cards/SentRequestsCard";
 import SearchCard from "./Cards/SearchCard";
 import FriendRequestCard from "./Cards/FriendsRequestsCard";
 import useFetch from "../hooks/useFetch";
-const userId = localStorage.getItem("userId");
-const token = localStorage.getItem("token");
 
 const Friends = () => {
+  const userId = localStorage.getItem("userId");
+  const token = localStorage.getItem("token");
   const [category, setCategory] = useState("friends");
   const [data, setData] = useState([]);
   const [input, setInput] = useState("");
@@ -36,7 +36,7 @@ const Friends = () => {
         "Content-Type": "application/json",
       },
     });
-  }, [endPoint]);
+  }, [userId, endPoint]);
 
   let statusComponent = null;
   if (error != null) {

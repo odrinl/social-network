@@ -2,9 +2,6 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import useFetch from "../hooks/useFetch";
 
-const userId = localStorage.getItem("userId");
-const token = localStorage.getItem("token");
-
 export const fakeData = {
   username: "Sophie",
   friends: 2,
@@ -19,6 +16,9 @@ const placeholderProfilePic =
 
 const MyProfileSideSection = () => {
   const [data, setData] = useState(fakeData);
+
+  const userId = localStorage.getItem("userId");
+  const token = localStorage.getItem("token");
 
   const onSuccess = (response) => {
     setData(response);
@@ -41,7 +41,7 @@ const MyProfileSideSection = () => {
         "Content-Type": "application/json",
       },
     });
-  }, []);
+  }, [userId]);
 
   return (
     <Container>

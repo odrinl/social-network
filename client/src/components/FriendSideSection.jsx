@@ -3,10 +3,10 @@ import styled from "styled-components";
 import useFetch from "../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
 
-const userId = localStorage.getItem("userId");
-const token = localStorage.getItem("token");
-
 const FriendSlideSection = () => {
+  const userId = localStorage.getItem("userId");
+  const token = localStorage.getItem("token");
+
   const [data, setData] = useState([]);
   const navigate = useNavigate();
 
@@ -31,7 +31,8 @@ const FriendSlideSection = () => {
         "Content-Type": "application/json",
       },
     });
-  }, []);
+  }, [userId]);
+
   const handleProfileClick = (profileId) => {
     navigate(`/home/user-profile/${profileId}`);
   };

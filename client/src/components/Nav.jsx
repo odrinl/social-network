@@ -12,9 +12,7 @@ const Nav = () => {
   };
 
   const logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("username");
-    localStorage.removeItem("userId");
+    localStorage.clear();
     navigate("/");
   };
 

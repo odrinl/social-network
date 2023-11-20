@@ -5,10 +5,10 @@ import useFetch from "../../../hooks/useFetch";
 import { fakeData } from "../MyProfileComponent";
 import OtherUsersPosts from "./OtherUsersPosts";
 
-const token = localStorage.getItem("token");
-const userId = localStorage.getItem("userId");
-
 const OtherUserProfile = () => {
+  const token = localStorage.getItem("token");
+  const userId = localStorage.getItem("userId");
+
   const [data, setData] = useState({});
   const [isFriend, setIsFriend] = useState("");
   const [endPoint, setEndPoint] = useState("");
