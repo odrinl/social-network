@@ -45,6 +45,38 @@ const MyProfileComponent = () => {
     });
   }, [userId]);
 
+  const handleProfilePictureUpload = async (event) => {
+    const file = event.target.files[0];
+
+    const formData = new FormData();
+    formData.append("profilePicture", file);
+
+    try {
+      const response = await fetch(
+        `${process.env.BASE_SERVER_URL}/api/uploads/upload-profile-picture/${userId}`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        }
+      );
+
+      if (response.ok) {
+        const result = await response.json();
+
+        document.getElementById(
+          "profilePic"
+        ).src = `${process.env.BASE_SERVER_URL}${result.profilePictureUrl}`;
+      } else {
+        console.error("Profile picture upload failed");
+      }
+    } catch (error) {
+      console.error("Error uploading profile picture:", error);
+    }
+  };
+
   return (
     <Container>
       {isLoading && <LoadingDiv>Loading....</LoadingDiv>}
@@ -64,8 +96,14 @@ const MyProfileComponent = () => {
           <ProfileInfo>
             <ProfilePicContainer>
               <ProfilePic
-                src={data.profilePic || placeholderProfilePic}
+                id="profilePic"
+                src={`${process.env.BASE_SERVER_URL}/uploadImages/${data.profilePicture}`}
                 alt="Profile Pic"
+              />
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleProfilePictureUpload}
               />
             </ProfilePicContainer>
             {data.success && (
