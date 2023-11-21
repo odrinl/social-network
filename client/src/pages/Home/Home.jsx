@@ -4,7 +4,7 @@ import MyProfileSideSection from "../../components/MyProfileSideSection";
 import FriendSideSection from "../../components/FriendSideSection";
 import Nav from "../../components/Nav";
 import SharedArea from "../../components/SharedArea";
-import EventSideSection from "../../components/EventSideSection";
+import NewsSideSection from "../../components/NewsSideSection";
 import logo from "../../../public/logo.png";
 
 const Home = () => {
@@ -38,10 +38,10 @@ const Home = () => {
           <div className="container column">
             <div className="events">
               <div className="title">
-                <h2>Events</h2>
+                <h2>News from IND</h2>
               </div>
               <div className="container block">
-                <EventSideSection />
+                <NewsSideSection />
               </div>
             </div>
           </div>
