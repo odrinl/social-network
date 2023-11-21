@@ -18,6 +18,9 @@ const placeholderCoverPhoto =
 const MyProfileComponent = () => {
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
+  const user = localStorage.getItem("user");
+
+  console.log(user);
 
   const [data, setData] = useState([]);
 
@@ -95,7 +98,7 @@ const MyProfileComponent = () => {
             <ProfilePicContainer>
               <ProfilePic
                 id="profilePic"
-                src={`${process.env.BASE_SERVER_URL}/uploadImages/${data.profilePicture}`}
+                src={`${process.env.BASE_SERVER_URL}/uploadImages/${user.profilePicture}`}
                 alt="Profile Pic"
               />
               <input

@@ -39,6 +39,7 @@ function LoginUser() {
     localStorage.setItem("token", response.token);
     localStorage.setItem("userId", response.user._id);
     localStorage.setItem("username", response.user.username);
+    localStorage.setItem("user", JSON.stringify(response.user));
   };
   const { isLoading, error, performFetch, cancelFetch } = useFetch(
     "/auth/login",
