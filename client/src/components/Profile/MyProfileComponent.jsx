@@ -18,9 +18,8 @@ const placeholderCoverPhoto =
 const MyProfileComponent = () => {
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
-  const user = localStorage.getItem("user");
 
-  console.log(user);
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const [data, setData] = useState([]);
 
