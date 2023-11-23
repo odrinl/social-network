@@ -16,13 +16,12 @@ const Post = ({ post, onPostChanged, isOwner }) => {
 
   useEffect(() => {
     performGetLikesFetch();
-
     return () => {
       cancelDeleteFetch();
       cancelEditFetch();
       cancelGetLikesFetch();
     };
-  }, [hasLikedPost, userId]);
+  }, [userId]);
 
   useEffect(() => {
     const newHasLikedPost =
@@ -51,12 +50,18 @@ const Post = ({ post, onPostChanged, isOwner }) => {
 
   const { performFetch: performLikeFetch } = useFetch(
     `/posts/${post._id}/like`,
-    setLikesData
+    (data) => {
+      setLikesData(data);
+      performGetLikesFetch();
+    }
   );
 
   const { performFetch: performUnlikeFetch } = useFetch(
     `/posts/${post._id}/unlike`,
-    setLikesData
+    (data) => {
+      setLikesData(data);
+      performGetLikesFetch();
+    }
   );
 
   const {
@@ -121,6 +126,7 @@ const Post = ({ post, onPostChanged, isOwner }) => {
       };
 
       performLikeFetch(options);
+      performGetLikesFetch();
     }
   };
 
@@ -136,6 +142,8 @@ const Post = ({ post, onPostChanged, isOwner }) => {
       };
 
       performUnlikeFetch(options);
+
+      performGetLikesFetch();
     }
   };
 
