@@ -70,7 +70,6 @@ const FriendSlideSection = () => {
   );
 };
 
-
 const Container = styled.div`
   display: flex;
   width: 100%;
@@ -104,7 +103,7 @@ const FriendItem = styled.div`
   transition: background-color 0.3s;
 
   &:hover {
-    background-color: #D4F1F4;
+    background-color: #d4f1f4;
   }
 `;
 
@@ -122,7 +121,7 @@ const FriendAvatar = styled.img`
 const FriendName = styled.div`
   font-weight: bold;
   font-size: 16px;
-  color:#05445E;
+  color: #05445e;
 `;
 
 const LoadingDiv = styled.div`

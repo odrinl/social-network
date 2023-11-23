@@ -5,7 +5,7 @@
   --nav-background: white;
   --nav-hover-color: #ff9900;
   --nav-active-color: #1877f2;
-  --homepage-border-color: #D4F1F4;
+  --homepage-border-color: #d4f1f4;
   --homepage-background-color: white;
   --homepage-wrapper-background-color: #f3f8ff;
   --homepage-margin-padding: 1rem;
@@ -52,7 +52,6 @@ body {
   margin: var(--homepage-margin-padding);
   flex-direction: column;
   margin-top: 5rem;
-  
 }
 
 .block {
@@ -61,7 +60,8 @@ body {
   padding: var(--homepage-margin-padding);
   margin-bottom: 2rem;
   justify-content: center;
-  box-shadow: 5px 5px 15px rgba(5, 3, 36, 0.3), -5px 5px 15px rgba(5, 3, 36, 0.3);
+  box-shadow: 5px 5px 15px rgba(5, 3, 36, 0.3),
+    -5px 5px 15px rgba(5, 3, 36, 0.3);
 }
 
 .middle-column {
@@ -84,9 +84,9 @@ body {
 .title {
   margin-bottom: 1rem;
   position: relative;
-  color:#05445E;
-  bottom:-5px;
-  left:15%;
+  color: #05445e;
+  bottom: -5px;
+  left: 15%;
 }
 
 .logo {
@@ -97,8 +97,6 @@ body {
   bottom: 40px;
   left: 15%;
 }
-
-
 
 /* Add media queries for responsiveness */
 @media (max-width: 768px) {

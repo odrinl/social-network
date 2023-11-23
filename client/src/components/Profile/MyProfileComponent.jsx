@@ -47,39 +47,39 @@ const MyProfileComponent = () => {
 
   return (
     <Container>
-    <ScrollableContainer>
-      {isLoading && <LoadingDiv>Loading....</LoadingDiv>}
-      {!isLoading && error && (
-        <ErrorDiv>
-          Error while trying to get data from the server: {error.toString()}
-        </ErrorDiv>
-      )}
-      {!isLoading && !error && (
-        <>
-          <CoverPhotoContainer>
-            <CoverPhoto
-              src={data.coverPhoto || placeholderCoverPhoto}
-              alt="Cover Photo"
-            />
-          </CoverPhotoContainer>
-          <ProfileInfo>
-            <ProfilePicContainer>
-              <ProfilePic
-                src={data.profilePic || placeholderProfilePic}
-                alt="Profile Pic"
+      <ScrollableContainer>
+        {isLoading && <LoadingDiv>Loading....</LoadingDiv>}
+        {!isLoading && error && (
+          <ErrorDiv>
+            Error while trying to get data from the server: {error.toString()}
+          </ErrorDiv>
+        )}
+        {!isLoading && !error && (
+          <>
+            <CoverPhotoContainer>
+              <CoverPhoto
+                src={data.coverPhoto || placeholderCoverPhoto}
+                alt="Cover Photo"
               />
-            </ProfilePicContainer>
-            {data.success && (
-              <div>
-                <h1>@ {data.user.username}</h1>
-                <p>{`${fakeData.friends} Friends`}</p>
-              </div>
-            )}
-          </ProfileInfo>
-        </>
-      )}
-      <UsersPosts />
-    </ScrollableContainer>
+            </CoverPhotoContainer>
+            <ProfileInfo>
+              <ProfilePicContainer>
+                <ProfilePic
+                  src={data.profilePic || placeholderProfilePic}
+                  alt="Profile Pic"
+                />
+              </ProfilePicContainer>
+              {data.success && (
+                <div>
+                  <h1>@ {data.user.username}</h1>
+                  <p>{`${fakeData.friends} Friends`}</p>
+                </div>
+              )}
+            </ProfileInfo>
+          </>
+        )}
+        <UsersPosts />
+      </ScrollableContainer>
     </Container>
   );
 };
@@ -87,41 +87,41 @@ const MyProfileComponent = () => {
 export default MyProfileComponent;
 
 const Container = styled.div`
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-height: 50.5rem;
-margin-top: 1.5rem;
-position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50.5rem;
+  margin-top: 1.5rem;
+  position: relative;
 
-&::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  height: 4px;
-  background: linear-gradient(to right, #05445E, #D4F1F4, #05445E);
-}
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(to right, #05445e, #d4f1f4, #05445e);
+  }
 `;
 
 const ScrollableContainer = styled.div`
-overflow-y: auto;
-&::-webkit-scrollbar {
-  width: 0em;
-}
-&::-webkit-scrollbar-thumb {
-  background: #D4F1F4;
-  border-radius: 10px;
-}
-&::-webkit-scrollbar-thumb:hover {
-  background: #D4F1F4;
-}
-&::-webkit-scrollbar-track {
-  background: transparent;
-}
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 0em;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #d4f1f4;
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #d4f1f4;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
 `;
 
 const CoverPhotoContainer = styled.div`

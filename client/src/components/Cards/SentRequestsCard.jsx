@@ -98,24 +98,24 @@ const SentRequestCard = (data) => {
 };
 
 const Container = styled.div`
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-height: 40rem;
-margin-top: 1.5rem;
-position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 40rem;
+  margin-top: 1.5rem;
+  position: relative;
 
-&::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  height: 4px;
-  background: linear-gradient(to right, #05445E, #D4F1F4, #05445E);
-}
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(to right, #05445e, #d4f1f4, #05445e);
+  }
 `;
 
 const ScrollableContainer = styled.div`
@@ -185,12 +185,12 @@ const FriendInfo = styled.div`
 
 const Name = styled.h3`
   font-size: 1.25rem;
-  color:#05445E;
+  color: #05445e;
   text-align: left;
   cursor: pointer;
   transition: background-color 0.3s;
   &:hover {
-    color: #189AB4;
+    color: #189ab4;
   }
 `;
 
@@ -201,7 +201,7 @@ const ButtonContainer = styled.div`
 `;
 
 const FriendButton = styled.button`
-  background-color: #05445E;
+  background-color: #05445e;
   color: white;
   padding: 8px 16px;
   border: none;

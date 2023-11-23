@@ -7,7 +7,6 @@ import SharedArea from "../../components/SharedArea";
 import NewsSideSection from "../../components/NewsSideSection";
 import styled from "styled-components";
 
-
 const Home = () => {
   return (
     <div data-testid={TEST_ID.container}>
@@ -15,10 +14,10 @@ const Home = () => {
         <div className="container homepage">
           <div className="container column">
             <div className="container logo">
-            <Heading>
-            <span className="white">AZIEL</span>{" "}
-            <span className="black">NET</span>
-          </Heading>
+              <Heading>
+                <span className="white">AZIEL</span>{" "}
+                <span className="black">NET</span>
+              </Heading>
             </div>
             <div className="container block my-profile">
               <MyProfileSideSection />
@@ -55,17 +54,16 @@ const Home = () => {
 
 export default Home;
 
-
 const Heading = styled.h1`
   font-size: 40px;
   margin-bottom: 1rem;
-  color: #05445E;
+  color: #05445e;
   font-weight: 800;
   font-family: Inter;
   .white {
-    color: #05445E;
+    color: #05445e;
   }
   .black {
-    color: #189AB4;
+    color: #189ab4;
   }
 `;

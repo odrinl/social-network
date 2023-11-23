@@ -61,62 +61,62 @@ const Friends = () => {
   return (
     <Container>
       <BoxContainer>
-      <SearchContainer>
-        <SearchIcon />
-        <SearchInput
-          onChange={(e) => {
-            setCategory("search");
-            setEndPoint(
-              `/users/${userId}/searchNonFriendsByName?name=${e.target.value}`
-            );
-            setInput(e.target.value);
-          }}
-          value={input}
-          type="text"
-          placeholder="Search People"
-        />
-      </SearchContainer>
+        <SearchContainer>
+          <SearchIcon />
+          <SearchInput
+            onChange={(e) => {
+              setCategory("search");
+              setEndPoint(
+                `/users/${userId}/searchNonFriendsByName?name=${e.target.value}`
+              );
+              setInput(e.target.value);
+            }}
+            value={input}
+            type="text"
+            placeholder="Search People"
+          />
+        </SearchContainer>
 
-      <FriendsNav>
-        <ul>
-          <li
-            className={category === "friends" ? "active" : ""}
-            onClick={() => {
-              setCategory("friends");
-              setEndPoint(`/users/${userId}/friends`);
-              setInput("");
-            }}
-          >
-            My
-            <br />
-            Friends
-          </li>
-          <li
-            className={category === "friends-requests" ? "active" : ""}
-            onClick={() => {
-              setCategory("friends-requests");
-              setEndPoint(`/users/${userId}/getAllReceivedRequests`);
-              setInput("");
-            }}
-          >
-            Friends
-            <br />
-            Requests
-          </li>
-          <li
-            className={category === "sent-requests" ? "active" : ""}
-            onClick={() => {
-              setCategory("sent-requests");
-              setEndPoint(`/users/${userId}/getAllSentRequests`);
-              setInput("");
-            }}
-          >
-            Sent
-            <br />
-            Requests
-          </li>
-        </ul>
-      </FriendsNav>
+        <FriendsNav>
+          <ul>
+            <li
+              className={category === "friends" ? "active" : ""}
+              onClick={() => {
+                setCategory("friends");
+                setEndPoint(`/users/${userId}/friends`);
+                setInput("");
+              }}
+            >
+              My
+              <br />
+              Friends
+            </li>
+            <li
+              className={category === "friends-requests" ? "active" : ""}
+              onClick={() => {
+                setCategory("friends-requests");
+                setEndPoint(`/users/${userId}/getAllReceivedRequests`);
+                setInput("");
+              }}
+            >
+              Friends
+              <br />
+              Requests
+            </li>
+            <li
+              className={category === "sent-requests" ? "active" : ""}
+              onClick={() => {
+                setCategory("sent-requests");
+                setEndPoint(`/users/${userId}/getAllSentRequests`);
+                setInput("");
+              }}
+            >
+              Sent
+              <br />
+              Requests
+            </li>
+          </ul>
+        </FriendsNav>
       </BoxContainer>
       {cardComponent}
       {statusComponent}
@@ -127,12 +127,12 @@ const Friends = () => {
 export default Friends;
 
 const SearchContainer = styled.div`
- width:100%;
+  width: 100%;
 `;
 
 const BoxContainer = styled.div`
   width: 100%;
-  background-color: #05445E;
+  background-color: #05445e;
   color: white;
   border-radius: 0.5rem;
   padding: 1rem;
@@ -141,7 +141,7 @@ const BoxContainer = styled.div`
 
 const Container = styled.div`
   display: flex;
-  margin-top:20px;
+  margin-top: 20px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -153,46 +153,44 @@ const SearchIcon = styled(FaSearch)`
 `;
 
 const FriendsNav = styled.div`
-margin-top: 20px;
-background-color: #05445E;
-border-radius: 12px;
-width: 100%;
-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-overflow: hidden;
-
-ul {
-  display:flex;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  
-
+  margin-top: 20px;
+  background-color: #05445e;
   border-radius: 12px;
+  width: 100%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 
-  li {
-    flex: 1;
-    text-align: center;
-    padding: 15px;
-    font-size: 14px;
-    color: white;
-    font-weight: bolder;
-    cursor: pointer;
-    transition: color 0.3s, background-color 0.3s;
-    
+  ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 
-    &:hover {
-      color: orange;
-      border-radius: 12px;
-    }
+    border-radius: 12px;
 
-    &.active {
-      color: #189AB4;
-      font-weight: bold;
-      background-color: #D4F1F4;
-      border-radius: 5px;
+    li {
+      flex: 1;
+      text-align: center;
+      padding: 15px;
+      font-size: 14px;
+      color: white;
+      font-weight: bolder;
+      cursor: pointer;
+      transition: color 0.3s, background-color 0.3s;
+
+      &:hover {
+        color: orange;
+        border-radius: 12px;
+      }
+
+      &.active {
+        color: #189ab4;
+        font-weight: bold;
+        background-color: #d4f1f4;
+        border-radius: 5px;
+      }
     }
   }
-}
   @media (min-width: 1200px) {
     width: 100%;
   }
@@ -208,23 +206,23 @@ ul {
 `;
 
 const SearchInput = styled.input`
-width:90%;
-border: none;
-outline: none;
-background: white;
-flex: 1;
-font-size: 16px;
-padding: 0.5rem;
-border-radius: 1rem;
-color: black;
+  width: 90%;
+  border: none;
+  outline: none;
+  background: white;
+  flex: 1;
+  font-size: 16px;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  color: black;
 
-transition: border-color 0.3s;
+  transition: border-color 0.3s;
 
-&::placeholder {
-  color: #189AB4;
-}
+  &::placeholder {
+    color: #189ab4;
+  }
 
-&:focus {
-  border-color: #189AB4;
-}
+  &:focus {
+    border-color: #189ab4;
+  }
 `;

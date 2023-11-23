@@ -58,7 +58,7 @@ CreatePost.propTypes = {
 export default CreatePost;
 
 const Container = styled.div`
-  background-color: #05445E;
+  background-color: #05445e;
   color: white;
   border: 1px solid black;
   border-radius: 0.5rem;
@@ -102,7 +102,7 @@ const Text = styled.textarea`
 
 const PostButton = styled.button`
   background-color: #f0f7ff;
-  color: #05445E;
+  color: #05445e;
   border: none;
   border-radius: 0.5rem;
   font-size: 1rem;

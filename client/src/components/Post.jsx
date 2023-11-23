@@ -140,7 +140,7 @@ const Post = ({ post, onPostChanged, isOwner }) => {
 export default Post;
 
 const Container = styled.div`
-  border: 1px solid #D4F1F4;
+  border: 1px solid #d4f1f4;
   background-color: #ffffff;
   border-radius: 0.5rem;
   padding: 1.5rem 2rem 0.5rem 2rem;
@@ -211,7 +211,7 @@ const EditButton = styled.div`
 `;
 
 const SaveChangesButton = styled.button`
-  background-color: #75E6DA;
+  background-color: #75e6da;
   color: white;
   padding: 0.5rem 1rem;
   border: none;
@@ -221,13 +221,13 @@ const SaveChangesButton = styled.button`
   margin-right: 1rem;
 
   &:hover {
-    background-color: #75E6DA;
+    background-color: #75e6da;
   }
 `;
 
 const CancelButton = styled.div`
   display: flex;
-  color: #189AB4;
+  color: #189ab4;
   cursor: pointer;
   align-self: flex-start;
   margin-right: 1rem;

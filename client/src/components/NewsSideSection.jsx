@@ -65,25 +65,25 @@ const NewsSideSection = () => {
   return (
     <Container>
       <NewsContainer>
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : error ? (
-        <p>Error: {error.message}</p>
-      ) : (
-        articles.map((article, index) => (
-          <Item key={index}>
-            <Details>
-              <NewsDate>{article.date}</NewsDate>
-              <NewsName>
-              <ArticleLink onClick={() => openLinkInNewTab(article.link)}>
-                  {article.title}
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : error ? (
+          <p>Error: {error.message}</p>
+        ) : (
+          articles.map((article, index) => (
+            <Item key={index}>
+              <Details>
+                <NewsDate>{article.date}</NewsDate>
+                <NewsName>
+                  <ArticleLink onClick={() => openLinkInNewTab(article.link)}>
+                    {article.title}
                   </ArticleLink>
-              </NewsName>
-            </Details>
-            <NewsText>{article.description}</NewsText>
-          </Item>
-        ))
-      )}
+                </NewsName>
+              </Details>
+              <NewsText>{article.description}</NewsText>
+            </Item>
+          ))
+        )}
       </NewsContainer>
     </Container>
   );
@@ -95,7 +95,6 @@ const Container = styled.div`
   width: 100%;
   flex-direction: column;
   height: 49rem;
-  
 `;
 
 const NewsContainer = styled.div`
@@ -108,20 +107,20 @@ const NewsContainer = styled.div`
 `;
 
 const Item = styled.div`
-align-items: center;
-margin-bottom: 1.2rem;
-padding-right: 0.2rem;
-position: relative;
+  align-items: center;
+  margin-bottom: 1.2rem;
+  padding-right: 0.2rem;
+  position: relative;
 
-&:not(:last-child)::after {
-  content: '';
-  position: absolute;
-  bottom: -6px;
-  left: 0;
-  width: 100%;
-  height: 3px; /* Adjust the height as needed */
-  background: linear-gradient(to right, #05445E, #D4F1F4, #05445E);
-} 
+  &:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    width: 100%;
+    height: 3px; /* Adjust the height as needed */
+    background: linear-gradient(to right, #05445e, #d4f1f4, #05445e);
+  }
 `;
 
 const NewsName = styled.div`
@@ -134,13 +133,13 @@ const Details = styled.div`
 `;
 
 const NewsDate = styled.div`
-display: inline-block;
-background-color: #189AB4;
-color:white;
-border-radius: 4px;
-padding: 3px;
-font-size: 0.8rem;
-margin-bottom: 0.2rem;  
+  display: inline-block;
+  background-color: #189ab4;
+  color: white;
+  border-radius: 4px;
+  padding: 3px;
+  font-size: 0.8rem;
+  margin-bottom: 0.2rem;
 `;
 
 const ArticleLink = styled(Link)`
