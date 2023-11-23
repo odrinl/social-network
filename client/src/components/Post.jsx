@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { FaThumbsUp, FaComment, FaShare, FaThumbsDown } from "react-icons/fa";
+import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 import PropTypes from "prop-types";
 import TimeAgo from "react-timeago";
 import useFetch from "../hooks/useFetch";
@@ -211,12 +211,6 @@ const Post = ({ post, onPostChanged, isOwner }) => {
                 <FaThumbsUp />
               </LikeButton>
             )}
-            <CommentButton>
-              <FaComment />
-            </CommentButton>
-            <ShareButton>
-              <FaShare />
-            </ShareButton>
           </ButtonContainer>
         )}
       </PostFooter>
@@ -278,43 +272,15 @@ const LikeButton = styled.button`
 
 const UnlikeButton = styled(LikeButton)`
   background-color: ${({ liked }) => (liked ? "#4caf50" : "#ff6347")};
-
   @media (max-width: 768px) {
     font-size: 1.2rem;
     padding: 0.4rem;
   }
 `;
-const CommentButton = styled.button`
-  color: #788292;
-  cursor: pointer;
-  opacity: 0.4;
-  margin-left: 1.5rem;
-  font-size: 2rem;
-  border: none;
-  background-color: transparent;
 
-  &:hover {
-    opacity: 0.8;
-  }
-`;
-
-const ShareButton = styled.button`
-  color: #788292;
-  cursor: pointer;
-  opacity: 0.4;
-  margin-left: 1.5rem;
-  font-size: 2rem;
-  border: none;
-  background-color: transparent;
-
-  &:hover {
-    opacity: 0.8;
-  }
-`;
 
 const LikeCount = styled.div`
   color: #788292;
-  margin-right: 20.1rem;
   font-size: 1rem;
   @media (max-width: 768px) {
     margin-right: 6rem;
@@ -339,7 +305,7 @@ const PostText = styled.p`
 const PostFooter = styled.div`
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   font-size: 1rem;
   margin-top: 0.5rem;
 `;

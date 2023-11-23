@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import useFetch from "../../hooks/useFetch";
 import styled from "styled-components";
+const backgroundImage =
+  "https://res.cloudinary.com/dtb1hpuil/image/upload/v1700775170/q5_rmntjh.jpg";
 
 import "../../index.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -145,6 +147,7 @@ export default LoginUser;
 
 const FormWrapper = styled.div`
   display: flex;
+  background-image: url(${backgroundImage});
   width: 100%;
   height: 100vh;
   justify-content: center;
@@ -160,6 +163,7 @@ const FormContainer = styled.div`
 
 const FormMain = styled.div`
   display: flex;
+  background-color:white;
   width: 450px;
   margin: 1rem;
   flex-direction: column;

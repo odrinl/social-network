@@ -5,6 +5,8 @@ import useFetch from "../../hooks/useFetch";
 import TEST_ID from "./CreateUser.testid";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router";
+const backgroundImage =
+  "https://res.cloudinary.com/dtb1hpuil/image/upload/v1700775170/q5_rmntjh.jpg";
 const CreateUser = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -177,6 +179,7 @@ const CreateUser = () => {
 export default CreateUser;
 
 const FormWrapper = styled.div`
+  background-image: url(${backgroundImage});
   display: flex;
   width: 100%;
   height: 100vh;
@@ -193,6 +196,7 @@ const FormContainer = styled.div`
 
 const Container = styled.div`
   display: flex;
+  background-color:white;
   margin: 1rem;
   width: 500px;
   min-width: 340px;
