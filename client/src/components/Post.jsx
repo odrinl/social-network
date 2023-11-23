@@ -22,7 +22,7 @@ const Post = ({ post, onPostChanged, isOwner }) => {
       cancelEditFetch();
       cancelGetLikesFetch();
     };
-  }, [hasLikedPost]);
+  }, [hasLikedPost, userId]);
 
   useEffect(() => {
     const newHasLikedPost =
