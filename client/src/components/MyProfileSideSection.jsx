@@ -77,7 +77,7 @@ const TextWrapper = styled.div`
   font-family: "Comfortaa", Helvetica;
   font-size: 32px;
   font-weight: bolder;
-  color: #05445E;
+  color: #05445e;
   height: 36px;
   left: 90px;
   letter-spacing: -0.48px;
@@ -91,8 +91,8 @@ const ProfilePicContainer = styled.div`
 `;
 
 const ProfilePic = styled.img`
-  position:relative;
-  left:20px;
+  position: relative;
+  left: 20px;
   width: 120px;
   height: 120px;
   border-radius: 50%;

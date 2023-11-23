@@ -35,7 +35,6 @@ const MyProfileComponent = () => {
   const { performFetch: fetchFriendsNumber, cancelFetch: cancelFriendsNumber } =
     useFetch(`/users/${userId}/friendsNumber`, onGetting);
 
-
   const { isLoading, error, performFetch, cancelFetch } = useFetch(
     `/users/${userId}`,
     onSuccess
