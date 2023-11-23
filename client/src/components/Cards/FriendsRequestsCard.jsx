@@ -106,12 +106,24 @@ const FriendRequestCard = (data) => {
 };
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 40rem;
-  margin-top: 1.5rem;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+height: 40rem;
+margin-top: 1.5rem;
+position: relative;
+
+&::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(to right, #05445E, #D4F1F4, #05445E);
+}
 `;
 
 const ScrollableContainer = styled.div`
@@ -180,13 +192,14 @@ const FriendInfo = styled.div`
 `;
 
 const Name = styled.h3`
-  font-size: 1.25rem;
-  text-align: left;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  &:hover {
-    color: #4576f5;
-  }
+font-size: 1.25rem;
+color:#05445E;
+text-align: left;
+cursor: pointer;
+transition: background-color 0.3s;
+&:hover {
+  color: #189AB4;
+}
 `;
 
 const ButtonContainer = styled.div`
@@ -196,7 +209,7 @@ const ButtonContainer = styled.div`
 `;
 
 const FriendButton = styled.button`
-  background-color: #1c2733;
+  background-color: #05445E;
   color: white;
   padding: 8px 16px;
   border: none;
@@ -204,7 +217,6 @@ const FriendButton = styled.button`
   cursor: pointer;
   margin: 8px 10px 8px 0;
 `;
-
 const ErrorDiv = styled.button`
   background-color: #b5d4e8;
   color: black;
@@ -214,4 +226,6 @@ const ErrorDiv = styled.button`
   margin: 8px 10px 8px 0;
   width: 200px;
 `;
+
+
 export default FriendRequestCard;

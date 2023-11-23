@@ -39,14 +39,26 @@ const Nav = () => {
 export default Nav;
 
 const NavList = styled.ul`
-  background-color: white;
+list-style: none;
+justify-content: space-between;
+padding: 10px;
+display: flex;
+margin-top: 15px;
+margin-bottom: 35px;
+position: relative;
+
+
+&::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(to right, #05445E, #D4F1F4, #05445E);
   border-radius: 12px;
-  list-style: none;
-  justify-content: space-between;
-  padding: 10px;
-  display: flex;
-  margin-top: 15px;
-  margin-bottom: 35px;
+}
 `;
 
 const NavItem = styled.li`
@@ -55,7 +67,8 @@ const NavItem = styled.li`
 
 const StyledNavLink = styled(NavLink)`
   text-decoration: none;
-  color: black;
+  color:#05445E;
+  font-weight:bold;
   transition: color 0.3s;
 
   &:hover {
@@ -63,13 +76,14 @@ const StyledNavLink = styled(NavLink)`
   }
 
   &.active {
-    color: var(--nav-active-color);
+    color: #189AB4;
   }
 `;
 
 const StyledLogoutLink = styled.a`
   text-decoration: none;
-  color: black;
+  color:#05445E;
+  font-weight:bold;
   cursor: pointer;
   transition: color 0.3s;
 

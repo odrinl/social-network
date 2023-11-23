@@ -1,13 +1,13 @@
 /* Define global variables */
 :root {
   --font-family: Roboto, Arial, sans-serif;
-  --nav-color: black;
+  --nav-color: 274156;
   --nav-background: white;
   --nav-hover-color: #ff9900;
   --nav-active-color: #1877f2;
-  --homepage-border-color: #ccc;
+  --homepage-border-color: #D4F1F4;
   --homepage-background-color: white;
-  --homepage-wrapper-background-color: #d9d9d9;
+  --homepage-wrapper-background-color: #f3f8ff;
   --homepage-margin-padding: 1rem;
   --homepage-button-background-color: #f0f7ff;
   --homepage-button-color: #f0f7ff;
@@ -35,7 +35,6 @@ body {
 
 .container {
   display: flex;
-  /* border: 1px dashed green; */
 }
 
 .homepage {
@@ -53,6 +52,7 @@ body {
   margin: var(--homepage-margin-padding);
   flex-direction: column;
   margin-top: 5rem;
+  
 }
 
 .block {
@@ -61,6 +61,7 @@ body {
   padding: var(--homepage-margin-padding);
   margin-bottom: 2rem;
   justify-content: center;
+  box-shadow: 5px 5px 15px rgba(5, 3, 36, 0.3), -5px 5px 15px rgba(5, 3, 36, 0.3);
 }
 
 .middle-column {
@@ -82,22 +83,22 @@ body {
 
 .title {
   margin-bottom: 1rem;
+  position: relative;
+  color:#05445E;
+  bottom:-5px;
+  left:15%;
 }
 
 .logo {
-  display: flex;
-  width: 100%;
   justify-content: space-between;
   align-items: center;
-}
-
-.logo img {
   position: relative;
-  width: 175px;
   height: 45px;
   bottom: 40px;
-  left: 40px;
+  left: 15%;
 }
+
+
 
 /* Add media queries for responsiveness */
 @media (max-width: 768px) {
@@ -144,6 +145,8 @@ body {
 
   .logo {
     margin: 1rem;
+    bottom: -15px;
+    left: 0px;
   }
 
   .logo img {

@@ -60,6 +60,7 @@ const Friends = () => {
 
   return (
     <Container>
+      <BoxContainer>
       <SearchContainer>
         <SearchIcon />
         <SearchInput
@@ -116,6 +117,7 @@ const Friends = () => {
           </li>
         </ul>
       </FriendsNav>
+      </BoxContainer>
       {cardComponent}
       {statusComponent}
     </Container>
@@ -124,10 +126,22 @@ const Friends = () => {
 
 export default Friends;
 
-const SearchContainer = styled.div``;
+const SearchContainer = styled.div`
+ width:100%;
+`;
+
+const BoxContainer = styled.div`
+  width: 100%;
+  background-color: #05445E;
+  color: white;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+`;
 
 const Container = styled.div`
   display: flex;
+  margin-top:20px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -139,73 +153,78 @@ const SearchIcon = styled(FaSearch)`
 `;
 
 const FriendsNav = styled.div`
-  display: flex;
-  flex-direction: row;
-  margin-top: 20px;
-  align-items: center;
-  justify-content: center;
-  background-color: white;
+margin-top: 20px;
+background-color: #05445E;
+border-radius: 12px;
+width: 100%;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+overflow: hidden;
+
+ul {
+  display:flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  
+
   border-radius: 12px;
-  height: 40px;
-  width: 100%;
 
-  ul {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  li {
+    flex: 1;
+    text-align: center;
+    padding: 15px;
+    font-size: 14px;
+    color: white;
+    font-weight: bolder;
+    cursor: pointer;
+    transition: color 0.3s, background-color 0.3s;
+    
 
-    li {
-      height: 40px;
+    &:hover {
+      color: orange;
       border-radius: 12px;
-      font-size: 15px;
-      margin-top: 5px;
-      color: black;
-      cursor: pointer;
-      text-align: center;
-      display: flex;
-      cursor: pointer;
-      transition: color 0.3s;
+    }
 
-      &:hover {
-        transform: scale(1.1);
-        transition: transform 0.3s ease-in-out;
-        color: var(--nav-hover-color);
-      }
-
-      &.active {
-        color: var(--nav-active-color);
-      }
+    &.active {
+      color: #189AB4;
+      font-weight: bold;
+      background-color: #D4F1F4;
+      border-radius: 5px;
     }
   }
-
+}
   @media (min-width: 1200px) {
-    width: 60%;
+    width: 100%;
   }
   li {
     margin: 0 15px;
   }
   @media (min-width: 500px) and (max-width: 770px) {
-    width: 65%;
+    width: 100%;
   }
   li {
-    margin: 0 15px;
+    margin: 0px;
   }
 `;
 
 const SearchInput = styled.input`
-  border: none;
-  outline: none;
-  background: transparent;
-  flex: 1;
-  font-size: 16px;
-  padding: 6px;
-  border-radius: 50px;
-  background-color: #f0f2f5;
-  color: #1d2129;
-  border: 1px solid #d3d6db;
-  &::placeholder {
-    color: #8c949e;
-  }
+width:90%;
+border: none;
+outline: none;
+background: white;
+flex: 1;
+font-size: 16px;
+padding: 0.5rem;
+border-radius: 1rem;
+color: black;
+
+transition: border-color 0.3s;
+
+&::placeholder {
+  color: #189AB4;
+}
+
+&:focus {
+  border-color: #189AB4;
+}
 `;

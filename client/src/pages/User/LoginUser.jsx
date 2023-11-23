@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import "../../index.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { FaLock } from "react-icons/fa";
+// import { FaLock } from "react-icons/fa";
 import { useNavigate } from "react-router";
 
 function LoginUser() {
@@ -122,7 +122,7 @@ function LoginUser() {
               </PasswordToggle>
             </InputContainer>
             <SubmitButton id="button">LOG IN</SubmitButton>
-            <RememberMe>
+            {/* <RememberMe>
               <StyledCheckboxLabel htmlFor="remember">
                 <StyledCheckbox type="checkbox" id="remember" name="remember" />
                 Remember me
@@ -131,7 +131,7 @@ function LoginUser() {
             <ForgotLink className="forgotLink">
               <FaLock style={{ color: "black", marginRight: "5px" }} /> Forgot
               password?
-            </ForgotLink>
+            </ForgotLink> */}
           </Form>
           {error && <ErrorText>{error}</ErrorText>}
           {isLoading && <p>Loading...</p>}
@@ -168,20 +168,20 @@ const FormMain = styled.div`
   box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.3);
   overflow: hidden;
   border-radius: 20px;
-  border: 3px solid #90467f;
+  border: 3px solid #05445E;
 `;
 
 const Heading = styled.h1`
   font-size: 40px;
   margin-top: 1rem;
-  color: #3b4a47;
+  color: #05445E;
   font-weight: 800;
   font-family: Inter;
   .white {
     color: white;
   }
   .black {
-    color: #90467f;
+    color: #189AB4;
   }
 `;
 
@@ -244,7 +244,7 @@ const SubmitButton = styled.button`
   border-radius: 12px;
   border: 0;
   outline: 0;
-  background: #90467f;
+  background: #189AB4;
   font-size: 17px;
   margin-top: 1.5rem;
   color: white;
@@ -260,43 +260,43 @@ const SubmitButton = styled.button`
   }
 `;
 
-const RememberMe = styled.div`
-  display: flex;
-  align-items: center;
-  margin: 40px 0;
-  font-size: 1rem;
-  font-weight: bolder;
-  color: #939393;
-`;
+// const RememberMe = styled.div`
+//   display: flex;
+//   align-items: center;
+//   margin: 40px 0;
+//   font-size: 1rem;
+//   font-weight: bolder;
+//   color: #939393;
+// `;
 
-const StyledCheckboxLabel = styled.label`
-  display: flex;
-  align-items: flex-end;
-`;
+// const StyledCheckboxLabel = styled.label`
+//   display: flex;
+//   align-items: flex-end;
+// `;
 
-const StyledCheckbox = styled.input`
-  margin-right: 1rem;
-  cursor: pointer;
-  width: 19px;
-  height: 19px;
-`;
+// const StyledCheckbox = styled.input`
+//   margin-right: 1rem;
+//   cursor: pointer;
+//   width: 19px;
+//   height: 19px;
+// `;
 
 const ErrorText = styled.div`
   color: red;
   font-size: 1rem;
 `;
 
-const ForgotLink = styled.a`
-  cursor: pointer;
-  position: relative;
-  font-size: 1rem;
-  margin-bottom: 1rem;
-  font-weight: bolder;
-  color: #0099ff;
-  text-decoration: none;
-  border-radius: 20px;
-  transition: color 0.3s;
-  &:hover {
-    color: #166fe5;
-  }
-`;
+// const ForgotLink = styled.a`
+//   cursor: pointer;
+//   position: relative;
+//   font-size: 1rem;
+//   margin-bottom: 1rem;
+//   font-weight: bolder;
+//   color: #0099ff;
+//   text-decoration: none;
+//   border-radius: 20px;
+//   transition: color 0.3s;
+//   &:hover {
+//     color: #166fe5;
+//   }
+// `;

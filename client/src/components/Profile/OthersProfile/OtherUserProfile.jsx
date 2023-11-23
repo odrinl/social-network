@@ -159,6 +159,7 @@ const OtherUserProfile = () => {
   }, [endPoint]);
 
   return (
+    <Container>
     <UserProfile>
       {dataLoading && <LoadingDiv>Loading....</LoadingDiv>}
       {!dataLoading && dataError && (
@@ -211,13 +212,32 @@ const OtherUserProfile = () => {
         <OtherUsersPosts profileId={profileId} />
       </PostsContainer>
     </UserProfile>
+    </Container>
   );
 };
 
-const UserProfile = styled.div`
-  margin-top: 18px;
+const Container = styled.div`
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+height: 50.5rem;
+margin-top: 1.5rem;
+position: relative;
+
+&::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
   width: 100%;
-  height: 100%;
+  height: 4px;
+  background: linear-gradient(to right, #05445E, #D4F1F4, #05445E);
+}
+`;
+
+const UserProfile = styled.div`
   overflow-y: auto;
   scrollbar-width: none;
   &::-webkit-scrollbar {
@@ -284,7 +304,7 @@ const ErrorDiv = styled.div`
 const Button = styled.button`
   padding: 8px 16px;
   margin-right: 10px;
-  background-color: #3498db;
+  background-color: #189AB4;
   color: #fff;
   border: none;
   border-radius: 4px;

@@ -1,12 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+const backgroundImage = "https://res.cloudinary.com/dtb1hpuil/image/upload/v1700751077/AA_peorrh.jpg";
 
 const Welcome = () => {
   return (
     <FormWrapper>
       <FormContainer>
-        <Container>
           <Heading>
             <span className="white">AZIEL</span>{" "}
             <span className="black">NET</span>
@@ -24,7 +24,6 @@ const Welcome = () => {
             </StyledListItem>
           </StyledList>
           <AdditionalSentence>Brings everyone closer ...</AdditionalSentence>
-        </Container>
       </FormContainer>
     </FormWrapper>
   );
@@ -33,45 +32,39 @@ const Welcome = () => {
 export default Welcome;
 
 const FormWrapper = styled.div`
-  display: flex;
-  width: 100%;
-  height: 100vh;
-  justify-content: center;
-  align-items: center;
+position:relative;
+background-image: url(${backgroundImage});
+background-size: cover; 
+background-position: center;
+height: 100vh; 
 `;
 
 const FormContainer = styled.div`
   display: flex;
-  width: 100%;
+  flex-direction: column;
+  position:relative;
+  right:25%;
   align-items: center;
-  justify-content: center;
+  height: 100vh;
+  
 `;
 
-const Container = styled.div`
-  display: flex;
-  margin: 1rem;
-  width: 500px;
-  min-width: 340px;
-  flex-direction: column;
-  align-items: center;
-  padding: 40px;
-  overflow: hidden;
-  border-radius: 20px;
-  border: 3px solid #90467f;
-  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.3);
-`;
+
 
 const Heading = styled.h1`
+  position:relative;
+  top:70px;
+  left:-140px;
   font-size: 40px;
   margin-bottom: 1rem;
-  color: #3b4a47;
+  color: #05445E;
   font-weight: 800;
   font-family: Inter;
   .white {
-    color: #3b4a47;
+    color: #05445E;
   }
   .black {
-    color: #90467f;
+    color: #189AB4;
   }
 `;
 
@@ -97,7 +90,7 @@ const StyledButton = styled.button`
   border-radius: 12px;
   border: 0;
   outline: 0;
-  background: #90467f;
+  background: #189AB4;
   font-size: 17px;
   margin-top: 1rem;
   color: white;
@@ -113,6 +106,6 @@ const StyledButton = styled.button`
 const AdditionalSentence = styled.p`
   margin-top: 1rem;
   font-size: 20px;
-  color: #b3a69d;
+  color: #75E6DA;
   font-weight: 500;
 `;

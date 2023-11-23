@@ -47,6 +47,7 @@ const MyProfileComponent = () => {
 
   return (
     <Container>
+    <ScrollableContainer>
       {isLoading && <LoadingDiv>Loading....</LoadingDiv>}
       {!isLoading && error && (
         <ErrorDiv>
@@ -78,6 +79,7 @@ const MyProfileComponent = () => {
         </>
       )}
       <UsersPosts />
+    </ScrollableContainer>
     </Container>
   );
 };
@@ -85,14 +87,41 @@ const MyProfileComponent = () => {
 export default MyProfileComponent;
 
 const Container = styled.div`
-  margin-top: 18px;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+height: 50.5rem;
+margin-top: 1.5rem;
+position: relative;
+
+&::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
   width: 100%;
-  height: 100%;
-  overflow-y: auto;
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    width: 0 !important;
-  }
+  height: 4px;
+  background: linear-gradient(to right, #05445E, #D4F1F4, #05445E);
+}
+`;
+
+const ScrollableContainer = styled.div`
+overflow-y: auto;
+&::-webkit-scrollbar {
+  width: 0em;
+}
+&::-webkit-scrollbar-thumb {
+  background: #D4F1F4;
+  border-radius: 10px;
+}
+&::-webkit-scrollbar-thumb:hover {
+  background: #D4F1F4;
+}
+&::-webkit-scrollbar-track {
+  background: transparent;
+}
 `;
 
 const CoverPhotoContainer = styled.div`

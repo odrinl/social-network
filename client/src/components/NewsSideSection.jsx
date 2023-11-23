@@ -36,6 +36,10 @@ const NewsSideSection = () => {
     }
   };
 
+  const openLinkInNewTab = (link) => {
+    window.open(link, "_blank");
+  };
+
   const { performFetch, cancelFetch, isLoading, error } = useFetch(
     "/proxy/get",
     onReceived
@@ -60,6 +64,7 @@ const NewsSideSection = () => {
 
   return (
     <Container>
+      <NewsContainer>
       {isLoading ? (
         <p>Loading...</p>
       ) : error ? (
@@ -70,13 +75,16 @@ const NewsSideSection = () => {
             <Details>
               <NewsDate>{article.date}</NewsDate>
               <NewsName>
-                <ArticleLink to={article.link}>{article.title}</ArticleLink>
+              <ArticleLink onClick={() => openLinkInNewTab(article.link)}>
+                  {article.title}
+                  </ArticleLink>
               </NewsName>
             </Details>
             <NewsText>{article.description}</NewsText>
           </Item>
         ))
       )}
+      </NewsContainer>
     </Container>
   );
 };
@@ -86,12 +94,34 @@ const Container = styled.div`
   display: flex;
   width: 100%;
   flex-direction: column;
+  height: 49rem;
+  
+`;
+
+const NewsContainer = styled.div`
+  height: 100%;
+  overflow-y: auto;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    width: 0 !important;
+  }
 `;
 
 const Item = styled.div`
-  align-items: center;
-  margin-bottom: 1.2rem;
-  padding-right: 0.2rem;
+align-items: center;
+margin-bottom: 1.2rem;
+padding-right: 0.2rem;
+position: relative;
+
+&:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 100%;
+  height: 3px; /* Adjust the height as needed */
+  background: linear-gradient(to right, #05445E, #D4F1F4, #05445E);
+} 
 `;
 
 const NewsName = styled.div`
@@ -104,8 +134,13 @@ const Details = styled.div`
 `;
 
 const NewsDate = styled.div`
-  font-size: 0.8rem;
-  margin-bottom: 0.2rem;
+display: inline-block;
+background-color: #189AB4;
+color:white;
+border-radius: 4px;
+padding: 3px;
+font-size: 0.8rem;
+margin-bottom: 0.2rem;  
 `;
 
 const ArticleLink = styled(Link)`

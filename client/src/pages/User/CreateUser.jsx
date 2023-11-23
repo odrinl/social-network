@@ -201,20 +201,20 @@ const Container = styled.div`
   padding: 40px;
   overflow: hidden;
   border-radius: 20px;
-  border: 3px solid #90467f;
+  border: 3px solid #05445E;
   box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.3);
 `;
 const Heading = styled.h1`
   font-size: 40px;
   margin-bottom: 1rem;
-  color: #3b4a47;
+  color: #05445E;
   font-weight: 800;
   font-family: Inter;
   .white {
-    color: #3b4a47;
+    color: #05445E;
   }
   .black {
-    color: #90467f;
+    color: #189AB4;
   }
 `;
 
@@ -265,7 +265,7 @@ const StyledButton = styled.button`
   border-radius: 12px;
   border: 0;
   outline: 0;
-  background: #90467f;
+  background: #189AB4;
   font-size: 17px;
   margin-top: 1rem;
   color: white;
