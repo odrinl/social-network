@@ -13,12 +13,13 @@ const Welcome = () => {
           <span className="black">NET</span>
         </Heading>
         <Slogan>
-      Brings everyone closer ...<br />
-      And empowering refugees in the Netherlands
-    </Slogan>
+          Brings everyone closer ...
+          <br />
+          And empowering refugees in the Netherlands
+        </Slogan>
         <StyledList>
           <StyledListItem>
-          <Guid>Welcome Back ...</Guid>
+            <Guid>Welcome Back ...</Guid>
             <StyledLink to="/login">
               <StyledButton>Login</StyledButton>
             </StyledLink>
@@ -73,32 +74,32 @@ const Heading = styled.h1`
     color: #189ab4;
   }
   @media (max-width: 1200px) {
-  top: 8%;
-  left: 5%;
+    top: 8%;
+    left: 5%;
   }
   @media (max-width: 730px) {
     top: 12%;
     left: 25%;
-    }
+  }
 `;
 
 const StyledList = styled.ul`
   position: relative;
-  text-align:center;
-  top:35%;
-  left:5px;
-  margin-bottom:40px;
+  text-align: center;
+  top: 35%;
+  left: 5px;
+  margin-bottom: 40px;
   list-style: none;
   padding: 0;
   margin: 0;
   @media (max-width: 1200px) {
-  top: 25%;
-  left: 10%;
+    top: 25%;
+    left: 10%;
   }
   @media (max-width: 730px) {
     top: 35%;
     left: 22%;
-    color:#05445E;
+    color: #05445e;
   }
 `;
 
@@ -121,7 +122,7 @@ const StyledButton = styled.button`
   background: #75e6da;
   font-size: 17px;
   margin-top: 1rem;
-  color: #05445E;
+  color: #05445e;
   cursor: pointer;
   font-weight: bolder;
   box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.5);
@@ -135,8 +136,8 @@ const Slogan = styled.p`
   max-width: 90%;
   text-align: center;
   position: relative;
-  top:30%;
-  left:-1%;
+  top: 30%;
+  left: -1%;
   margin-top: 1rem;
   font-size: 20px;
   color: #75e6da;
@@ -144,13 +145,13 @@ const Slogan = styled.p`
   @media (max-width: 1200px) {
     top: 20%;
     left: 12%;
-    color:#05445E;
-    }
+    color: #05445e;
+  }
   @media (max-width: 730px) {
     top: 32%;
     left: 20%;
-    color:#05445E;
-    }
+    color: #05445e;
+  }
 `;
 
 const Guid = styled.div`

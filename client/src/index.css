@@ -40,7 +40,7 @@ body {
 
 .homepage {
   width: 1365px;
-  
+
   border-radius: var(--homepage-border-radius);
   margin: var(--homepage-margin-padding);
   padding: var(--homepage-margin-padding) 0.6rem;
@@ -49,7 +49,7 @@ body {
 
 .column {
   flex: 1;
-  
+
   margin: var(--homepage-margin-padding);
   flex-direction: column;
   margin-top: 5rem;
@@ -67,7 +67,7 @@ body {
 
 .middle-column {
   flex: 2;
-  
+
   margin: var(--homepage-margin-padding);
   border-radius: 0.5rem;
   flex-direction: column;

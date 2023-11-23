@@ -196,7 +196,7 @@ const FormContainer = styled.div`
 
 const Container = styled.div`
   display: flex;
-  background-color:white;
+  background-color: white;
   margin: 1rem;
   width: 500px;
   min-width: 340px;

@@ -163,7 +163,7 @@ const FormContainer = styled.div`
 
 const FormMain = styled.div`
   display: flex;
-  background-color:white;
+  background-color: white;
   width: 450px;
   margin: 1rem;
   flex-direction: column;

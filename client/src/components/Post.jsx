@@ -278,7 +278,6 @@ const UnlikeButton = styled(LikeButton)`
   }
 `;
 
-
 const LikeCount = styled.div`
   color: #788292;
   font-size: 1rem;
