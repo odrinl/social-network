@@ -76,7 +76,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 50.5rem;
+  height: 51rem;
   margin-top: 1.5rem;
   position: relative;
 

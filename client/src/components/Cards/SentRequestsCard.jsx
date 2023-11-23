@@ -165,7 +165,7 @@ const FriendItem = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 6px;
-  border: 3px solid #90467f;
+  border: 3px solid #05445E;
   background-color: white;
   border-radius: 8px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4);
@@ -184,7 +184,7 @@ const FriendInfo = styled.div`
 `;
 
 const Name = styled.h3`
-  font-size: 1.25rem;
+  font-size: 18px;
   color: #05445e;
   text-align: left;
   cursor: pointer;

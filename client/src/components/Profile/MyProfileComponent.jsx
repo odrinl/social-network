@@ -22,10 +22,20 @@ const MyProfileComponent = () => {
   const token = localStorage.getItem("token");
 
   const [data, setData] = useState([]);
+  const [friendsNumber, setFriendsNumber] = useState(null);
 
   const onSuccess = (response) => {
     setData(response);
   };
+
+  const onGetting = (response) => {
+    setFriendsNumber(response.friendsNumber);
+  };
+
+  const { performFetch: fetchFriendsNumber, cancelFetch: cancelFriendsNumber } =
+    useFetch(`/users/${userId}/friendsNumber`, onGetting);
+
+
   const { isLoading, error, performFetch, cancelFetch } = useFetch(
     `/users/${userId}`,
     onSuccess
@@ -33,6 +43,19 @@ const MyProfileComponent = () => {
 
   useEffect(() => {
     return cancelFetch;
+  }, []);
+  useEffect(() => {
+    return cancelFriendsNumber;
+  }, []);
+
+  useEffect(() => {
+    fetchFriendsNumber({
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
   }, []);
 
   useEffect(() => {
@@ -72,7 +95,7 @@ const MyProfileComponent = () => {
               {data.success && (
                 <div>
                   <h1>@ {data.user.username}</h1>
-                  <p>{`${fakeData.friends} Friends`}</p>
+                  <p>{`${friendsNumber} Friends`}</p>
                 </div>
               )}
             </ProfileInfo>
@@ -91,7 +114,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 50.5rem;
+  height: 51rem;
   margin-top: 1.5rem;
   position: relative;
 

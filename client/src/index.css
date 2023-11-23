@@ -83,11 +83,11 @@ body {
 }
 
 .title {
-  margin-bottom: 1rem;
+  margin-bottom: 25px;
   position: relative;
   color: #05445e;
   bottom: -5px;
-  left: 15%;
+  left: 20%;
 }
 
 .logo {
@@ -95,7 +95,7 @@ body {
   align-items: center;
   position: relative;
   height: 50px;
-  bottom: 43px;
+  bottom: 23px;
   left: 15%;
 }
 

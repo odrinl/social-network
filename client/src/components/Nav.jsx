@@ -44,7 +44,7 @@ const NavList = styled.ul`
   padding: 20px;
   display: flex;
   margin-top: 15px;
-  margin-bottom: 35px;
+  margin-bottom: 20px;
   position: relative;
 
   &::after {
