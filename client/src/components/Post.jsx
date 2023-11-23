@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { FaThumbsUp, FaComment, FaShare } from "react-icons/fa";
+import { FaThumbsUp, FaComment, FaShare, FaThumbsDown } from "react-icons/fa";
 import PropTypes from "prop-types";
 import TimeAgo from "react-timeago";
 import useFetch from "../hooks/useFetch";
@@ -11,13 +11,28 @@ const Post = ({ post, onPostChanged, isOwner }) => {
 
   const [isEditMode, setIsEditMode] = useState(false);
   const [postContent, setPostContent] = useState(post.text);
+  const [likesData, setLikesData] = useState({ likes: [] });
+  const [hasLikedPost, setHasLikedPost] = useState(false);
 
   useEffect(() => {
+    performGetLikesFetch();
     return () => {
       cancelDeleteFetch();
       cancelEditFetch();
+      cancelGetLikesFetch();
     };
-  }, []);
+  }, [userId]);
+
+  useEffect(() => {
+    const newHasLikedPost =
+      likesData &&
+      likesData.likes &&
+      likesData.likes.some((like) => like.user === userId);
+
+    if (newHasLikedPost !== hasLikedPost) {
+      setHasLikedPost(newHasLikedPost);
+    }
+  }, [likesData, userId, hasLikedPost]);
 
   const toggleEditMode = () => {
     setIsEditMode(!isEditMode);
@@ -32,6 +47,27 @@ const Post = ({ post, onPostChanged, isOwner }) => {
 
   const { performFetch: performEditFetch, cancelFetch: cancelEditFetch } =
     useFetch("/posts/edit", onReceived);
+
+  const { performFetch: performLikeFetch } = useFetch(
+    `/posts/${post._id}/like`,
+    (data) => {
+      setLikesData(data);
+      performGetLikesFetch();
+    }
+  );
+
+  const { performFetch: performUnlikeFetch } = useFetch(
+    `/posts/${post._id}/unlike`,
+    (data) => {
+      setLikesData(data);
+      performGetLikesFetch();
+    }
+  );
+
+  const {
+    performFetch: performGetLikesFetch,
+    cancelFetch: cancelGetLikesFetch,
+  } = useFetch(`/posts/${post._id}/likes`, setLikesData);
 
   const handlePostDelete = () => {
     const isConfirmed = window.confirm(
@@ -75,6 +111,39 @@ const Post = ({ post, onPostChanged, isOwner }) => {
 
       performEditFetch(options);
       setIsEditMode(false);
+    }
+  };
+
+  const handleLikeClick = async () => {
+    if (userId && post && post._id) {
+      const options = {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ userId: userId, postId: post._id }),
+      };
+
+      performLikeFetch(options);
+      performGetLikesFetch();
+    }
+  };
+
+  const handleUnlikeClick = async () => {
+    if (userId && post && post._id) {
+      const options = {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ userId: userId, postId: post._id }),
+      };
+
+      performUnlikeFetch(options);
+
+      performGetLikesFetch();
     }
   };
 
@@ -123,21 +192,37 @@ const Post = ({ post, onPostChanged, isOwner }) => {
             Save Changes
           </SaveChangesButton>
         )}
-        <Button>
-          <FaThumbsUp />
-        </Button>
-        <Button>
-          <FaComment />
-        </Button>
-        <Button>
-          <FaShare />
-        </Button>
+        {likesData &&
+        likesData.likes &&
+        likesData.likes.length !== undefined ? (
+          <LikeCount>{likesData.likes.length} Likes</LikeCount>
+        ) : (
+          <LikeCount> 0 Likes</LikeCount>
+        )}
+
+        {userId && post && post._id && (
+          <ButtonContainer>
+            {hasLikedPost ? (
+              <UnlikeButton onClick={handleUnlikeClick}>
+                <FaThumbsDown />
+              </UnlikeButton>
+            ) : (
+              <LikeButton onClick={handleLikeClick}>
+                <FaThumbsUp />
+              </LikeButton>
+            )}
+            <CommentButton>
+              <FaComment />
+            </CommentButton>
+            <ShareButton>
+              <FaShare />
+            </ShareButton>
+          </ButtonContainer>
+        )}
       </PostFooter>
     </Container>
   );
 };
-
-export default Post;
 
 const Container = styled.div`
   border: 1px solid #d4f1f4;
@@ -164,6 +249,78 @@ const ProfileImage = styled.img`
   margin-bottom: 1rem;
 `;
 
+const ButtonContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+const LikeButton = styled.button`
+  color: #fff;
+  background-color: ${({ liked }) => (liked ? "#ff6347" : "#4caf50")};
+  cursor: pointer;
+  opacity: 0.8;
+  margin-left: 1.5rem;
+  font-size: 1.3rem;
+  border: none;
+  border-radius: 50%;
+  padding: 0.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background-color: ${({ liked }) => (liked ? "#45a049" : "#d32f2f")};
+  }
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+    padding: 0.4rem;
+  }
+`;
+
+const UnlikeButton = styled(LikeButton)`
+  background-color: ${({ liked }) => (liked ? "#4caf50" : "#ff6347")};
+
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+    padding: 0.4rem;
+  }
+`;
+const CommentButton = styled.button`
+  color: #788292;
+  cursor: pointer;
+  opacity: 0.4;
+  margin-left: 1.5rem;
+  font-size: 2rem;
+  border: none;
+  background-color: transparent;
+
+  &:hover {
+    opacity: 0.8;
+  }
+`;
+
+const ShareButton = styled.button`
+  color: #788292;
+  cursor: pointer;
+  opacity: 0.4;
+  margin-left: 1.5rem;
+  font-size: 2rem;
+  border: none;
+  background-color: transparent;
+
+  &:hover {
+    opacity: 0.8;
+  }
+`;
+
+const LikeCount = styled.div`
+  color: #788292;
+  margin-right: 20.1rem;
+  font-size: 1rem;
+  @media (max-width: 768px) {
+    margin-right: 6rem;
+  }
+`;
+
 const UserName = styled.div`
   font-size: 1.2rem;
   flex-grow: 1;
@@ -185,14 +342,6 @@ const PostFooter = styled.div`
   justify-content: flex-end;
   font-size: 1rem;
   margin-top: 0.5rem;
-`;
-
-const Button = styled.div`
-  color: #788292;
-  cursor: pointer;
-  opacity: 0.4;
-  margin-left: 1.5rem;
-  font-size: 2rem;
 `;
 
 const DeleteButton = styled.div`
@@ -251,3 +400,5 @@ const Text = styled.textarea`
   text-align: left;
   padding: 0.5rem;
 `;
+
+export default Post;
