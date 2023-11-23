@@ -165,7 +165,7 @@ const FriendItem = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 6px;
-  border: 1px solid #ccc;
+  border: 3px solid #90467f;
   background-color: white;
   border-radius: 8px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4);
@@ -207,7 +207,7 @@ const FriendButton = styled.button`
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  margin: 8px 10px 8px 0;
+  margin: 8px 0px 8px 0;
 `;
 const ErrorDiv = styled.button`
   background-color: #b5d4e8;

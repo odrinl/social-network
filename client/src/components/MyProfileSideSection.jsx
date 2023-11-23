@@ -76,7 +76,8 @@ const Container = styled.div`
 const TextWrapper = styled.div`
   font-family: "Comfortaa", Helvetica;
   font-size: 32px;
-  font-weight: 400;
+  font-weight: bolder;
+  color: #90467f;
   height: 36px;
   left: 90px;
   letter-spacing: -0.48px;

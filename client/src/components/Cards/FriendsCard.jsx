@@ -140,7 +140,6 @@ const FriendGrid = styled.div`
   gap: 16px;
   max-width: 800px;
   margin: 0 auto;
-
   grid-template-columns: repeat(3, 1fr);
 
   @media (min-width: 250px) and (max-width: 450px) {
@@ -165,7 +164,7 @@ const FriendItem = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 6px;
-  border: 1px solid #ccc;
+  border: 3px solid #90467f;
   background-color: white;
   border-radius: 8px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4);
@@ -203,11 +202,12 @@ const ButtonContainer = styled.div`
 const FriendButton = styled.button`
   background-color: #05445e;
   color: white;
-  padding: 8px 16px;
+  font-weight: bolder;
+  padding: 8px 45px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  margin: 8px 10px 8px 0;
+  margin: 8px 0px 8px 0;
 `;
 const ErrorDiv = styled.button`
   background-color: #b5d4e8;

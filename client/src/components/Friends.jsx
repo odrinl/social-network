@@ -147,16 +147,13 @@ const Container = styled.div`
   justify-content: center;
 `;
 
-const SearchIcon = styled(FaSearch)`
-  color: gray;
-  margin-right: 0.5rem;
-`;
-
 const FriendsNav = styled.div`
   margin-top: 20px;
   background-color: #05445e;
   border-radius: 12px;
   width: 100%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 
@@ -175,7 +172,12 @@ const FriendsNav = styled.div`
       font-size: 14px;
       color: white;
       font-weight: bolder;
+      padding: 15px;
+      font-size: 14px;
+      color: white;
+      font-weight: bolder;
       cursor: pointer;
+      transition: color 0.3s, background-color 0.3s;
       transition: color 0.3s, background-color 0.3s;
 
       &:hover {
@@ -204,11 +206,15 @@ const FriendsNav = styled.div`
     margin: 0px;
   }
 `;
-
+const SearchIcon = styled(FaSearch)`
+  color: gray;
+  margin-right: 0.5rem;
+`;
 const SearchInput = styled.input`
   width: 90%;
   border: none;
   outline: none;
+  background: white;
   background: white;
   flex: 1;
   font-size: 16px;

@@ -41,7 +41,7 @@ export default Nav;
 const NavList = styled.ul`
   list-style: none;
   justify-content: space-between;
-  padding: 10px;
+  padding: 20px;
   display: flex;
   margin-top: 15px;
   margin-bottom: 35px;
@@ -61,7 +61,7 @@ const NavList = styled.ul`
 `;
 
 const NavItem = styled.li`
-  margin-right: 20px;
+  margin-right: 10px;
 `;
 
 const StyledNavLink = styled(NavLink)`
@@ -71,7 +71,8 @@ const StyledNavLink = styled(NavLink)`
   transition: color 0.3s;
 
   &:hover {
-    color: var(--nav-hover-color);
+    color: #3498db;
+    border-bottom: 2px solid #3498db;
   }
 
   &.active {
@@ -87,6 +88,6 @@ const StyledLogoutLink = styled.a`
   transition: color 0.3s;
 
   &:hover {
-    color: var(--nav-hover-color);
+    color: #2ecc71;
   }
 `;
