@@ -22,7 +22,7 @@ const Post = ({ post, onPostChanged, isOwner }) => {
       cancelEditFetch();
       cancelGetLikesFetch();
     };
-  }, []);
+  }, [hasLikedPost]);
 
   useEffect(() => {
     const newHasLikedPost =
@@ -34,10 +34,6 @@ const Post = ({ post, onPostChanged, isOwner }) => {
       setHasLikedPost(newHasLikedPost);
     }
   }, [likesData, userId, hasLikedPost]);
-
-  useEffect(() => {
-    console.log("Likes Data:", likesData);
-  }, [likesData]);
 
   const toggleEditMode = () => {
     setIsEditMode(!isEditMode);
@@ -113,7 +109,7 @@ const Post = ({ post, onPostChanged, isOwner }) => {
     }
   };
 
-  const handleLikeClick = () => {
+  const handleLikeClick = async () => {
     if (userId && post && post._id) {
       const options = {
         method: "PUT",
@@ -128,7 +124,7 @@ const Post = ({ post, onPostChanged, isOwner }) => {
     }
   };
 
-  const handleUnlikeClick = () => {
+  const handleUnlikeClick = async () => {
     if (userId && post && post._id) {
       const options = {
         method: "DELETE",
@@ -193,8 +189,9 @@ const Post = ({ post, onPostChanged, isOwner }) => {
         likesData.likes.length !== undefined ? (
           <LikeCount>{likesData.likes.length} Likes</LikeCount>
         ) : (
-          <LikeCount>0 Likes</LikeCount>
+          <LikeCount> 0 Likes</LikeCount>
         )}
+
         {userId && post && post._id && (
           <ButtonContainer>
             {hasLikedPost ? (
@@ -248,7 +245,6 @@ const ButtonContainer = styled.div`
   display: flex;
   align-items: center;
 `;
-
 const LikeButton = styled.button`
   color: #fff;
   background-color: ${({ liked }) => (liked ? "#ff6347" : "#4caf50")};
@@ -280,7 +276,6 @@ const UnlikeButton = styled(LikeButton)`
     padding: 0.4rem;
   }
 `;
-
 const CommentButton = styled.button`
   color: #788292;
   cursor: pointer;

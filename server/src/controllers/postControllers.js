@@ -86,13 +86,13 @@ export const getLikesForPost = asyncHandler(async (req, res) => {
     return;
   }
 
+  // Find the user that has the post
   const user = await User.findOne({ "posts._id": postId });
 
   if (!user) {
     res.status(404).json({ success: false, message: "User not found" });
     return;
   }
-
   const post = user.posts.id(postId);
 
   if (!post) {
@@ -121,8 +121,9 @@ export const likePost = asyncHandler(async (req, res) => {
   const post = user.posts.id(postId);
 
   if (!post) {
+    // If the post is not found in the user's posts, add the like directly to the post
     await User.findOneAndUpdate(
-      { "posts._id": postId, "posts.likes.user": { $ne: userId } },
+      { "posts._id": postId },
       {
         $addToSet: {
           "posts.$.likes": { user: userId },
@@ -131,11 +132,15 @@ export const likePost = asyncHandler(async (req, res) => {
       { new: true }
     );
   } else {
+    // If the post is found in the user's posts, check if the user has already liked it
     if (!post.likes.some((like) => like.user.equals(userId))) {
       post.likes.push({ user: userId });
       await user.save();
+      return res
+        .status(201)
+        .json({ success: true, message: "Post liked successfully" });
     } else {
-      return res.status(400).json({
+      return res.status(409).json({
         success: false,
         message: "You have already liked this post",
       });
@@ -143,8 +148,6 @@ export const likePost = asyncHandler(async (req, res) => {
   }
 
   res.status(201).json({ success: true, message: "Post liked successfully" });
-
-  res.status(500).json({ success: false, message: "Internal Server Error" });
 });
 
 export const unlikePost = asyncHandler(async (req, res) => {
@@ -165,34 +168,38 @@ export const unlikePost = asyncHandler(async (req, res) => {
   const post = user.posts.id(postId);
 
   if (!post) {
-    const updatedUser = await User.findOneAndUpdate(
+    const result = await User.findOneAndUpdate(
       { "posts._id": postId, "posts.likes.user": userId },
       {
         $pull: {
-          "posts.$[outer].likes": { user: userId },
+          "posts.$.likes": { user: userId },
         },
       },
-      { arrayFilters: [{ "outer.likes.user": userId }], new: true }
+      { new: true }
     );
 
-    if (!updatedUser) {
-      return res
+    if (result) {
+      res
+        .status(200)
+        .json({ success: true, message: "Post unliked successfully" });
+    } else {
+      res
         .status(400)
         .json({ success: false, message: "You have not liked this post" });
     }
   } else {
     post.likes = post.likes.filter((like) => like.user.toString() !== userId);
     await user.save();
+    res
+      .status(200)
+      .json({ success: true, message: "Post unliked successfully" });
   }
-
-  res.status(200).json({ success: true, message: "Post unliked successfully" });
-
-  res.status(500).json({ success: false, message: "Internal Server Error" });
 });
 
 export const createPost = asyncHandler(async (req, res) => {
   const { userId, text } = req.body;
 
+  // Find the user by ID
   const user = await User.findById(userId);
 
   if (!user) {
@@ -200,6 +207,7 @@ export const createPost = asyncHandler(async (req, res) => {
     throw new Error("User not found");
   }
 
+  // Create a new post object
   const newPost = {
     username: user.username,
     text,
