@@ -31,7 +31,7 @@ body {
   justify-content: center;
   align-items: center;
   width: 100%;
-  background-image: url("https://res.cloudinary.com/dtb1hpuil/image/upload/v1700775170/q5_rmntjh.jpg");
+  background-image:url("https://res.cloudinary.com/dtb1hpuil/image/upload/v1700775170/q5_rmntjh.jpg");
 }
 
 .container {
