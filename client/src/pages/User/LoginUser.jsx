@@ -6,7 +6,6 @@ const backgroundImage =
 
 import "../../index.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-// import { FaLock } from "react-icons/fa";
 import { useNavigate } from "react-router";
 
 function LoginUser() {
@@ -124,16 +123,6 @@ function LoginUser() {
               </PasswordToggle>
             </InputContainer>
             <SubmitButton id="button">LOG IN</SubmitButton>
-            {/* <RememberMe>
-              <StyledCheckboxLabel htmlFor="remember">
-                <StyledCheckbox type="checkbox" id="remember" name="remember" />
-                Remember me
-              </StyledCheckboxLabel>
-            </RememberMe>
-            <ForgotLink className="forgotLink">
-              <FaLock style={{ color: "black", marginRight: "5px" }} /> Forgot
-              password?
-            </ForgotLink> */}
           </Form>
           {error && <ErrorText>{error}</ErrorText>}
           {isLoading && <p>Loading...</p>}
@@ -264,43 +253,7 @@ const SubmitButton = styled.button`
   }
 `;
 
-// const RememberMe = styled.div`
-//   display: flex;
-//   align-items: center;
-//   margin: 40px 0;
-//   font-size: 1rem;
-//   font-weight: bolder;
-//   color: #939393;
-// `;
-
-// const StyledCheckboxLabel = styled.label`
-//   display: flex;
-//   align-items: flex-end;
-// `;
-
-// const StyledCheckbox = styled.input`
-//   margin-right: 1rem;
-//   cursor: pointer;
-//   width: 19px;
-//   height: 19px;
-// `;
-
 const ErrorText = styled.div`
   color: red;
   font-size: 1rem;
 `;
-
-// const ForgotLink = styled.a`
-//   cursor: pointer;
-//   position: relative;
-//   font-size: 1rem;
-//   margin-bottom: 1rem;
-//   font-weight: bolder;
-//   color: #0099ff;
-//   text-decoration: none;
-//   border-radius: 20px;
-//   transition: color 0.3s;
-//   &:hover {
-//     color: #166fe5;
-//   }
-// `;
