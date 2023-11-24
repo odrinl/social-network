@@ -93,6 +93,7 @@ const Container = styled.div`
 `;
 const PostsContainer = styled.div`
   height: 100%;
+  width:100%;
   overflow-y: auto;
   scrollbar-width: none;
   &::-webkit-scrollbar {

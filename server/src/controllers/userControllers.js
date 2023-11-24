@@ -277,8 +277,8 @@ export const unfriendUser = async (req, res) => {
 
     const friendship = await Friendship.findOne({
       $or: [
-        { userA: userId, userB: friendId },
-        { userA: friendId, userB: userId },
+        { userA: ObjectId(userId), userB: ObjectId(friendId) },
+        { userA: ObjectId(friendId), userB: ObjectId(userId) },
       ],
       status: "accepted",
     });
