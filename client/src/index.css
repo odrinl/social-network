@@ -1,13 +1,13 @@
 /* Define global variables */
 :root {
   --font-family: Roboto, Arial, sans-serif;
-  --nav-color: black;
+  --nav-color: 274156;
   --nav-background: white;
   --nav-hover-color: #ff9900;
   --nav-active-color: #1877f2;
-  --homepage-border-color: #ccc;
+  --homepage-border-color: #d4f1f4;
   --homepage-background-color: white;
-  --homepage-wrapper-background-color: #d9d9d9;
+  --homepage-wrapper-background-color: #f3f8ff;
   --homepage-margin-padding: 1rem;
   --homepage-button-background-color: #f0f7ff;
   --homepage-button-color: #f0f7ff;
@@ -31,16 +31,16 @@ body {
   justify-content: center;
   align-items: center;
   width: 100%;
+  background-image: url("https://res.cloudinary.com/dtb1hpuil/image/upload/v1700775170/q5_rmntjh.jpg");
 }
 
 .container {
   display: flex;
-  /* border: 1px dashed green; */
 }
 
 .homepage {
   width: 1365px;
-  background-color: var(--homepage-wrapper-background-color);
+
   border-radius: var(--homepage-border-radius);
   margin: var(--homepage-margin-padding);
   padding: var(--homepage-margin-padding) 0.6rem;
@@ -49,7 +49,7 @@ body {
 
 .column {
   flex: 1;
-  background-color: var(--homepage-wrapper-background-color);
+
   margin: var(--homepage-margin-padding);
   flex-direction: column;
   margin-top: 5rem;
@@ -61,11 +61,13 @@ body {
   padding: var(--homepage-margin-padding);
   margin-bottom: 2rem;
   justify-content: center;
+  box-shadow: 5px 5px 15px rgba(5, 3, 36, 0.3),
+    -5px 5px 15px rgba(5, 3, 36, 0.3);
 }
 
 .middle-column {
   flex: 2;
-  background-color: var(--homepage-wrapper-background-color);
+
   margin: var(--homepage-margin-padding);
   border-radius: 0.5rem;
   flex-direction: column;
@@ -81,22 +83,20 @@ body {
 }
 
 .title {
-  margin-bottom: 1rem;
+  margin-bottom: 25px;
+  position: relative;
+  color: #05445e;
+  bottom: -5px;
+  left: 20%;
 }
 
 .logo {
-  display: flex;
-  width: 100%;
   justify-content: space-between;
   align-items: center;
-}
-
-.logo img {
   position: relative;
-  width: 175px;
-  height: 45px;
-  bottom: 40px;
-  left: 40px;
+  height: 50px;
+  bottom: 23px;
+  left: 15%;
 }
 
 /* Add media queries for responsiveness */
@@ -144,6 +144,8 @@ body {
 
   .logo {
     margin: 1rem;
+    bottom: -15px;
+    left: 0px;
   }
 
   .logo img {

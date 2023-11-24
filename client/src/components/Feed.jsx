@@ -74,8 +74,22 @@ export default Feed;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  height: 50rem;
-  margin-top: 1rem;
+  align-items: center;
+  justify-content: center;
+  height: 51rem;
+  margin-top: 1.5rem;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(to right, #05445e, #d4f1f4, #05445e);
+  }
 `;
 const PostsContainer = styled.div`
   height: 100%;

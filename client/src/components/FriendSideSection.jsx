@@ -69,16 +69,16 @@ const FriendSlideSection = () => {
     </Container>
   );
 };
+
 const Container = styled.div`
   display: flex;
   width: 100%;
   flex-direction: column;
+  height: 29rem;
 `;
 
 const ScrollableContainer = styled.div`
   overflow-y: auto;
-  max-height: 400px;
-  border: 1px solid #dddfe2;
   border-radius: 8px;
   padding: 10px;
   overflow-y: auto;
@@ -103,7 +103,7 @@ const FriendItem = styled.div`
   transition: background-color 0.3s;
 
   &:hover {
-    background-color: #f0f2f5;
+    background-color: #d4f1f4;
   }
 `;
 
@@ -121,6 +121,7 @@ const FriendAvatar = styled.img`
 const FriendName = styled.div`
   font-weight: bold;
   font-size: 16px;
+  color: #05445e;
 `;
 
 const LoadingDiv = styled.div`

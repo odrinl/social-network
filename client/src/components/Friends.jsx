@@ -60,62 +60,64 @@ const Friends = () => {
 
   return (
     <Container>
-      <SearchContainer>
-        <SearchIcon />
-        <SearchInput
-          onChange={(e) => {
-            setCategory("search");
-            setEndPoint(
-              `/users/${userId}/searchNonFriendsByName?name=${e.target.value}`
-            );
-            setInput(e.target.value);
-          }}
-          value={input}
-          type="text"
-          placeholder="Search People"
-        />
-      </SearchContainer>
+      <BoxContainer>
+        <SearchContainer>
+          <SearchIcon />
+          <SearchInput
+            onChange={(e) => {
+              setCategory("search");
+              setEndPoint(
+                `/users/${userId}/searchNonFriendsByName?name=${e.target.value}`
+              );
+              setInput(e.target.value);
+            }}
+            value={input}
+            type="text"
+            placeholder="Search People"
+          />
+        </SearchContainer>
 
-      <FriendsNav>
-        <ul>
-          <li
-            className={category === "friends" ? "active" : ""}
-            onClick={() => {
-              setCategory("friends");
-              setEndPoint(`/users/${userId}/friends`);
-              setInput("");
-            }}
-          >
-            My
-            <br />
-            Friends
-          </li>
-          <li
-            className={category === "friends-requests" ? "active" : ""}
-            onClick={() => {
-              setCategory("friends-requests");
-              setEndPoint(`/users/${userId}/getAllReceivedRequests`);
-              setInput("");
-            }}
-          >
-            Friends
-            <br />
-            Requests
-          </li>
-          <li
-            className={category === "sent-requests" ? "active" : ""}
-            onClick={() => {
-              setCategory("sent-requests");
-              setEndPoint(`/users/${userId}/getAllSentRequests`);
-              setInput("");
-            }}
-          >
-            Sent
-            <br />
-            Requests
-          </li>
-        </ul>
-      </FriendsNav>
+        <FriendsNav>
+          <ul>
+            <li
+              className={category === "friends" ? "active" : ""}
+              onClick={() => {
+                setCategory("friends");
+                setEndPoint(`/users/${userId}/friends`);
+                setInput("");
+              }}
+            >
+              My
+              <br />
+              Friends
+            </li>
+            <li
+              className={category === "friends-requests" ? "active" : ""}
+              onClick={() => {
+                setCategory("friends-requests");
+                setEndPoint(`/users/${userId}/getAllReceivedRequests`);
+                setInput("");
+              }}
+            >
+              Friends
+              <br />
+              Requests
+            </li>
+            <li
+              className={category === "sent-requests" ? "active" : ""}
+              onClick={() => {
+                setCategory("sent-requests");
+                setEndPoint(`/users/${userId}/getAllSentRequests`);
+                setInput("");
+              }}
+            >
+              Sent
+              <br />
+              Requests
+            </li>
+          </ul>
+        </FriendsNav>
+      </BoxContainer>
       {cardComponent}
       {statusComponent}
     </Container>
@@ -124,88 +126,109 @@ const Friends = () => {
 
 export default Friends;
 
-const SearchContainer = styled.div``;
+const SearchContainer = styled.div`
+  width: 100%;
+`;
+
+const BoxContainer = styled.div`
+  width: 100%;
+  background-color: #05445e;
+  color: white;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+`;
 
 const Container = styled.div`
   display: flex;
+  margin-top: 20px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 `;
 
-const SearchIcon = styled(FaSearch)`
-  color: gray;
-  margin-right: 0.5rem;
-`;
-
 const FriendsNav = styled.div`
-  display: flex;
-  flex-direction: row;
   margin-top: 20px;
-  align-items: center;
-  justify-content: center;
-  background-color: white;
+  background-color: #05445e;
   border-radius: 12px;
-  height: 40px;
   width: 100%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 
   ul {
+    display: flex;
     list-style: none;
     padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    margin: 0;
+
+    border-radius: 12px;
 
     li {
-      height: 40px;
-      border-radius: 12px;
-      font-size: 15px;
-      margin-top: 5px;
-      color: black;
-      cursor: pointer;
+      flex: 1;
       text-align: center;
-      display: flex;
+      padding: 15px;
+      font-size: 14px;
+      color: white;
+      font-weight: bolder;
+      padding: 15px;
+      font-size: 14px;
+      color: white;
+      font-weight: bolder;
       cursor: pointer;
-      transition: color 0.3s;
+      transition: color 0.3s, background-color 0.3s;
+      transition: color 0.3s, background-color 0.3s;
 
       &:hover {
-        transform: scale(1.1);
-        transition: transform 0.3s ease-in-out;
-        color: var(--nav-hover-color);
+        color: orange;
+        border-radius: 12px;
       }
 
       &.active {
-        color: var(--nav-active-color);
+        color: #189ab4;
+        font-weight: bold;
+        background-color: #d4f1f4;
+        border-radius: 5px;
       }
     }
   }
-
   @media (min-width: 1200px) {
-    width: 60%;
+    width: 100%;
   }
   li {
     margin: 0 15px;
   }
   @media (min-width: 500px) and (max-width: 770px) {
-    width: 65%;
+    width: 100%;
   }
   li {
-    margin: 0 15px;
+    margin: 0px;
   }
 `;
-
+const SearchIcon = styled(FaSearch)`
+  color: gray;
+  margin-right: 0.5rem;
+`;
 const SearchInput = styled.input`
+  width: 90%;
   border: none;
   outline: none;
-  background: transparent;
+  background: white;
+  background: white;
   flex: 1;
   font-size: 16px;
-  padding: 6px;
-  border-radius: 50px;
-  background-color: #f0f2f5;
-  color: #1d2129;
-  border: 1px solid #d3d6db;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  color: black;
+
+  transition: border-color 0.3s;
+
   &::placeholder {
-    color: #8c949e;
+    color: #189ab4;
+  }
+
+  &:focus {
+    border-color: #189ab4;
   }
 `;
