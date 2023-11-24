@@ -4,11 +4,11 @@ import validateAllowedFields from "../util/validateAllowedFields.js";
 const postSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User", // Reference to the User model
+    ref: "User",
   },
-  username: String, // Add the username property to the Post schema
+  username: String,
   text: String,
-  images: [String], // image URLs or paths, public/assets (not sure)
+  images: [String],
   timestamp: { type: Date, default: Date.now },
 });
 

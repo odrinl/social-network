@@ -7,6 +7,7 @@ import app from "./app.js";
 import { logInfo, logError } from "./util/logging.js";
 import connectDB from "./db/connectDB.js";
 import testRouter from "./testRouter.js";
+import path from "path";
 
 // The environment should set the port
 const port = process.env.PORT;
@@ -33,14 +34,11 @@ const startServer = async () => {
  * When not in production, don't host the files, but the development version of the app can connect to the backend itself.
  */
 if (process.env.NODE_ENV === "production") {
-  app.use(
-    express.static(new URL("../../client/dist", import.meta.url).pathname)
-  );
+  const clientDistPath = path.resolve(__dirname, "../../client/dist");
+  app.use(express.static(clientDistPath));
   // Redirect * requests to give the client data
   app.get("*", (req, res) =>
-    res.sendFile(
-      new URL("../../client/dist/index.html", import.meta.url).pathname
-    )
+    res.sendFile(path.resolve(__dirname, "../../client/dist/index.html"))
   );
 }
 
