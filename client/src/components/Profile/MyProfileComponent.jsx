@@ -24,7 +24,7 @@ const MyProfileComponent = () => {
   const [data, setData] = useState([]);
 
   const onSuccess = (response) => {
-    setData(response);
+    setData(response.user);
   };
   const { isLoading, error, performFetch, cancelFetch } = useFetch(
     `/users/${userId}`,
@@ -32,6 +32,7 @@ const MyProfileComponent = () => {
   );
 
   useEffect(() => {
+    console.log(data);
     return cancelFetch;
   }, []);
 
@@ -97,7 +98,7 @@ const MyProfileComponent = () => {
             <ProfilePicContainer>
               <ProfilePic
                 id="profilePic"
-                src={`${process.env.BASE_SERVER_URL}/uploadImages/${user.profilePicture}`}
+                src={`${process.env.BASE_SERVER_URL}/uploadImages/${data.profilePicture}`}
                 alt="Profile Pic"
               />
               <input
