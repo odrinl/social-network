@@ -5,6 +5,7 @@ import userRoutes from "./routes/userRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import postRoutes from "./routes/postRoutes.js";
 import proxyRoutes from "./routes/proxyRoutes.js";
+import uploadRoutes from "./routes/uploadRoutes.js";
 
 // Create an express server
 const app = express();
@@ -24,4 +25,5 @@ app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/proxy", proxyRoutes);
 
+app.use("/api/uploads", uploadRoutes);
 export default app;

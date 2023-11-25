@@ -12,8 +12,6 @@ export const fakeData = {
     "https://th.bing.com/th?id=OIP.zcvn4QV1z5E7vQOFDLP6UQHaC2&w=350&h=134&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2",
 };
 
-const placeholderProfilePic =
-  "https://via.placeholder.com/140x140?text=Profile+Pic";
 const placeholderCoverPhoto =
   "https://via.placeholder.com/1000x240?text=Cover+Photo";
 
@@ -25,7 +23,7 @@ const MyProfileComponent = () => {
   const [friendsNumber, setFriendsNumber] = useState(null);
 
   const onSuccess = (response) => {
-    setData(response);
+    setData(response.user);
   };
 
   const onGetting = (response) => {
@@ -57,6 +55,8 @@ const MyProfileComponent = () => {
     });
   }, []);
 
+  console.log(friendsNumber);
+
   useEffect(() => {
     performFetch({
       method: "GET",
@@ -66,6 +66,38 @@ const MyProfileComponent = () => {
       },
     });
   }, [userId]);
+
+  const handleProfilePictureUpload = async (event) => {
+    const file = event.target.files[0];
+
+    const formData = new FormData();
+    formData.append("profilePicture", file);
+
+    try {
+      const response = await fetch(
+        `${process.env.BASE_SERVER_URL}/api/uploads/upload-profile-picture/${userId}`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        }
+      );
+
+      if (response.ok) {
+        const result = await response.json();
+
+        document.getElementById(
+          "profilePic"
+        ).src = `${process.env.BASE_SERVER_URL}${result.profilePictureUrl}`;
+      } else {
+        console.error("Profile picture upload failed");
+      }
+    } catch (error) {
+      console.error("Error uploading profile picture:", error);
+    }
+  };
 
   return (
     <Container>
@@ -87,16 +119,26 @@ const MyProfileComponent = () => {
             <ProfileInfo>
               <ProfilePicContainer>
                 <ProfilePic
-                  src={data.profilePic || placeholderProfilePic}
+                  id="profilePic"
+                  src={
+                    data.profilePicture
+                      ? `${process.env.BASE_SERVER_URL}/uploadImages/${data.profilePicture}`
+                      : placeholderCoverPhoto
+                  }
                   alt="Profile Pic"
                 />
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleProfilePictureUpload}
+                />
               </ProfilePicContainer>
-              {data.success && (
+              {
                 <div>
-                  <h1>@ {data.user.username}</h1>
+                  <h1>@ {data.username}</h1>
                   <p>{`${friendsNumber} Friends`}</p>
                 </div>
-              )}
+              }
             </ProfileInfo>
           </>
         )}
