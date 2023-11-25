@@ -55,6 +55,8 @@ const MyProfileComponent = () => {
     });
   }, []);
 
+  console.log(friendsNumber);
+
   useEffect(() => {
     performFetch({
       method: "GET",
@@ -131,12 +133,12 @@ const MyProfileComponent = () => {
                   onChange={handleProfilePictureUpload}
                 />
               </ProfilePicContainer>
-              {data.success && (
+              {
                 <div>
-                  <h1>@ {data.user.username}</h1>
-                  <p>{`${fakeData.friends} Friends`}</p>
+                  <h1>@ {data.username}</h1>
+                  <p>{`${friendsNumber} Friends`}</p>
                 </div>
-              )}
+              }
             </ProfileInfo>
           </>
         )}
