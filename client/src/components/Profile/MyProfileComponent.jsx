@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import useFetch from "../../hooks/useFetch";
 import UsersPosts from "./UsersPosts";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCamera } from "@fortawesome/free-solid-svg-icons";
+import AddPicModal from "./AddPicModal";
 
 export const fakeData = {
   username: "Sophie",
@@ -24,6 +27,34 @@ const MyProfileComponent = () => {
   const [data, setData] = useState([]);
   const [friendsNumber, setFriendsNumber] = useState(null);
 
+  const [showProfileModal, setShowProfileModal] = useState(false);
+  const [showCoverModal, setShowCoverModal] = useState(false);
+  const [profilePic, setProfilePic] = useState(fakeData.profilePic);
+  const [coverPhoto, setCoverPhoto] = useState(fakeData.coverPhoto);
+
+  const handleSaveProfilePic = (newProfilePic) => {
+    setProfilePic(newProfilePic);
+  };
+
+  const handleSaveCoverPhoto = (newCoverPhoto) => {
+    setCoverPhoto(newCoverPhoto);
+  };
+
+  const onSuccessProfilePic = (data) => {
+    console.log("Profile picture data:", data);
+
+    // Check if the success property is true and the profilePictureUrl is present
+    if (data.success && data.profilePictureUrl) {
+      // Assuming the server provides the complete URL, you can set it directly
+      setProfilePic(`http://localhost:5000${data.profilePictureUrl}`);
+    } else {
+      console.error(
+        "Error fetching profile picture. Invalid response format:",
+        data
+      );
+    }
+  };
+
   const onSuccess = (response) => {
     setData(response);
   };
@@ -39,12 +70,19 @@ const MyProfileComponent = () => {
     `/users/${userId}`,
     onSuccess
   );
+  const { performFetch: fetchProfilePic, cancelFetch: cancelProfilePic } =
+    useFetch(`/get-profile-picture/${userId}`, onSuccessProfilePic, (error) => {
+      console.error("Error fetching profile picture:", error);
+    });
 
   useEffect(() => {
     return cancelFetch;
   }, []);
   useEffect(() => {
     return cancelFriendsNumber;
+  }, []);
+  useEffect(() => {
+    return cancelProfilePic;
   }, []);
 
   useEffect(() => {
@@ -67,6 +105,16 @@ const MyProfileComponent = () => {
     });
   }, [userId]);
 
+  useEffect(() => {
+    fetchProfilePic({
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+  }, [userId]);
+
   return (
     <Container>
       <ScrollableContainer>
@@ -76,28 +124,67 @@ const MyProfileComponent = () => {
             Error while trying to get data from the server: {error.toString()}
           </ErrorDiv>
         )}
-        {!isLoading && !error && (
+        {!isLoading && !error && data.user && (
           <>
             <CoverPhotoContainer>
-              <CoverPhoto
-                src={data.coverPhoto || placeholderCoverPhoto}
-                alt="Cover Photo"
-              />
+              {coverPhoto ? (
+                <CoverPhoto src={coverPhoto} alt="Cover Photo" />
+              ) : (
+                <CoverPhoto
+                  src={placeholderCoverPhoto}
+                  alt="Placeholder Cover Photo"
+                />
+              )}
+              <CoverEditButton onClick={() => setShowCoverModal(true)}>
+                Edit Cover Photo
+              </CoverEditButton>
             </CoverPhotoContainer>
             <ProfileInfo>
               <ProfilePicContainer>
-                <ProfilePic
-                  src={data.profilePic || placeholderProfilePic}
-                  alt="Profile Pic"
-                />
+                {profilePic ? (
+                  <ProfilePic
+                    src={profilePic || placeholderProfilePic}
+                    alt="Profile Pic"
+                    onClick={() => setShowProfileModal(true)}
+                  />
+                ) : (
+                  <ProfilePic
+                    src={placeholderProfilePic}
+                    alt="Placeholder Profile Pic"
+                    onClick={() => setShowProfileModal(true)}
+                  />
+                )}
+
+                <CameraIcon onClick={() => setShowProfileModal(true)}>
+                  <FontAwesomeIcon icon={faCamera} />
+                </CameraIcon>
               </ProfilePicContainer>
-              {data.success && (
-                <div>
-                  <h1>@ {data.user.username}</h1>
-                  <p>{`${friendsNumber} Friends`}</p>
-                </div>
-              )}
+
+              <div>
+                <h1>@ {data.user.username}</h1>
+                <p>{`${friendsNumber} Friends`}</p>
+              </div>
+              {/* <EditProfileButton>
+                <FontAwesomeIcon icon={FaPencilAlt} />
+                Edit Profile
+              </EditProfileButton> */}
             </ProfileInfo>
+            {showProfileModal && (
+              <AddPicModal
+                isOpen={showProfileModal}
+                type="profile"
+                onClose={() => setShowProfileModal(false)}
+                onSave={handleSaveProfilePic}
+              />
+            )}
+            {showCoverModal && (
+              <AddPicModal
+                isOpen={showCoverModal}
+                type="cover"
+                onClose={() => setShowCoverModal(false)}
+                onSave={handleSaveCoverPhoto}
+              />
+            )}
           </>
         )}
         <UsersPosts />
@@ -129,6 +216,64 @@ const Container = styled.div`
   }
 `;
 
+const CoverEditButton = styled.div`
+  position: absolute;
+  top: 190px;
+  right: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 0.4rem;
+  color: #fff;
+  transition: background-color 0.3s;
+  svg {
+    font-size: 20px;
+    margin-right: 8px;
+  }
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.7); /* Added opening curly brace here */
+  }
+`;
+
+// const EditProfileButton = styled.div`
+//   background-color: #1da1f2;
+//   padding: 10px;
+//   width: 140px;
+//   cursor: pointer;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   font-size: 16px;
+//   font-weight: bold;
+//   border-radius: 0.4rem;
+//   color: #fff;
+//   transition: background-color 0.3s;
+//   margin-left: auto;
+//   svg {
+//     font-size: 20px;
+//     margin-right: 8px;
+//   }
+//   &:hover {
+//     background-color: #0099e5;
+//   }
+// `;
+
+const CameraIcon = styled.div`
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: #fff;
+  border-radius: 50%;
+  padding: 4px;
+  svg {
+    font-size: 19px;
+  }
+`;
 const ScrollableContainer = styled.div`
   overflow-y: auto;
   &::-webkit-scrollbar {

@@ -50,6 +50,7 @@ const userSchema = new mongoose.Schema({
   status: String,
   description: String,
   profilePicture: String,
+  coverPicture: String,
   posts: [postSchema],
 });
 
