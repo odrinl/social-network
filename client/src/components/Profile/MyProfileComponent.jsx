@@ -19,8 +19,6 @@ const MyProfileComponent = () => {
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
 
-  const user = JSON.parse(localStorage.getItem("user"));
-
   const [data, setData] = useState([]);
   const [friendsNumber, setFriendsNumber] = useState(null);
 
@@ -41,7 +39,6 @@ const MyProfileComponent = () => {
   );
 
   useEffect(() => {
-    console.log(data);
     return cancelFetch;
   }, []);
   useEffect(() => {
@@ -102,37 +99,49 @@ const MyProfileComponent = () => {
 
   return (
     <Container>
-      {isLoading && <LoadingDiv>Loading....</LoadingDiv>}
-      {!isLoading && error && (
-        <ErrorDiv>
-          Error while trying to get data from the server: {error.toString()}
-        </ErrorDiv>
-      )}
-      {!isLoading && !error && (
-        <>
-          <CoverPhotoContainer>
-            <CoverPhoto
-              src={data.coverPhoto || placeholderCoverPhoto}
-              alt="Cover Photo"
-            />
-          </CoverPhotoContainer>
-          <ProfileInfo>
-            <ProfilePicContainer>
-              <ProfilePic
-                src={data.profilePic || placeholderProfilePic}
-                alt="Profile Pic"
+      <ScrollableContainer>
+        {isLoading && <LoadingDiv>Loading....</LoadingDiv>}
+        {!isLoading && error && (
+          <ErrorDiv>
+            Error while trying to get data from the server: {error.toString()}
+          </ErrorDiv>
+        )}
+        {!isLoading && !error && (
+          <>
+            <CoverPhotoContainer>
+              <CoverPhoto
+                src={data.coverPhoto || placeholderCoverPhoto}
+                alt="Cover Photo"
               />
-            </ProfilePicContainer>
-            {data.success && (
-              <div>
-                <h1>@ {data.user.username}</h1>
-                <p>{`${fakeData.friends} Friends`}</p>
-              </div>
-            )}
-          </ProfileInfo>
-        </>
-      )}
-      <UsersPosts />
+            </CoverPhotoContainer>
+            <ProfileInfo>
+              <ProfilePicContainer>
+                <ProfilePic
+                  id="profilePic"
+                  src={
+                    data.profilePicture
+                      ? `${process.env.BASE_SERVER_URL}/uploadImages/${data.profilePicture}`
+                      : placeholderCoverPhoto
+                  }
+                  alt="Profile Pic"
+                />
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleProfilePictureUpload}
+                />
+              </ProfilePicContainer>
+              {data.success && (
+                <div>
+                  <h1>@ {data.user.username}</h1>
+                  <p>{`${fakeData.friends} Friends`}</p>
+                </div>
+              )}
+            </ProfileInfo>
+          </>
+        )}
+        <UsersPosts />
+      </ScrollableContainer>
     </Container>
   );
 };
