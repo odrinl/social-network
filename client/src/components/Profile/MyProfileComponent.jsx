@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import useFetch from "../../hooks/useFetch";
 import UsersPosts from "./UsersPosts";
+import { FaCamera } from "react-icons/fa";
 
 export const fakeData = {
-  username: "Sophie",
-  friends: 2,
   profilePic:
-    "https://th.bing.com/th/id/OIP.vQcH6uRqJd1SIpce-41uUgHaLH?w=146&h=219&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+    "https://th.bing.com/th/id/OIP.yhqkR9B2hKbtwwZ8bPNbQQHaHw?w=200&h=209&c=7&r=0&o=5&dpr=1.3&pid=1.7",
   coverPhoto:
-    "https://th.bing.com/th?id=OIP.zcvn4QV1z5E7vQOFDLP6UQHaC2&w=350&h=134&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2",
+    "https://th.bing.com/th/id/OIP.Tn2c_lREpwhQGXrvQ3aRgwHaHa?pid=ImgDet&w=200&h=200&c=7&dpr=1,3",
 };
 
+const placeholderProfilePic =
+  "https://via.placeholder.com/140?text=Profile+Pic";
 const placeholderCoverPhoto =
   "https://via.placeholder.com/1000x240?text=Cover+Photo";
 
@@ -21,6 +22,7 @@ const MyProfileComponent = () => {
 
   const [data, setData] = useState([]);
   const [friendsNumber, setFriendsNumber] = useState(null);
+  const fileInputRef = useRef(null);
 
   const onSuccess = (response) => {
     setData(response.user);
@@ -67,35 +69,83 @@ const MyProfileComponent = () => {
     });
   }, [userId]);
 
-  const handleProfilePictureUpload = async (event) => {
+  const handleProfilePictureUpload = () => {
+    // Programmatically trigger the file input click event
+    fileInputRef.current.click();
+  };
+
+  const handleFileInputChange = async (event) => {
     const file = event.target.files[0];
+    console.log("Selected file:", file);
 
-    const formData = new FormData();
-    formData.append("profilePicture", file);
+    if (file) {
+      const formData = new FormData();
+      formData.append("profilePicture", file);
 
-    try {
-      const response = await fetch(
-        `${process.env.BASE_SERVER_URL}/api/uploads/upload-profile-picture/${userId}`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          body: formData,
+      try {
+        const response = await fetch(
+          `${process.env.BASE_SERVER_URL}/api/uploads/upload-profile-picture/${userId}`,
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            body: formData,
+          }
+        );
+
+        if (response.ok) {
+          const result = await response.json();
+
+          document.getElementById(
+            "profilePic"
+          ).src = `${process.env.BASE_SERVER_URL}${result.profilePictureUrl}`;
+        } else {
+          console.error("Profile picture upload failed");
         }
-      );
-
-      if (response.ok) {
-        const result = await response.json();
-
-        document.getElementById(
-          "profilePic"
-        ).src = `${process.env.BASE_SERVER_URL}${result.profilePictureUrl}`;
-      } else {
-        console.error("Profile picture upload failed");
+      } catch (error) {
+        console.error("Error uploading profile picture:", error);
       }
-    } catch (error) {
-      console.error("Error uploading profile picture:", error);
+    }
+  };
+
+  const handleCoverPhotoUpload = () => {
+    // Programmatically trigger the file input click event
+    fileInputRef.current.click();
+  };
+
+  const handleCoverFileInputChange = async (event) => {
+    const file = event.target.files[0];
+    console.log("Selected cover photo file:", file);
+
+    if (file) {
+      const formData = new FormData();
+      formData.append("coverPicture", file);
+
+      try {
+        const response = await fetch(
+          `${process.env.BASE_SERVER_URL}/api/uploads/upload-cover-picture/${userId}`,
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            body: formData,
+          }
+        );
+
+        if (response.ok) {
+          const result = await response.json();
+
+          document.getElementById(
+            "coverPhoto"
+          ).src = `${process.env.BASE_SERVER_URL}${result.coverPictureUrl}`;
+        } else {
+          console.error("Cover photo upload failed");
+        }
+      } catch (error) {
+        console.error("Error uploading cover photo:", error);
+      }
     }
   };
 
@@ -112,10 +162,28 @@ const MyProfileComponent = () => {
           <>
             <CoverPhotoContainer>
               <CoverPhoto
-                src={data.coverPhoto || placeholderCoverPhoto}
+                id="coverPhoto"
+                src={
+                  data.coverPicture
+                    ? `${process.env.BASE_SERVER_URL}/uploadImages/${data.coverPicture}`
+                    : placeholderCoverPhoto
+                }
                 alt="Cover Photo"
               />
+              <CoverEditButton onClick={handleCoverPhotoUpload}>
+                <FaCamera />
+                Edit Cover Photo
+              </CoverEditButton>
+              {/* Hidden file input */}
+              <input
+                type="file"
+                ref={fileInputRef}
+                style={{ display: "none" }}
+                accept="image/*"
+                onChange={handleCoverFileInputChange}
+              />
             </CoverPhotoContainer>
+
             <ProfileInfo>
               <ProfilePicContainer>
                 <ProfilePic
@@ -123,14 +191,20 @@ const MyProfileComponent = () => {
                   src={
                     data.profilePicture
                       ? `${process.env.BASE_SERVER_URL}/uploadImages/${data.profilePicture}`
-                      : placeholderCoverPhoto
+                      : placeholderProfilePic
                   }
                   alt="Profile Pic"
                 />
+                <CameraIcon onClick={handleProfilePictureUpload}>
+                  <FaCamera />
+                </CameraIcon>
+                {/* Hidden file input */}
                 <input
                   type="file"
+                  ref={fileInputRef}
+                  style={{ display: "none" }}
                   accept="image/*"
-                  onChange={handleProfilePictureUpload}
+                  onChange={handleFileInputChange}
                 />
               </ProfilePicContainer>
               {
@@ -170,7 +244,17 @@ const Container = styled.div`
     background: linear-gradient(to right, #05445e, #d4f1f4, #05445e);
   }
 `;
-
+const CameraIcon = styled.div`
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: #fff;
+  border-radius: 50%;
+  padding: 4px;
+  svg {
+    font-size: 19px;
+  }
+`;
 const ScrollableContainer = styled.div`
   overflow-y: auto;
   &::-webkit-scrollbar {
@@ -188,6 +272,29 @@ const ScrollableContainer = styled.div`
   }
 `;
 
+const CoverEditButton = styled.div`
+  position: absolute;
+  top: 190px;
+  right: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 0.4rem;
+  color: #fff;
+  transition: background-color 0.3s;
+  svg {
+    font-size: 20px;
+    margin-right: 8px;
+  }
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.7); /* Added opening curly brace here */
+  }
+`;
 const CoverPhotoContainer = styled.div`
   position: relative;
 `;
