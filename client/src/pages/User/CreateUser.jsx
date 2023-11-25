@@ -5,6 +5,8 @@ import useFetch from "../../hooks/useFetch";
 import TEST_ID from "./CreateUser.testid";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router";
+const backgroundImage =
+  "https://res.cloudinary.com/dtb1hpuil/image/upload/v1700775170/q5_rmntjh.jpg";
 const CreateUser = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -178,6 +180,7 @@ const CreateUser = () => {
 export default CreateUser;
 
 const FormWrapper = styled.div`
+  background-image: url(${backgroundImage});
   display: flex;
   width: 100%;
   height: 100vh;
@@ -194,6 +197,7 @@ const FormContainer = styled.div`
 
 const Container = styled.div`
   display: flex;
+  background-color: white;
   margin: 1rem;
   width: 500px;
   min-width: 340px;
@@ -202,20 +206,20 @@ const Container = styled.div`
   padding: 40px;
   overflow: hidden;
   border-radius: 20px;
-  border: 3px solid #90467f;
+  border: 3px solid #05445e;
   box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.3);
 `;
 const Heading = styled.h1`
   font-size: 40px;
   margin-bottom: 1rem;
-  color: #3b4a47;
+  color: #05445e;
   font-weight: 800;
   font-family: Inter;
   .white {
-    color: #3b4a47;
+    color: #05445e;
   }
   .black {
-    color: #90467f;
+    color: #189ab4;
   }
 `;
 
@@ -266,7 +270,7 @@ const StyledButton = styled.button`
   border-radius: 12px;
   border: 0;
   outline: 0;
-  background: #90467f;
+  background: #189ab4;
   font-size: 17px;
   margin-top: 1rem;
   color: white;

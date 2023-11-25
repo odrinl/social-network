@@ -22,10 +22,19 @@ const MyProfileComponent = () => {
   const user = JSON.parse(localStorage.getItem("user"));
 
   const [data, setData] = useState([]);
+  const [friendsNumber, setFriendsNumber] = useState(null);
 
   const onSuccess = (response) => {
     setData(response.user);
   };
+
+  const onGetting = (response) => {
+    setFriendsNumber(response.friendsNumber);
+  };
+
+  const { performFetch: fetchFriendsNumber, cancelFetch: cancelFriendsNumber } =
+    useFetch(`/users/${userId}/friendsNumber`, onGetting);
+
   const { isLoading, error, performFetch, cancelFetch } = useFetch(
     `/users/${userId}`,
     onSuccess
@@ -34,6 +43,19 @@ const MyProfileComponent = () => {
   useEffect(() => {
     console.log(data);
     return cancelFetch;
+  }, []);
+  useEffect(() => {
+    return cancelFriendsNumber;
+  }, []);
+
+  useEffect(() => {
+    fetchFriendsNumber({
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
   }, []);
 
   useEffect(() => {
@@ -97,14 +119,8 @@ const MyProfileComponent = () => {
           <ProfileInfo>
             <ProfilePicContainer>
               <ProfilePic
-                id="profilePic"
-                src={`${process.env.BASE_SERVER_URL}/uploadImages/${data.profilePicture}`}
+                src={data.profilePic || placeholderProfilePic}
                 alt="Profile Pic"
-              />
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleProfilePictureUpload}
               />
             </ProfilePicContainer>
             {data.success && (
@@ -124,13 +140,40 @@ const MyProfileComponent = () => {
 export default MyProfileComponent;
 
 const Container = styled.div`
-  margin-top: 18px;
-  width: 100%;
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 51rem;
+  margin-top: 1.5rem;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(to right, #05445e, #d4f1f4, #05445e);
+  }
+`;
+
+const ScrollableContainer = styled.div`
   overflow-y: auto;
-  scrollbar-width: none;
   &::-webkit-scrollbar {
-    width: 0 !important;
+    width: 0em;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #d4f1f4;
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #d4f1f4;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
   }
 `;
 

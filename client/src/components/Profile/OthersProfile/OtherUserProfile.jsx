@@ -159,65 +159,86 @@ const OtherUserProfile = () => {
   }, [endPoint]);
 
   return (
-    <UserProfile>
-      {dataLoading && <LoadingDiv>Loading....</LoadingDiv>}
-      {!dataLoading && dataError && (
-        <ErrorDiv>
-          Error while trying to get data from the server: {dataError.toString()}
-        </ErrorDiv>
-      )}
-      {!dataLoading && !dataError && (
-        <>
-          <CoverPhotoContainer>
-            <CoverPhoto src={fakeData.coverPhoto} alt="Cover Photo" />
-          </CoverPhotoContainer>
-          <ProfileInfo>
-            <ProfilePicContainer>
-              <ProfilePic src={fakeData.profilePic} alt="Profile Pic" />
-            </ProfilePicContainer>
-            {data.success && (
-              <div>
-                <h1>@ {data.user.username}</h1>
-                <p>{`${friendsNumber} Friends`}</p>
+    <Container>
+      <UserProfile>
+        {dataLoading && <LoadingDiv>Loading....</LoadingDiv>}
+        {!dataLoading && dataError && (
+          <ErrorDiv>
+            Error while trying to get data from the server:{" "}
+            {dataError.toString()}
+          </ErrorDiv>
+        )}
+        {!dataLoading && !dataError && (
+          <>
+            <CoverPhotoContainer>
+              <CoverPhoto src={fakeData.coverPhoto} alt="Cover Photo" />
+            </CoverPhotoContainer>
+            <ProfileInfo>
+              <ProfilePicContainer>
+                <ProfilePic src={fakeData.profilePic} alt="Profile Pic" />
+              </ProfilePicContainer>
+              {data.success && (
+                <div>
+                  <h1>@ {data.user.username}</h1>
+                  <p>{`${friendsNumber} Friends`}</p>
 
-                {isFriend === "received_request" ? (
-                  <>
-                    <Button onClick={handleAccept}>Accept</Button>
-                    <Button onClick={handleReject}>Reject</Button>
-                  </>
-                ) : (
-                  <Button
-                    onClick={
-                      isFriend === "friend"
-                        ? handleUnfriend
+                  {isFriend === "received_request" ? (
+                    <>
+                      <Button onClick={handleAccept}>Accept</Button>
+                      <Button onClick={handleReject}>Reject</Button>
+                    </>
+                  ) : (
+                    <Button
+                      onClick={
+                        isFriend === "friend"
+                          ? handleUnfriend
+                          : isFriend === "not_friend"
+                          ? handleAddFriend
+                          : handleCancelRequest
+                      }
+                    >
+                      {isFriend === "friend"
+                        ? "Unfriend"
                         : isFriend === "not_friend"
-                        ? handleAddFriend
-                        : handleCancelRequest
-                    }
-                  >
-                    {isFriend === "friend"
-                      ? "Unfriend"
-                      : isFriend === "not_friend"
-                      ? "Add Friend"
-                      : "Cancel Request"}
-                  </Button>
-                )}
-              </div>
-            )}
-          </ProfileInfo>
-        </>
-      )}
-      <PostsContainer>
-        <OtherUsersPosts profileId={profileId} />
-      </PostsContainer>
-    </UserProfile>
+                        ? "Add Friend"
+                        : "Cancel Request"}
+                    </Button>
+                  )}
+                </div>
+              )}
+            </ProfileInfo>
+          </>
+        )}
+        <PostsContainer>
+          <OtherUsersPosts profileId={profileId} />
+        </PostsContainer>
+      </UserProfile>
+    </Container>
   );
 };
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 51rem;
+  margin-top: 1.5rem;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(to right, #05445e, #d4f1f4, #05445e);
+  }
+`;
+
 const UserProfile = styled.div`
-  margin-top: 18px;
-  width: 100%;
-  height: 100%;
   overflow-y: auto;
   scrollbar-width: none;
   &::-webkit-scrollbar {
@@ -284,7 +305,7 @@ const ErrorDiv = styled.div`
 const Button = styled.button`
   padding: 8px 16px;
   margin-right: 10px;
-  background-color: #3498db;
+  background-color: #189ab4;
   color: #fff;
   border: none;
   border-radius: 4px;
