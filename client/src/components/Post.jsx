@@ -203,11 +203,11 @@ const Post = ({ post, onPostChanged, isOwner }) => {
         {userId && post && post._id && (
           <ButtonContainer>
             {hasLikedPost ? (
-              <UnlikeButton onClick={handleUnlikeClick}>
+              <UnlikeButton onClick={handleUnlikeClick} hasLiked={hasLikedPost}>
                 <FaThumbsDown />
               </UnlikeButton>
             ) : (
-              <LikeButton onClick={handleLikeClick}>
+              <LikeButton onClick={handleLikeClick} hasLiked={hasLikedPost}>
                 <FaThumbsUp />
               </LikeButton>
             )}
@@ -249,7 +249,7 @@ const ButtonContainer = styled.div`
 `;
 const LikeButton = styled.button`
   color: #fff;
-  background-color: ${({ liked }) => (liked ? "#ff6347" : "#4caf50")};
+  background-color: ${({ hasLiked }) => (hasLiked ? "#4caf50" : "#788292")};
   cursor: pointer;
   opacity: 0.8;
   margin-left: 1.5rem;
@@ -262,8 +262,9 @@ const LikeButton = styled.button`
   justify-content: center;
 
   &:hover {
-    background-color: ${({ liked }) => (liked ? "#45a049" : "#d32f2f")};
+    background-color: ${({ hasLiked }) => (hasLiked ? "#45a049" : "#4caf50")};
   }
+
   @media (max-width: 768px) {
     font-size: 1.2rem;
     padding: 0.4rem;
@@ -271,7 +272,12 @@ const LikeButton = styled.button`
 `;
 
 const UnlikeButton = styled(LikeButton)`
-  background-color: ${({ liked }) => (liked ? "#4caf50" : "#ff6347")};
+  background-color: ${({ hasLiked }) => (hasLiked ? "#ff6347" : "#788292")};
+
+  &:hover {
+    background-color: ${({ hasLiked }) => (hasLiked ? "#d32f2f" : "#ff6347")};
+  }
+
   @media (max-width: 768px) {
     font-size: 1.2rem;
     padding: 0.4rem;

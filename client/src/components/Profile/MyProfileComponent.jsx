@@ -20,12 +20,16 @@ const MyProfileComponent = () => {
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
 
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({});
   const [friendsNumber, setFriendsNumber] = useState(null);
-  const fileInputRef = useRef(null);
+  const fileInputProfileRef = useRef(null);
+  const fileInputCoverRef = useRef(null);
 
   const onSuccess = (response) => {
-    setData(response.user);
+    setData((prevData) => ({
+      ...prevData,
+      ...response.user,
+    }));
   };
 
   const onGetting = (response) => {
@@ -57,8 +61,6 @@ const MyProfileComponent = () => {
     });
   }, []);
 
-  console.log(friendsNumber);
-
   useEffect(() => {
     performFetch({
       method: "GET",
@@ -70,13 +72,11 @@ const MyProfileComponent = () => {
   }, [userId]);
 
   const handleProfilePictureUpload = () => {
-    // Programmatically trigger the file input click event
-    fileInputRef.current.click();
+    fileInputProfileRef.current.click();
   };
 
   const handleFileInputChange = async (event) => {
     const file = event.target.files[0];
-    console.log("Selected file:", file);
 
     if (file) {
       const formData = new FormData();
@@ -96,10 +96,10 @@ const MyProfileComponent = () => {
 
         if (response.ok) {
           const result = await response.json();
-
-          document.getElementById(
-            "profilePic"
-          ).src = `${process.env.BASE_SERVER_URL}${result.profilePictureUrl}`;
+          setData((prevData) => ({
+            ...prevData,
+            profilePicture: result.profilePictureUrl,
+          }));
         } else {
           console.error("Profile picture upload failed");
         }
@@ -110,13 +110,11 @@ const MyProfileComponent = () => {
   };
 
   const handleCoverPhotoUpload = () => {
-    // Programmatically trigger the file input click event
-    fileInputRef.current.click();
+    fileInputCoverRef.current.click();
   };
 
   const handleCoverFileInputChange = async (event) => {
     const file = event.target.files[0];
-    console.log("Selected cover photo file:", file);
 
     if (file) {
       const formData = new FormData();
@@ -136,15 +134,15 @@ const MyProfileComponent = () => {
 
         if (response.ok) {
           const result = await response.json();
-
-          document.getElementById(
-            "coverPhoto"
-          ).src = `${process.env.BASE_SERVER_URL}${result.coverPictureUrl}`;
+          setData((prevData) => ({
+            ...prevData,
+            coverPicture: result.coverPictureUrl,
+          }));
         } else {
           console.error("Cover photo upload failed");
         }
       } catch (error) {
-        console.error("Error uploading cover photo:", error);
+        console.error("Error in fetch request:", error);
       }
     }
   };
@@ -164,7 +162,7 @@ const MyProfileComponent = () => {
               <CoverPhoto
                 id="coverPhoto"
                 src={
-                  data.coverPicture
+                  data.coverPicture && !error
                     ? `${process.env.BASE_SERVER_URL}/uploadImages/${data.coverPicture}`
                     : placeholderCoverPhoto
                 }
@@ -177,7 +175,7 @@ const MyProfileComponent = () => {
               {/* Hidden file input */}
               <input
                 type="file"
-                ref={fileInputRef}
+                ref={fileInputCoverRef}
                 style={{ display: "none" }}
                 accept="image/*"
                 onChange={handleCoverFileInputChange}
@@ -201,7 +199,7 @@ const MyProfileComponent = () => {
                 {/* Hidden file input */}
                 <input
                   type="file"
-                  ref={fileInputRef}
+                  ref={fileInputProfileRef}
                   style={{ display: "none" }}
                   accept="image/*"
                   onChange={handleFileInputChange}
@@ -253,6 +251,16 @@ const CameraIcon = styled.div`
   padding: 4px;
   svg {
     font-size: 19px;
+
+    @media (max-width: 768px) {
+      font-size: 16px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    right: 9px;
+    bottom: 9px;
+    padding: 4px;
   }
 `;
 const ScrollableContainer = styled.div`
@@ -290,18 +298,37 @@ const CoverEditButton = styled.div`
   svg {
     font-size: 20px;
     margin-right: 8px;
+
+    @media (max-width: 768px) {
+      font-size: 15px;
+      margin-right: 8px;
+    }
   }
   &:hover {
-    background-color: rgba(0, 0, 0, 0.7); /* Added opening curly brace here */
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+
+  @media (max-width: 768px) {
+    top: 170px;
+    font-size: 11px;
+    padding: 7px;
   }
 `;
 const CoverPhotoContainer = styled.div`
   position: relative;
+  width: 625px;
+  height: 240px;
+  overflow: hidden;
+
+  @media (max-width: 768px) {
+    width: 410px;
+    height: 220px;
+  }
 `;
 
 const CoverPhoto = styled.img`
   width: 100%;
-  height: 240px;
+  height: 100%;
   object-fit: cover;
   border-radius: 0.8rem;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -320,6 +347,11 @@ const ProfilePic = styled.img`
   margin-top: -75px;
   margin-left: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+
+  @media (max-width: 768px) {
+    width: 120px;
+    height: 120px;
+  }
 `;
 
 const ProfileInfo = styled.div`
