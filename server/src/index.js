@@ -32,12 +32,11 @@ const startServer = async () => {
  * We only want to host our client code when in production mode as we then want to use the production build that is built in the dist folder.
  * When not in production, don't host the files, but the development version of the app can connect to the backend itself.
  */
-
-app.use(
-  "/uploadImages",
-  express.static(new URL("../uploads", import.meta.url).pathname)
-);
-
+let path = new URL("../uploads", import.meta.url).pathname;
+if (process.platform === "win32") {
+  path = path.substring(1);
+}
+app.use("/uploadImages", express.static(path));
 if (process.env.NODE_ENV === "production") {
   app.use(
     express.static(new URL("../../client/dist", import.meta.url).pathname)

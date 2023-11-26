@@ -21,6 +21,25 @@ export const getUser = async (req, res) => {
   }
 };
 
+export const getUserByUsername = async (req, res) => {
+  try {
+    const { username } = req.params;
+
+    const user = await User.findOne({ username });
+
+    if (!user) {
+      return res.status(404).send({ message: "User not found." });
+    }
+
+    res.status(200).json({
+      success: true,
+      user,
+    });
+  } catch (error) {
+    res.status(500).send({ message: "Error while fetching user." });
+  }
+};
+
 export const getUserFriends = async (req, res) => {
   try {
     const { userId } = req.params;

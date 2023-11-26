@@ -11,8 +11,6 @@ export const fakeData = {
     "https://th.bing.com/th/id/OIP.Tn2c_lREpwhQGXrvQ3aRgwHaHa?pid=ImgDet&w=200&h=200&c=7&dpr=1,3",
 };
 
-const placeholderProfilePic =
-  "https://via.placeholder.com/140?text=Profile+Pic";
 const placeholderCoverPhoto =
   "https://via.placeholder.com/1000x240?text=Cover+Photo";
 
@@ -56,8 +54,6 @@ const MyProfileComponent = () => {
       },
     });
   }, []);
-
-  console.log(friendsNumber);
 
   useEffect(() => {
     performFetch({
@@ -191,7 +187,7 @@ const MyProfileComponent = () => {
                   src={
                     data.profilePicture
                       ? `${process.env.BASE_SERVER_URL}/uploadImages/${data.profilePicture}`
-                      : placeholderProfilePic
+                      : fakeData.profilePic
                   }
                   alt="Profile Pic"
                 />
@@ -209,7 +205,7 @@ const MyProfileComponent = () => {
               </ProfilePicContainer>
               {
                 <div>
-                  <h1>@ {data.username}</h1>
+                  <h1>{data.username}</h1>
                   <p>{`${friendsNumber} Friends`}</p>
                 </div>
               }
@@ -319,7 +315,7 @@ const ProfilePic = styled.img`
   object-fit: cover;
   margin-top: -75px;
   margin-left: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 10px rgba(27, 131, 166, 0.6);
 `;
 
 const ProfileInfo = styled.div`
