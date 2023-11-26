@@ -9,7 +9,7 @@ const Post = ({ post, onPostChanged, isOwner }) => {
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
 
-  const [data, setData] = useState({})
+  const [data, setData] = useState({});
   const [isEditMode, setIsEditMode] = useState(false);
   const [postContent, setPostContent] = useState(post.text);
   const [likesData, setLikesData] = useState({ likes: [] });
@@ -19,7 +19,6 @@ const Post = ({ post, onPostChanged, isOwner }) => {
     setData(response.user);
   };
 
-  
   const { performFetch, cancelFetch } = useFetch(
     `/users/username/${post.username}`,
     onSuccess
@@ -181,7 +180,7 @@ const Post = ({ post, onPostChanged, isOwner }) => {
   return (
     <Container>
       <PostTitle>
-      <ProfilePic
+        <ProfilePic
           id="profilePic"
           src={
             data.profilePicture
@@ -263,15 +262,15 @@ const PostTitle = styled.div`
 `;
 
 const ProfilePic = styled.img`
-width: 90px;
-height: 90px;
-padding: 0.2rem;
-border-radius: 50%;
-border-color: var(--white);
-box-shadow: 0 0 10px rgba(27, 131, 166, 0.6);
-margin-right: 1.5rem;
-margin-bottom: 1rem;
-object-fit: cover;
+  width: 90px;
+  height: 90px;
+  padding: 0.2rem;
+  border-radius: 50%;
+  border-color: var(--white);
+  box-shadow: 0 0 10px rgba(27, 131, 166, 0.6);
+  margin-right: 1.5rem;
+  margin-bottom: 1rem;
+  object-fit: cover;
 `;
 
 const ButtonContainer = styled.div`

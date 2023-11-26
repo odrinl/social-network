@@ -113,15 +113,15 @@ const FriendItem = styled.div`
 `;
 
 const FriendAvatar = styled.img`
-width: 90px;
-height: 90px;
-padding: 0.2rem;
-border-radius: 50%;
-border-color: var(--white);
-box-shadow: 0 0 10px rgba(27, 131, 166, 0.6);
-margin-right: 1.5rem;
-margin-bottom: 1rem;
-object-fit: cover;
+  width: 90px;
+  height: 90px;
+  padding: 0.2rem;
+  border-radius: 50%;
+  border-color: var(--white);
+  box-shadow: 0 0 10px rgba(27, 131, 166, 0.6);
+  margin-right: 1.5rem;
+  margin-bottom: 1rem;
+  object-fit: cover;
 `;
 
 const FriendName = styled.div`

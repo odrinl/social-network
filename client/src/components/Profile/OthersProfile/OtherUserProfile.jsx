@@ -174,20 +174,20 @@ const OtherUserProfile = () => {
               <CoverPhoto src={fakeData.coverPhoto} alt="Cover Photo" />
             </CoverPhotoContainer>
             <ProfileInfo>
-            <ProfilePic
-                  id="profilePic"
-                  src={
-                    data.profilePicture
-                      ? `${process.env.BASE_SERVER_URL}/uploadImages/${data.profilePicture}`
-                      : fakeData.profilePic
-                  }
-                  alt="Profile Pic"
-                />
+              <ProfilePic
+                id="profilePic"
+                src={
+                  data.profilePicture
+                    ? `${process.env.BASE_SERVER_URL}/uploadImages/${data.profilePicture}`
+                    : fakeData.profilePic
+                }
+                alt="Profile Pic"
+              />
               {data && (
                 <Description>
                   <Info>
-                  <h1>{data.username}</h1>
-                  <p>{`${friendsNumber} Friends`}</p>
+                    <h1>{data.username}</h1>
+                    <p>{`${friendsNumber} Friends`}</p>
                   </Info>
                   {isFriend === "received_request" ? (
                     <>
@@ -265,7 +265,6 @@ const CoverPhoto = styled.img`
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 `;
 
-
 const ProfilePic = styled.img`
   position: relative;
   width: 140px;
@@ -329,11 +328,11 @@ const Info = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  h1{
-    font-size:20px;
+  h1 {
+    font-size: 20px;
   }
   p {
-    position:relative;
+    position: relative;
   }
 `;
 const PostsContainer = styled.div``;
