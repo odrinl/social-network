@@ -67,8 +67,13 @@ const SentRequestCard = (data) => {
             currentData.map((user) => (
               <FriendItem key={user._id}>
                 <ProfilePic
-                  src={user.profilePic ? user.profilePic : sparePic}
-                  alt={user.name}
+                  id="profilePic"
+                  src={
+                    user.profilePicture
+                      ? `${process.env.BASE_SERVER_URL}/uploadImages/${user.profilePicture}`
+                      : sparePic
+                  }
+                  alt="Profile Pic"
                 />
                 <FriendInfo>
                   <Name onClick={() => handleProfileClick(user._id)}>
@@ -168,16 +173,16 @@ const FriendItem = styled.div`
   border: 3px solid #05445e;
   background-color: white;
   border-radius: 8px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4);
+  box-shadow: 0px 2px 5px rgba(27, 131, 166, 0.6);
 `;
 
 const ProfilePic = styled.img`
-  width: 100%;
-  height: 200px;
+  width: 90%;
+  height: 180px;
+  border-radius: 20%;
   object-fit: cover;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-  margin-bottom: 8px;
+  margin: 8px;
+  box-shadow: 0 0 10px rgba(27, 131, 166, 0.6);
 `;
 const FriendInfo = styled.div`
   text-align: left;
