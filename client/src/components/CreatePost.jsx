@@ -19,7 +19,7 @@ const CreatePost = ({ onPostCreate }) => {
   };
   console.log(data);
 
-  const { performFetch:performData, cancelData } = useFetch(
+  const { performFetch: performData, cancelData } = useFetch(
     `/users/${userId}`,
     onSuccess
   );
@@ -39,7 +39,6 @@ const CreatePost = ({ onPostCreate }) => {
   }, [userId]);
 
   const { performFetch, isLoading } = useFetch("/posts/create", onReceived);
-  
 
   const handlePostCreate = () => {
     if (text.trim() !== "") {
@@ -59,7 +58,7 @@ const CreatePost = ({ onPostCreate }) => {
   return (
     <Container>
       <TopArea>
-      <ProfilePic
+        <ProfilePic
           id="profilePic"
           src={
             data.profilePicture
