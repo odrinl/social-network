@@ -11,18 +11,17 @@ export const fakeData = {
     "https://th.bing.com/th?id=OIP.zcvn4QV1z5E7vQOFDLP6UQHaC2&w=350&h=134&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2",
 };
 
-const placeholderProfilePic =
-  "https://via.placeholder.com/120x120?text=Profile+Pic";
 
 const MyProfileSideSection = () => {
-  const [data, setData] = useState(fakeData);
+  const [data, setData] = useState({});
 
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
 
   const onSuccess = (response) => {
-    setData(response);
+    setData(response.user);
   };
+  console.log()
 
   const { isLoading, error, performFetch, cancelFetch } = useFetch(
     `/users/${userId}`,
@@ -46,10 +45,15 @@ const MyProfileSideSection = () => {
   return (
     <Container>
       <ProfilePicContainer>
-        <ProfilePic
-          src={data.profilePic || placeholderProfilePic}
-          alt="Profile Pic"
-        />
+      <ProfilePic
+                  id="profilePic"
+                  src={
+                    data.profilePicture
+                      ? `${process.env.BASE_SERVER_URL}/uploadImages/${data.profilePicture}`
+                      : fakeData.profilePic
+                  }
+                  alt="Profile Pic"
+                />
       </ProfilePicContainer>
       {isLoading && <LoadingDiv>Loading....</LoadingDiv>}
       {!isLoading && error && (
@@ -57,8 +61,8 @@ const MyProfileSideSection = () => {
           Error while trying to get data from the server: {error.toString()}
         </ErrorDiv>
       )}
-      {!isLoading && !error && data.success && (
-        <TextWrapper>@ {data.user.username}</TextWrapper>
+      {!isLoading && !error && (
+        <TextWrapper>{data.username}</TextWrapper>
       )}
     </Container>
   );
@@ -92,13 +96,13 @@ const ProfilePicContainer = styled.div`
 
 const ProfilePic = styled.img`
   position: relative;
-  left: 20px;
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
+  left: 5px;
+  width: 150px;
+  height: 150px;
+  border-radius: 30%;
   border: 5px solid #fff;
   object-fit: cover;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 10px rgba(27, 131, 166, 0.6);
 `;
 
 const LoadingDiv = styled.div`

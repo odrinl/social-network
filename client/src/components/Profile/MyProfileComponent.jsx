@@ -55,7 +55,6 @@ const MyProfileComponent = () => {
     });
   }, []);
 
-  console.log(friendsNumber);
 
   useEffect(() => {
     performFetch({
@@ -123,7 +122,7 @@ const MyProfileComponent = () => {
                   src={
                     data.profilePicture
                       ? `${process.env.BASE_SERVER_URL}/uploadImages/${data.profilePicture}`
-                      : placeholderCoverPhoto
+                      : fakeData.profilePic
                   }
                   alt="Profile Pic"
                 />
@@ -212,7 +211,7 @@ const ProfilePic = styled.img`
   object-fit: cover;
   margin-top: -75px;
   margin-left: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 10px rgba(27, 131, 166, 0.6);
 `;
 
 const ProfileInfo = styled.div`
