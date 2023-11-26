@@ -247,6 +247,7 @@ const Container = styled.div`
 
 const UserProfile = styled.div`
   overflow-y: auto;
+  width: 100%;
   scrollbar-width: none;
   &::-webkit-scrollbar {
     width: 0 !important;
