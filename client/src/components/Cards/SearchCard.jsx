@@ -178,12 +178,12 @@ const FriendItem = styled.div`
 `;
 
 const ProfilePic = styled.img`
-width: 90%;
-height: 180px;
-border-radius:20%;
-object-fit: cover;
-margin: 8px;
-box-shadow: 0 0 10px rgba(27, 131, 166, 0.6);
+  width: 90%;
+  height: 180px;
+  border-radius: 20%;
+  object-fit: cover;
+  margin: 8px;
+  box-shadow: 0 0 10px rgba(27, 131, 166, 0.6);
 `;
 const FriendInfo = styled.div`
   text-align: left;

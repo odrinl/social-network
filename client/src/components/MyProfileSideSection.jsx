@@ -11,7 +11,6 @@ export const fakeData = {
     "https://th.bing.com/th?id=OIP.zcvn4QV1z5E7vQOFDLP6UQHaC2&w=350&h=134&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2",
 };
 
-
 const MyProfileSideSection = () => {
   const [data, setData] = useState({});
 
@@ -21,7 +20,7 @@ const MyProfileSideSection = () => {
   const onSuccess = (response) => {
     setData(response.user);
   };
-  console.log()
+  console.log();
 
   const { isLoading, error, performFetch, cancelFetch } = useFetch(
     `/users/${userId}`,
@@ -45,15 +44,15 @@ const MyProfileSideSection = () => {
   return (
     <Container>
       <ProfilePicContainer>
-      <ProfilePic
-                  id="profilePic"
-                  src={
-                    data.profilePicture
-                      ? `${process.env.BASE_SERVER_URL}/uploadImages/${data.profilePicture}`
-                      : fakeData.profilePic
-                  }
-                  alt="Profile Pic"
-                />
+        <ProfilePic
+          id="profilePic"
+          src={
+            data.profilePicture
+              ? `${process.env.BASE_SERVER_URL}/uploadImages/${data.profilePicture}`
+              : fakeData.profilePic
+          }
+          alt="Profile Pic"
+        />
       </ProfilePicContainer>
       {isLoading && <LoadingDiv>Loading....</LoadingDiv>}
       {!isLoading && error && (
@@ -61,9 +60,7 @@ const MyProfileSideSection = () => {
           Error while trying to get data from the server: {error.toString()}
         </ErrorDiv>
       )}
-      {!isLoading && !error && (
-        <TextWrapper>{data.username}</TextWrapper>
-      )}
+      {!isLoading && !error && <TextWrapper>{data.username}</TextWrapper>}
     </Container>
   );
 };

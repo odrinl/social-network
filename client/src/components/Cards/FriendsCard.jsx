@@ -62,7 +62,7 @@ const FriendCard = (data) => {
     <Container>
       <ScrollableContainer>
         <FriendGrid>
-          {currentData && currentData.length > 0 ?  (
+          {currentData && currentData.length > 0 ? (
             currentData.map((user) => (
               <FriendItem key={user._id}>
                 <ProfilePic
@@ -177,7 +177,7 @@ const FriendItem = styled.div`
 const ProfilePic = styled.img`
   width: 90%;
   height: 180px;
-  border-radius:20%;
+  border-radius: 20%;
   object-fit: cover;
   margin: 8px;
   box-shadow: 0 0 10px rgba(27, 131, 166, 0.6);
