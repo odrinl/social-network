@@ -26,10 +26,7 @@ const MyProfileComponent = () => {
   const fileInputCoverRef = useRef(null);
 
   const onSuccess = (response) => {
-    setData((prevData) => ({
-      ...prevData,
-      ...response.user,
-    }));
+    setData(response.user);
   };
 
   const onGetting = (response) => {
@@ -59,7 +56,7 @@ const MyProfileComponent = () => {
         "Content-Type": "application/json",
       },
     });
-  }, []);
+  }, [userId]);
 
   useEffect(() => {
     performFetch({
@@ -96,10 +93,11 @@ const MyProfileComponent = () => {
 
         if (response.ok) {
           const result = await response.json();
-          setData((prevData) => ({
-            ...prevData,
-            profilePicture: result.profilePictureUrl,
-          }));
+          console.log("image results", result);
+
+          document.getElementById(
+            "profilePic"
+          ).src = `${process.env.BASE_SERVER_URL}${result.profilePictureUrl}`;
         } else {
           console.error("Profile picture upload failed");
         }
@@ -110,6 +108,7 @@ const MyProfileComponent = () => {
   };
 
   const handleCoverPhotoUpload = () => {
+    // Programmatically trigger the file input click event
     fileInputCoverRef.current.click();
   };
 
@@ -132,12 +131,14 @@ const MyProfileComponent = () => {
           }
         );
 
+        console.log("Response status:", response.status);
+
         if (response.ok) {
           const result = await response.json();
-          setData((prevData) => ({
-            ...prevData,
-            coverPicture: result.coverPictureUrl,
-          }));
+
+          document.getElementById(
+            "coverPhoto"
+          ).src = `${process.env.BASE_SERVER_URL}${result.coverPictureUrl}`;
         } else {
           console.error("Cover photo upload failed");
         }
