@@ -1,18 +1,44 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import useFetch from "../hooks/useFetch";
 
+const token = localStorage.getItem("token");
+const userId = localStorage.getItem("userId");
+
 const CreatePost = ({ onPostCreate }) => {
   const [text, setText] = useState("");
+  const [data, setData] = useState({});
   const onReceived = (response) => {
     setText("");
     onPostCreate(response.post);
   };
 
+  const onSuccess = (response) => {
+    setData(response.user);
+  };
+  console.log(data);
+
+  const { performFetch: performData, cancelData } = useFetch(
+    `/users/${userId}`,
+    onSuccess
+  );
+
+  useEffect(() => {
+    return cancelData;
+  }, []);
+
+  useEffect(() => {
+    performData({
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+  }, [userId]);
+
   const { performFetch, isLoading } = useFetch("/posts/create", onReceived);
-  const token = localStorage.getItem("token");
-  const userId = localStorage.getItem("userId");
 
   const handlePostCreate = () => {
     if (text.trim() !== "") {
@@ -32,9 +58,14 @@ const CreatePost = ({ onPostCreate }) => {
   return (
     <Container>
       <TopArea>
-        <ProfileImage
-          src="https://c.animaapp.com/EuIEJ23i/img/ellipse@2x.png"
-          alt="Profile Image"
+        <ProfilePic
+          id="profilePic"
+          src={
+            data.profilePicture
+              ? `${process.env.BASE_SERVER_URL}/uploadImages/${data.profilePicture}`
+              : "https://th.bing.com/th/id/OIP.Y6Xo7ozc-rL5UrzUanPlxAHaHa?w=211&h=211&c=7&r=0&o=5&dpr=1.3&pid=1.7"
+          }
+          alt="Profile Pic"
         />
         <Text
           name="user-post"
@@ -79,10 +110,15 @@ const BottomArea = styled.div`
   justify-content: flex-end;
 `;
 
-const ProfileImage = styled.img`
-  width: 4rem;
-  height: 4rem;
+const ProfilePic = styled.img`
+  position: relative;
+  left: 5px;
+  width: 100px;
+  height: 90px;
   border-radius: 50%;
+  border: 5px solid #fff;
+  object-fit: cover;
+  box-shadow: 0 0 10px rgba(27, 131, 166, 0.6);
 `;
 
 const Text = styled.textarea`
