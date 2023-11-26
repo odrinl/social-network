@@ -54,8 +54,13 @@ const FriendSlideSection = () => {
                 onClick={() => handleProfileClick(user._id)}
               >
                 <FriendAvatar
-                  src={user.profilePic ? user.profilePic : sparePic}
-                  alt={user.name}
+                  id="profilePic"
+                  src={
+                    user.profilePicture
+                      ? `${process.env.BASE_SERVER_URL}/uploadImages/${user.profilePicture}`
+                      : sparePic
+                  }
+                  alt="Profile Pic"
                 />
                 <FriendName>{user.username}</FriendName>
               </FriendItem>
@@ -108,14 +113,15 @@ const FriendItem = styled.div`
 `;
 
 const FriendAvatar = styled.img`
-  width: 4rem;
-  height: 4rem;
+  width: 90px;
+  height: 90px;
   padding: 0.2rem;
   border-radius: 50%;
   border-color: var(--white);
-  box-shadow: -1.27px 1.27px 5.07px #78829280;
+  box-shadow: 0 0 10px rgba(27, 131, 166, 0.6);
   margin-right: 1.5rem;
   margin-bottom: 1rem;
+  object-fit: cover;
 `;
 
 const FriendName = styled.div`

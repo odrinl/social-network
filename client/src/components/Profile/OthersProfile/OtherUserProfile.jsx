@@ -19,7 +19,7 @@ const OtherUserProfile = () => {
   const { profileId } = useParams();
 
   const onSuccess = (response) => {
-    setData(response);
+    setData(response.user);
   };
 
   const onReceive = (response) => {
@@ -174,14 +174,21 @@ const OtherUserProfile = () => {
               <CoverPhoto src={fakeData.coverPhoto} alt="Cover Photo" />
             </CoverPhotoContainer>
             <ProfileInfo>
-              <ProfilePicContainer>
-                <ProfilePic src={fakeData.profilePic} alt="Profile Pic" />
-              </ProfilePicContainer>
-              {data.success && (
-                <div>
-                  <h1>@ {data.user.username}</h1>
-                  <p>{`${friendsNumber} Friends`}</p>
-
+              <ProfilePic
+                id="profilePic"
+                src={
+                  data.profilePicture
+                    ? `${process.env.BASE_SERVER_URL}/uploadImages/${data.profilePicture}`
+                    : fakeData.profilePic
+                }
+                alt="Profile Pic"
+              />
+              {data && (
+                <Description>
+                  <Info>
+                    <h1>{data.username}</h1>
+                    <p>{`${friendsNumber} Friends`}</p>
+                  </Info>
                   {isFriend === "received_request" ? (
                     <>
                       <Button onClick={handleAccept}>Accept</Button>
@@ -204,7 +211,7 @@ const OtherUserProfile = () => {
                         : "Cancel Request"}
                     </Button>
                   )}
-                </div>
+                </Description>
               )}
             </ProfileInfo>
           </>
@@ -258,11 +265,8 @@ const CoverPhoto = styled.img`
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 `;
 
-const ProfilePicContainer = styled.div`
-  position: relative;
-`;
-
 const ProfilePic = styled.img`
+  position: relative;
   width: 140px;
   height: 140px;
   border-radius: 50%;
@@ -312,5 +316,24 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
+const Description = styled.div`
+  display: flex;
+  position: relative;
+  left: 14px;
+  align-items: center; /* Vertical alignment */
+  justify-content: center;
+`;
+
+const Info = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  h1 {
+    font-size: 20px;
+  }
+  p {
+    position: relative;
+  }
+`;
 const PostsContainer = styled.div``;
 export default OtherUserProfile;
