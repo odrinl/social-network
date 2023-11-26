@@ -44,4 +44,30 @@ router.post(
   }
 );
 
+router.post(
+  "/upload-cover-picture/:userId",
+  upload.single("coverPicture"),
+  async (req, res) => {
+    try {
+      const userId = req.params.userId;
+      const user = await User.findById(userId);
+
+      if (!user) {
+        return res
+          .status(404)
+          .json({ success: false, error: "User not found" });
+      }
+
+      user.coverPicture = req.file.filename;
+      await user.save();
+
+      const coverPictureUrl = `/uploadImages/${user.coverPicture}`;
+
+      res.json({ success: true, coverPictureUrl });
+    } catch (error) {
+      res.status(500).send({ success: false, error: "Internal Server Error" });
+    }
+  }
+);
+
 export default router;
