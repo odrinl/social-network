@@ -9,10 +9,35 @@ const Post = ({ post, onPostChanged, isOwner }) => {
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
 
+  const [data, setData] = useState({})
   const [isEditMode, setIsEditMode] = useState(false);
   const [postContent, setPostContent] = useState(post.text);
   const [likesData, setLikesData] = useState({ likes: [] });
   const [hasLikedPost, setHasLikedPost] = useState(false);
+
+  const onSuccess = (response) => {
+    setData(response.user);
+  };
+
+  
+  const { performFetch, cancelFetch } = useFetch(
+    `/users/username/${post.username}`,
+    onSuccess
+  );
+
+  useEffect(() => {
+    return cancelFetch;
+  }, []);
+
+  useEffect(() => {
+    performFetch({
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+  }, []);
 
   useEffect(() => {
     performGetLikesFetch();
@@ -156,9 +181,14 @@ const Post = ({ post, onPostChanged, isOwner }) => {
   return (
     <Container>
       <PostTitle>
-        <ProfileImage
-          src="https://c.animaapp.com/shx7UmdF/img/ellipse-26-2@2x.png"
-          alt="Profile Image"
+      <ProfilePic
+          id="profilePic"
+          src={
+            data.profilePicture
+              ? `${process.env.BASE_SERVER_URL}/uploadImages/${data.profilePicture}`
+              : "https://th.bing.com/th/id/OIP.Y6Xo7ozc-rL5UrzUanPlxAHaHa?w=211&h=211&c=7&r=0&o=5&dpr=1.3&pid=1.7"
+          }
+          alt="Profile Pic"
         />
         <UserName>
           <strong>{post.username}</strong>
@@ -232,15 +262,16 @@ const PostTitle = styled.div`
   align-items: center;
 `;
 
-const ProfileImage = styled.img`
-  width: 4.3rem;
-  height: 4.3rem;
-  padding: 0.2rem;
-  border-radius: 50%;
-  border-color: var(--white);
-  box-shadow: -1.27px 1.27px 5.07px #78829280;
-  margin-right: 1.5rem;
-  margin-bottom: 1rem;
+const ProfilePic = styled.img`
+width: 90px;
+height: 90px;
+padding: 0.2rem;
+border-radius: 50%;
+border-color: var(--white);
+box-shadow: 0 0 10px rgba(27, 131, 166, 0.6);
+margin-right: 1.5rem;
+margin-bottom: 1rem;
+object-fit: cover;
 `;
 
 const ButtonContainer = styled.div`

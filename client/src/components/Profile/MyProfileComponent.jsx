@@ -133,7 +133,7 @@ const MyProfileComponent = () => {
               </ProfilePicContainer>
               {
                 <div>
-                  <h1>@ {data.username}</h1>
+                  <h1>{data.username}</h1>
                   <p>{`${friendsNumber} Friends`}</p>
                 </div>
               }

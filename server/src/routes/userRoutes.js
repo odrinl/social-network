@@ -13,11 +13,13 @@ import {
   unfriendUser,
   isFriend,
   getUserFriendsNumber,
+  getUserByUsername,
 } from "../controllers/userControllers.js";
 
 const router = express.Router();
 
 router.get("/:userId", getUser);
+router.get("/username/:username", getUserByUsername);
 router.get("/:userId/friends", getUserFriends);
 router.get("/:userId/friendsNumber", getUserFriendsNumber);
 
