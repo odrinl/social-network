@@ -170,10 +170,13 @@ const OtherUserProfile = () => {
           <>
             <CoverPhotoContainer>
               <CoverPhoto
+                id="profilePic"
                 src={
-                  "https://th.bing.com/th/id/OIP.Tn2c_lREpwhQGXrvQ3aRgwHaHa?pid=ImgDet&w=200&h=200&c=7&dpr=1,3"
+                  data.coverPicture
+                    ? `${process.env.BASE_SERVER_URL}/uploadImages/${data.coverPicture}`
+                    : "https://res.cloudinary.com/dtb1hpuil/image/upload/v1700775170/q5_rmntjh.jpg"
                 }
-                alt="Cover Photo"
+                alt="Profile Pic"
               />
             </CoverPhotoContainer>
             <ProfileInfo>
@@ -250,6 +253,7 @@ const Container = styled.div`
 
 const UserProfile = styled.div`
   overflow-y: auto;
+  width: 100%;
   scrollbar-width: none;
   &::-webkit-scrollbar {
     width: 0 !important;
@@ -258,6 +262,7 @@ const UserProfile = styled.div`
 
 const CoverPhotoContainer = styled.div`
   position: relative;
+  height: 240px;
 `;
 
 const CoverPhoto = styled.img`
@@ -322,7 +327,7 @@ const Button = styled.button`
 const Description = styled.div`
   display: flex;
   position: relative;
-  left: 14px;
+  left: 20px;
   align-items: center; /* Vertical alignment */
   justify-content: center;
 `;
@@ -331,6 +336,8 @@ const Info = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
+  left: -10px;
+  bottom: 2px;
   h1 {
     font-size: 20px;
   }
