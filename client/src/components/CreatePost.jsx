@@ -90,11 +90,12 @@ const CreatePost = ({ onPostCreate }) => {
           <img
             width="60"
             height="60"
-            src="https://img.icons8.com/external-those-icons-flat-those-icons/24/external-Add-Image-images-and-image-files-those-icons-flat-those-icons.png"
-            alt="external-Add-Image-images-and-image-files-those-icons-flat-those-icons"
+            src="https://cdn-icons-png.flaticon.com/512/1040/1040241.png"
             style={{ marginLeft: "0.5rem", cursor: "pointer" }}
             onClick={openModal}
+            alt="Add Photo Icon"
           />
+          <span style={{ marginLeft: "0.5rem" }}> Photo</span>
         </IconContainer>
         <BottomArea>
           <PostButton onClick={handlePostCreate}>Post</PostButton>
@@ -138,8 +139,23 @@ const ButtonContainer = styled.div`
   justify-content: space-between;
 `;
 const IconContainer = styled.div`
-  margin-left: 4rem;
+  margin-left: 8rem;
+  display: flex;
+  align-items: center;
+
+  img {
+    width: 60px;
+    height: 60px;
+    margin-right: 0.5rem;
+    cursor: pointer;
+  }
+
+  span {
+    font-size: 1rem;
+    color: white;
+  }
 `;
+
 const ProfilePic = styled.img`
   width: 90px;
   height: 90px;
