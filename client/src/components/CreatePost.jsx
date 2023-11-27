@@ -140,9 +140,9 @@ const ButtonContainer = styled.div`
 `;
 const IconContainer = styled.div`
   display: flex;
-  position:relative;
-  top:-40px;
-  left:15%;
+  position: relative;
+  top: -40px;
+  left: 15%;
   align-items: center;
 
   img {
@@ -157,14 +157,14 @@ const IconContainer = styled.div`
     color: white;
   }
   @media (max-width: 500px) {
-    position:relative;
-    top:5px;
-    left:1%;
+    position: relative;
+    top: 5px;
+    left: 1%;
   }
   @media (min-width: 768px) {
-    position:relative;
-    top:-40px;
-    left:25%;
+    position: relative;
+    top: -40px;
+    left: 25%;
   }
 `;
 

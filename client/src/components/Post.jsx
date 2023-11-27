@@ -241,16 +241,16 @@ const Post = ({ post, onPostChanged, isOwner, userData }) => {
 
         {userId && post && post._id && (
           <ButtonContainer>
-          {hasLikedPost ? (
-            <UnlikeButton onClick={handleUnlikeClick} hasLiked={hasLikedPost}>
-              <FaThumbsUp />
-            </UnlikeButton>
-          ) : (
-            <LikeButton onClick={handleLikeClick} hasLiked={hasLikedPost}>
-              <FaThumbsUp />
-            </LikeButton>
-          )}
-        </ButtonContainer>
+            {hasLikedPost ? (
+              <UnlikeButton onClick={handleUnlikeClick} hasLiked={hasLikedPost}>
+                <FaThumbsUp />
+              </UnlikeButton>
+            ) : (
+              <LikeButton onClick={handleLikeClick} hasLiked={hasLikedPost}>
+                <FaThumbsUp />
+              </LikeButton>
+            )}
+          </ButtonContainer>
         )}
       </PostFooter>
     </Container>
