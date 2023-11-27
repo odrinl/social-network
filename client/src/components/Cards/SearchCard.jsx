@@ -58,7 +58,7 @@ const SearchCard = (data) => {
   }
 
   const sparePic =
-    "https://th.bing.com/th/id/OIP.Y6Xo7ozc-rL5UrzUanPlxAHaHa?w=211&h=211&c=7&r=0&o=5&dpr=1.3&pid=1.7";
+    "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png";
   return (
     <Container>
       <ScrollableContainer>

@@ -90,6 +90,7 @@ const CreateUser = () => {
             <InputField>
               <StyledInput
                 name="username"
+                autoComplete="username"
                 placeholder="Username"
                 value={username}
                 onChange={(value) => setUsername(value)}
@@ -102,6 +103,7 @@ const CreateUser = () => {
             <InputField>
               <StyledInput
                 name="email"
+                autoComplete="email"
                 value={email}
                 placeholder="Email"
                 onChange={(value) => setEmail(value)}
@@ -124,6 +126,7 @@ const CreateUser = () => {
                 name="password"
                 value={password}
                 placeholder="Password"
+                autoComplete="new-password"
                 onChange={(value) => setPassword(value)}
                 type={showPassword ? "text" : "password"}
                 style={{
@@ -146,6 +149,7 @@ const CreateUser = () => {
             <InputField>
               <StyledInput
                 name="confirm password"
+                autoComplete="new-password"
                 value={confirmPassword}
                 placeholder="Confirm your password"
                 onChange={(value) => setConfirmPassword(value)}

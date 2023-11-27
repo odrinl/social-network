@@ -242,7 +242,7 @@ export const deletePost = asyncHandler(async (req, res) => {
 
   // Find the post with the given id and remove it from the user's posts
   const updatedUser = await User.findOneAndUpdate(
-    { posts: userId },
+    { _id: userId },
     { $pull: { posts: { _id: id } } },
     { new: true }
   );
