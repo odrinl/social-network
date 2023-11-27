@@ -262,6 +262,7 @@ const UserProfile = styled.div`
 
 const CoverPhotoContainer = styled.div`
   position: relative;
+  height: 240px;
 `;
 
 const CoverPhoto = styled.img`
@@ -326,7 +327,7 @@ const Button = styled.button`
 const Description = styled.div`
   display: flex;
   position: relative;
-  left: 14px;
+  left: 20px;
   align-items: center; /* Vertical alignment */
   justify-content: center;
 `;
@@ -335,6 +336,8 @@ const Info = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
+  left:-10px;
+  bottom:2px;
   h1 {
     font-size: 20px;
   }

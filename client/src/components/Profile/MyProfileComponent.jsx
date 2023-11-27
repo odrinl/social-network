@@ -255,6 +255,7 @@ const CameraIcon = styled.div`
   }
 `;
 const ScrollableContainer = styled.div`
+  width:100%;
   overflow-y: auto;
   &::-webkit-scrollbar {
     width: 0em;
@@ -307,12 +308,11 @@ const CoverEditButton = styled.div`
 `;
 const CoverPhotoContainer = styled.div`
   position: relative;
-  width: 625px;
+  width: 100%;
   height: 240px;
   overflow: hidden;
 
   @media (max-width: 768px) {
-    width: 410px;
     height: 220px;
   }
 `;
@@ -331,6 +331,8 @@ const ProfilePicContainer = styled.div`
 `;
 
 const ProfilePic = styled.img`
+  position:relative;
+  right:10px;
   width: 140px;
   height: 140px;
   border-radius: 50%;
