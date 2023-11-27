@@ -97,6 +97,7 @@ const MyProfileComponent = () => {
           document.getElementById(
             "profilePic"
           ).src = `${process.env.BASE_SERVER_URL}${result.profilePictureUrl}`;
+          performFetch();
         } else {
           console.error("Profile picture upload failed");
         }
