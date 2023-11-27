@@ -110,9 +110,8 @@ const BottomArea = styled.div`
 `;
 
 const ProfilePic = styled.img`
-  position: relative;
-  width: 90px;
-  height: 90px;
+  width: 4rem;
+  height: 4rem;
   border-radius: 50%;
   border: 5px solid #fff;
   object-fit: cover;
@@ -122,7 +121,7 @@ const ProfilePic = styled.img`
 const Text = styled.textarea`
   margin-top: 0.5rem;
   display: flex;
-  width: 100%;
+  flex-grow: 1;
   background-color: #ffffff;
   border-radius: 5.97px;
   height: 41px;
