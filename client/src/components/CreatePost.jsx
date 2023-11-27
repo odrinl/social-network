@@ -110,8 +110,8 @@ const BottomArea = styled.div`
 `;
 
 const ProfilePic = styled.img`
-  width: 4rem;
-  height: 4rem;
+  width: 90px;
+  height: 90px;
   border-radius: 50%;
   border: 5px solid #fff;
   object-fit: cover;
