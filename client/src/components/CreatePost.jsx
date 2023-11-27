@@ -35,7 +35,7 @@ const CreatePost = ({ onPostCreate }) => {
         "Content-Type": "application/json",
       },
     });
-  }, [userId]);
+  }, [userId, data]);
 
   const { performFetch, isLoading } = useFetch("/posts/create", onReceived);
 
