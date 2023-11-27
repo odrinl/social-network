@@ -336,8 +336,8 @@ const Info = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  left:-10px;
-  bottom:2px;
+  left: -10px;
+  bottom: 2px;
   h1 {
     font-size: 20px;
   }

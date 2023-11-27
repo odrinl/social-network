@@ -255,7 +255,7 @@ const CameraIcon = styled.div`
   }
 `;
 const ScrollableContainer = styled.div`
-  width:100%;
+  width: 100%;
   overflow-y: auto;
   &::-webkit-scrollbar {
     width: 0em;
@@ -331,8 +331,8 @@ const ProfilePicContainer = styled.div`
 `;
 
 const ProfilePic = styled.img`
-  position:relative;
-  right:10px;
+  position: relative;
+  right: 10px;
   width: 140px;
   height: 140px;
   border-radius: 50%;
