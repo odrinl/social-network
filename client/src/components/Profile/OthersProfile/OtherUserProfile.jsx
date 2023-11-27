@@ -171,7 +171,15 @@ const OtherUserProfile = () => {
         {!dataLoading && !dataError && (
           <>
             <CoverPhotoContainer>
-              <CoverPhoto src={fakeData.coverPhoto} alt="Cover Photo" />
+            <CoverPhoto
+                id="profilePic"
+                src={
+                  data.coverPicture
+                    ? `${process.env.BASE_SERVER_URL}/uploadImages/${data.coverPicture}`
+                    : "https://res.cloudinary.com/dtb1hpuil/image/upload/v1700775170/q5_rmntjh.jpg"
+                }
+                alt="Profile Pic"
+              />
             </CoverPhotoContainer>
             <ProfileInfo>
               <ProfilePic

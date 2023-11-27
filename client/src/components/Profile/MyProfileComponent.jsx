@@ -11,10 +11,6 @@ export const fakeData = {
     "https://th.bing.com/th/id/OIP.Tn2c_lREpwhQGXrvQ3aRgwHaHa?pid=ImgDet&w=200&h=200&c=7&dpr=1,3",
 };
 
-const placeholderProfilePic =
-  "https://via.placeholder.com/140?text=Profile+Pic";
-const placeholderCoverPhoto =
-  "https://via.placeholder.com/1000x240?text=Cover+Photo";
 
 const MyProfileComponent = () => {
   const userId = localStorage.getItem("userId");
@@ -165,7 +161,7 @@ const MyProfileComponent = () => {
                 src={
                   data.coverPicture && !error
                     ? `${process.env.BASE_SERVER_URL}/uploadImages/${data.coverPicture}`
-                    : placeholderCoverPhoto
+                    : "https://res.cloudinary.com/dtb1hpuil/image/upload/v1700775170/q5_rmntjh.jpg"
                 }
                 alt="Cover Photo"
               />
@@ -173,7 +169,6 @@ const MyProfileComponent = () => {
                 <FaCamera />
                 Edit Cover Photo
               </CoverEditButton>
-              {/* Hidden file input */}
               <input
                 type="file"
                 ref={fileInputCoverRef}
@@ -190,7 +185,7 @@ const MyProfileComponent = () => {
                   src={
                     data.profilePicture
                       ? `${process.env.BASE_SERVER_URL}/uploadImages/${data.profilePicture}`
-                      : placeholderProfilePic
+                      : fakeData.ProfilePic
                   }
                   alt="Profile Pic"
                 />
@@ -250,6 +245,11 @@ const CameraIcon = styled.div`
   background-color: #fff;
   border-radius: 50%;
   padding: 4px;
+
+  &:hover {
+    cursor: pointer;
+  }
+
   svg {
     font-size: 19px;
 
