@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
+import { FaThumbsUp } from "react-icons/fa";
 import PropTypes from "prop-types";
 import TimeAgo from "react-timeago";
 import useFetch from "../hooks/useFetch";
@@ -234,7 +234,7 @@ const Post = ({ post, onPostChanged, isOwner, userData }) => {
           <ButtonContainer>
             {hasLikedPost ? (
               <UnlikeButton onClick={handleUnlikeClick} hasLiked={hasLikedPost}>
-                <FaThumbsDown />
+                <FaThumbsUp />
               </UnlikeButton>
             ) : (
               <LikeButton onClick={handleLikeClick} hasLiked={hasLikedPost}>
@@ -303,10 +303,10 @@ const LikeButton = styled.button`
 `;
 
 const UnlikeButton = styled(LikeButton)`
-  background-color: ${({ hasLiked }) => (hasLiked ? "#ff6347" : "#788292")};
+  background-color: ${({ hasLiked }) => (hasLiked ? "#3eacfa" : "#788292")};
 
   &:hover {
-    background-color: ${({ hasLiked }) => (hasLiked ? "#d32f2f" : "#ff6347")};
+    background-color: ${({ hasLiked }) => (hasLiked ? "#3eacfa" : "#3eacfa")};
   }
 
   @media (max-width: 768px) {
