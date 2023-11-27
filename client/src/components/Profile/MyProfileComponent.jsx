@@ -201,7 +201,7 @@ const MyProfileComponent = () => {
             </ProfileInfo>
           </>
         )}
-        <UsersPosts />
+        <UsersPosts data={data} />
       </ScrollableContainer>
     </Container>
   );

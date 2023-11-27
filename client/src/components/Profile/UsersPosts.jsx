@@ -5,7 +5,7 @@ import useFetch from "../../hooks/useFetch";
 import CreatePost from "../CreatePost";
 import Post from "../Post";
 
-const UsersPosts = () => {
+const UsersPosts = (data) => {
   const [posts, setPosts] = useState([]);
 
   const token = localStorage.getItem("token");
@@ -64,6 +64,7 @@ const UsersPosts = () => {
         ) : (
           posts.map((post) => (
             <Post
+              userData={data}
               key={post._id}
               post={post}
               onPostChanged={onPostChanged}

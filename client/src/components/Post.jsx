@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import TimeAgo from "react-timeago";
 import useFetch from "../hooks/useFetch";
 
-const Post = ({ post, onPostChanged, isOwner }) => {
+const Post = ({ post, onPostChanged, isOwner, userData }) => {
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
 
@@ -36,7 +36,7 @@ const Post = ({ post, onPostChanged, isOwner }) => {
         "Content-Type": "application/json",
       },
     });
-  }, []);
+  }, [userData]);
 
   useEffect(() => {
     performGetLikesFetch();
@@ -173,6 +173,7 @@ const Post = ({ post, onPostChanged, isOwner }) => {
 
   Post.propTypes = {
     post: PropTypes.object.isRequired,
+    userData: PropTypes.object.isRequired,
     onPostChanged: PropTypes.func,
     isOwner: PropTypes.bool.isRequired,
   };
