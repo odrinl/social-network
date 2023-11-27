@@ -151,7 +151,7 @@ const MyProfileComponent = () => {
                 src={
                   data.coverPicture && !error
                     ? `${process.env.BASE_SERVER_URL}/uploadImages/${data.coverPicture}`
-                    : placeholderCoverPhoto
+                    : "https://via.placeholder.com/1000x240?text=Cover+Photo"
                 }
                 alt="Cover Photo"
               />
@@ -176,7 +176,7 @@ const MyProfileComponent = () => {
                   src={
                     data.profilePicture
                       ? `${process.env.BASE_SERVER_URL}/uploadImages/${data.profilePicture}`
-                      : placeholderProfilePic
+                      : "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png"
                   }
                   alt="Profile Pic"
                 />
