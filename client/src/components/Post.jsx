@@ -80,6 +80,14 @@ const Post = ({ post, onPostChanged, isOwner, userData }) => {
     }
   );
 
+  const { performFetch: performUnlikeFetch } = useFetch(
+    `/posts/${post._id}/unlike`,
+    (data) => {
+      setLikesData(data);
+      performGetLikesFetch();
+    }
+  );
+
   const {
     performFetch: performGetLikesFetch,
     cancelFetch: cancelGetLikesFetch,
@@ -143,6 +151,23 @@ const Post = ({ post, onPostChanged, isOwner, userData }) => {
       };
 
       performLikeFetch(options);
+      performGetLikesFetch();
+    }
+  };
+
+  const handleUnlikeClick = async () => {
+    if (userId && post && post._id) {
+      const options = {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ userId: userId, postId: post._id }),
+      };
+
+      performUnlikeFetch(options);
+
       performGetLikesFetch();
     }
   };
@@ -216,9 +241,15 @@ const Post = ({ post, onPostChanged, isOwner, userData }) => {
 
         {userId && post && post._id && (
           <ButtonContainer>
-            <LikeButton onClick={handleLikeClick} hasLiked={hasLikedPost}>
-              <FaThumbsUp />
-            </LikeButton>
+            {hasLikedPost ? (
+              <UnlikeButton onClick={handleUnlikeClick} hasLiked={hasLikedPost}>
+                <FaThumbsUp />
+              </UnlikeButton>
+            ) : (
+              <LikeButton onClick={handleLikeClick} hasLiked={hasLikedPost}>
+                <FaThumbsUp />
+              </LikeButton>
+            )}
           </ButtonContainer>
         )}
       </PostFooter>
@@ -293,18 +324,18 @@ const LikeButton = styled.button`
   }
 `;
 
-// const UnlikeButton = styled(LikeButton)`
-//   background-color: ${({ hasLiked }) => (hasLiked ? "#ff6347" : "#788292")};
+const UnlikeButton = styled(LikeButton)`
+  background-color: ${({ hasLiked }) => (hasLiked ? "#3eacfa" : "#788292")};
 
-//   &:hover {
-//     background-color: ${({ hasLiked }) => (hasLiked ? "#d32f2f" : "#ff6347")};
-//   }
+  &:hover {
+    background-color: ${({ hasLiked }) => (hasLiked ? "#3eacfa" : "#3eacfa")};
+  }
 
-//   @media (max-width: 768px) {
-//     font-size: 1.2rem;
-//     padding: 0.4rem;
-//   }
-// `;
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+    padding: 0.4rem;
+  }
+`;
 
 const LikeCount = styled.div`
   color: #788292;

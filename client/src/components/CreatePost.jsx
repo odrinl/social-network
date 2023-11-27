@@ -88,8 +88,8 @@ const CreatePost = ({ onPostCreate }) => {
       <ButtonContainer>
         <IconContainer>
           <img
-            width="60"
-            height="60"
+            width="40"
+            height="40"
             src="https://cdn-icons-png.flaticon.com/512/1040/1040241.png"
             style={{ marginLeft: "0.5rem", cursor: "pointer" }}
             onClick={openModal}
@@ -139,8 +139,10 @@ const ButtonContainer = styled.div`
   justify-content: space-between;
 `;
 const IconContainer = styled.div`
-  margin-left: 8rem;
   display: flex;
+  position: relative;
+  top: -40px;
+  left: 15%;
   align-items: center;
 
   img {
@@ -153,6 +155,16 @@ const IconContainer = styled.div`
   span {
     font-size: 1rem;
     color: white;
+  }
+  @media (max-width: 500px) {
+    position: relative;
+    top: 5px;
+    left: 1%;
+  }
+  @media (min-width: 768px) {
+    position: relative;
+    top: -40px;
+    left: 25%;
   }
 `;
 
