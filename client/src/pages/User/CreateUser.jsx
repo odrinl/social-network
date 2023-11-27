@@ -124,6 +124,7 @@ const CreateUser = () => {
                 name="password"
                 value={password}
                 placeholder="Password"
+                autoComplete="new-password"
                 onChange={(value) => setPassword(value)}
                 type={showPassword ? "text" : "password"}
                 style={{
