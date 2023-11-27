@@ -28,7 +28,6 @@ const PostUploadModal = ({ onClose }) => {
     });
   }, [userId]);
 
-  // Initialize the ref using React.createRef()
   const fileInputRef = useRef(null);
 
   const handleImageChange = (e) => {
@@ -43,7 +42,6 @@ const PostUploadModal = ({ onClose }) => {
   };
 
   const handleModalClose = () => {
-    console.log("Closing modal");
     onClose();
   };
 
@@ -66,7 +64,6 @@ const PostUploadModal = ({ onClose }) => {
   };
 
   const handleClearImage = () => {
-    // Clear the selected image
     setSelectedImage(null);
   };
 
@@ -83,7 +80,6 @@ const PostUploadModal = ({ onClose }) => {
       formData.append("postImage", selectedImage);
       formData.append("text", caption);
 
-      // Make a POST request to your server endpoint for uploading the post image
       const response = await fetch(
         `${process.env.BASE_SERVER_URL}/api/uploads/upload-post-image/${userId}`,
         {
@@ -98,10 +94,8 @@ const PostUploadModal = ({ onClose }) => {
       if (response.ok) {
         const result = await response.json();
 
-        // Do something with the result if needed
         console.log(result);
 
-        // Close the modal after submission (adjust this based on your needs)
         onClose();
       } else {
         console.error("Post picture upload failed");
@@ -251,7 +245,10 @@ const ProfileImage = styled.img`
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  margin-right: 10px;
+  border: 5px solid #fff;
+  object-fit: cover;
+  box-shadow: 0 0 10px rgba(27, 131, 166, 0.6);
+  margin-right: 0.5rem;
 `;
 
 const Username = styled.div`

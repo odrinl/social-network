@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
+import { FaThumbsUp } from "react-icons/fa";
 import PropTypes from "prop-types";
 import TimeAgo from "react-timeago";
 import useFetch from "../hooks/useFetch";
@@ -80,14 +80,6 @@ const Post = ({ post, onPostChanged, isOwner, userData }) => {
     }
   );
 
-  const { performFetch: performUnlikeFetch } = useFetch(
-    `/posts/${post._id}/unlike`,
-    (data) => {
-      setLikesData(data);
-      performGetLikesFetch();
-    }
-  );
-
   const {
     performFetch: performGetLikesFetch,
     cancelFetch: cancelGetLikesFetch,
@@ -151,23 +143,6 @@ const Post = ({ post, onPostChanged, isOwner, userData }) => {
       };
 
       performLikeFetch(options);
-      performGetLikesFetch();
-    }
-  };
-
-  const handleUnlikeClick = async () => {
-    if (userId && post && post._id) {
-      const options = {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ userId: userId, postId: post._id }),
-      };
-
-      performUnlikeFetch(options);
-
       performGetLikesFetch();
     }
   };
@@ -241,22 +216,15 @@ const Post = ({ post, onPostChanged, isOwner, userData }) => {
 
         {userId && post && post._id && (
           <ButtonContainer>
-            {hasLikedPost ? (
-              <UnlikeButton onClick={handleUnlikeClick} hasLiked={hasLikedPost}>
-                <FaThumbsDown />
-              </UnlikeButton>
-            ) : (
-              <LikeButton onClick={handleLikeClick} hasLiked={hasLikedPost}>
-                <FaThumbsUp />
-              </LikeButton>
-            )}
+            <LikeButton onClick={handleLikeClick} hasLiked={hasLikedPost}>
+              <FaThumbsUp />
+            </LikeButton>
           </ButtonContainer>
         )}
       </PostFooter>
     </Container>
   );
 };
-
 const Container = styled.div`
   border: 1px solid #d4f1f4;
   background-color: #ffffff;
@@ -325,18 +293,18 @@ const LikeButton = styled.button`
   }
 `;
 
-const UnlikeButton = styled(LikeButton)`
-  background-color: ${({ hasLiked }) => (hasLiked ? "#ff6347" : "#788292")};
+// const UnlikeButton = styled(LikeButton)`
+//   background-color: ${({ hasLiked }) => (hasLiked ? "#ff6347" : "#788292")};
 
-  &:hover {
-    background-color: ${({ hasLiked }) => (hasLiked ? "#d32f2f" : "#ff6347")};
-  }
+//   &:hover {
+//     background-color: ${({ hasLiked }) => (hasLiked ? "#d32f2f" : "#ff6347")};
+//   }
 
-  @media (max-width: 768px) {
-    font-size: 1.2rem;
-    padding: 0.4rem;
-  }
-`;
+//   @media (max-width: 768px) {
+//     font-size: 1.2rem;
+//     padding: 0.4rem;
+//   }
+// `;
 
 const LikeCount = styled.div`
   color: #788292;

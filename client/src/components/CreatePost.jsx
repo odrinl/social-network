@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import useFetch from "../hooks/useFetch";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUpload } from "@fortawesome/free-solid-svg-icons";
+
 import PostUploadModal from "./PostUploadModal";
 
 const CreatePost = ({ onPostCreate }) => {
@@ -35,7 +34,7 @@ const CreatePost = ({ onPostCreate }) => {
         "Content-Type": "application/json",
       },
     });
-  }, [userId, data]);
+  }, [userId]);
 
   const { performFetch, isLoading } = useFetch("/posts/create", onReceived);
   const token = localStorage.getItem("token");
@@ -84,16 +83,23 @@ const CreatePost = ({ onPostCreate }) => {
           onChange={(e) => setText(e.target.value)}
         />
 
-        <FontAwesomeIcon
-          icon={faUpload}
-          style={{ marginLeft: "0.5rem", cursor: "pointer" }}
-          onClick={openModal}
-        />
         {showModal && <PostUploadModal onClose={closeModal} />}
       </TopArea>
-      <BottomArea>
-        <PostButton onClick={handlePostCreate}>Post</PostButton>
-      </BottomArea>
+      <ButtonContainer>
+        <IconContainer>
+          <img
+            width="60"
+            height="60"
+            src="https://img.icons8.com/external-those-icons-flat-those-icons/24/external-Add-Image-images-and-image-files-those-icons-flat-those-icons.png"
+            alt="external-Add-Image-images-and-image-files-those-icons-flat-those-icons"
+            style={{ marginLeft: "0.5rem", cursor: "pointer" }}
+            onClick={openModal}
+          />
+        </IconContainer>
+        <BottomArea>
+          <PostButton onClick={handlePostCreate}>Post</PostButton>
+        </BottomArea>
+      </ButtonContainer>
       {isLoading && <p>Loading...</p>}
     </Container>
   );
@@ -127,6 +133,13 @@ const BottomArea = styled.div`
   justify-content: flex-end;
 `;
 
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+const IconContainer = styled.div`
+  margin-left: 4rem;
+`;
 const ProfilePic = styled.img`
   width: 90px;
   height: 90px;
