@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import TimeAgo from "react-timeago";
 import useFetch from "../hooks/useFetch";
 
-const Post = ({ post, onPostChanged, isOwner }) => {
+const Post = ({ post, onPostChanged, isOwner, userData }) => {
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
 
@@ -36,7 +36,7 @@ const Post = ({ post, onPostChanged, isOwner }) => {
         "Content-Type": "application/json",
       },
     });
-  }, []);
+  }, [userData]);
 
   useEffect(() => {
     performGetLikesFetch();
@@ -173,6 +173,7 @@ const Post = ({ post, onPostChanged, isOwner }) => {
 
   Post.propTypes = {
     post: PropTypes.object.isRequired,
+    userData: PropTypes.object.isRequired,
     onPostChanged: PropTypes.func,
     isOwner: PropTypes.bool.isRequired,
   };
@@ -185,7 +186,7 @@ const Post = ({ post, onPostChanged, isOwner }) => {
           src={
             data.profilePicture
               ? `${process.env.BASE_SERVER_URL}/uploadImages/${data.profilePicture}`
-              : "https://th.bing.com/th/id/OIP.Y6Xo7ozc-rL5UrzUanPlxAHaHa?w=211&h=211&c=7&r=0&o=5&dpr=1.3&pid=1.7"
+              : "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png"
           }
           alt="Profile Pic"
         />
@@ -232,11 +233,11 @@ const Post = ({ post, onPostChanged, isOwner }) => {
         {userId && post && post._id && (
           <ButtonContainer>
             {hasLikedPost ? (
-              <UnlikeButton onClick={handleUnlikeClick}>
+              <UnlikeButton onClick={handleUnlikeClick} hasLiked={hasLikedPost}>
                 <FaThumbsDown />
               </UnlikeButton>
             ) : (
-              <LikeButton onClick={handleLikeClick}>
+              <LikeButton onClick={handleLikeClick} hasLiked={hasLikedPost}>
                 <FaThumbsUp />
               </LikeButton>
             )}
@@ -279,7 +280,7 @@ const ButtonContainer = styled.div`
 `;
 const LikeButton = styled.button`
   color: #fff;
-  background-color: ${({ liked }) => (liked ? "#ff6347" : "#4caf50")};
+  background-color: ${({ hasLiked }) => (hasLiked ? "#4caf50" : "#788292")};
   cursor: pointer;
   opacity: 0.8;
   margin-left: 1.5rem;
@@ -292,8 +293,9 @@ const LikeButton = styled.button`
   justify-content: center;
 
   &:hover {
-    background-color: ${({ liked }) => (liked ? "#45a049" : "#d32f2f")};
+    background-color: ${({ hasLiked }) => (hasLiked ? "#45a049" : "#4caf50")};
   }
+
   @media (max-width: 768px) {
     font-size: 1.2rem;
     padding: 0.4rem;
@@ -301,7 +303,12 @@ const LikeButton = styled.button`
 `;
 
 const UnlikeButton = styled(LikeButton)`
-  background-color: ${({ liked }) => (liked ? "#4caf50" : "#ff6347")};
+  background-color: ${({ hasLiked }) => (hasLiked ? "#ff6347" : "#788292")};
+
+  &:hover {
+    background-color: ${({ hasLiked }) => (hasLiked ? "#d32f2f" : "#ff6347")};
+  }
+
   @media (max-width: 768px) {
     font-size: 1.2rem;
     padding: 0.4rem;
