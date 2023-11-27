@@ -322,6 +322,7 @@ const CoverPhoto = styled.img`
 `;
 
 const ProfilePicContainer = styled.div`
+  display: flex;
   position: relative;
 `;
 
@@ -343,7 +344,6 @@ const ProfilePic = styled.img`
 
 const ProfileInfo = styled.div`
   display: flex;
-  align-items: center;
 
   h1 {
     font-size: 17px;
