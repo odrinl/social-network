@@ -48,21 +48,25 @@ router.post(
   "/upload-cover-picture/:userId",
   upload.single("coverPicture"),
   async (req, res) => {
-    const userId = req.params.userId;
-    const user = await User.findById(userId);
+    try {
+      const userId = req.params.userId;
+      const user = await User.findById(userId);
 
-    if (!user) {
-      return res.status(404).json({ success: false, error: "User not found" });
+      if (!user) {
+        return res
+          .status(404)
+          .json({ success: false, error: "User not found" });
+      }
+
+      user.coverPicture = req.file.filename;
+      await user.save();
+
+      const coverPictureUrl = `/uploadImages/${user.coverPicture}`;
+
+      res.json({ success: true, coverPictureUrl });
+    } catch (error) {
+      res.status(500).send({ success: false, error: "Internal Server Error" });
     }
-
-    user.coverPicture = req.file.filename;
-    await user.save();
-
-    const coverPictureUrl = `/uploadImages/${user.coverPicture}`;
-
-    res.json({ success: true, coverPictureUrl });
-
-    res.status(500).send({ success: false, error: "Internal Server Error" });
   }
 );
 router.post(

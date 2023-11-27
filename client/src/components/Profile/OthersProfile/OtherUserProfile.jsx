@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import useFetch from "../../../hooks/useFetch";
-import { fakeData } from "../MyProfileComponent";
 import OtherUsersPosts from "./OtherUsersPosts";
 
 const OtherUserProfile = () => {
@@ -27,7 +26,6 @@ const OtherUserProfile = () => {
   };
 
   const onComplete = () => {
-    console.log("action completed");
     setRerenderFlag((prevFlag) => !prevFlag);
   };
 
@@ -171,7 +169,15 @@ const OtherUserProfile = () => {
         {!dataLoading && !dataError && (
           <>
             <CoverPhotoContainer>
-              <CoverPhoto src={fakeData.coverPhoto} alt="Cover Photo" />
+              <CoverPhoto
+                id="profilePic"
+                src={
+                  data.coverPicture
+                    ? `${process.env.BASE_SERVER_URL}/uploadImages/${data.coverPicture}`
+                    : "https://res.cloudinary.com/dtb1hpuil/image/upload/v1700775170/q5_rmntjh.jpg"
+                }
+                alt="Profile Pic"
+              />
             </CoverPhotoContainer>
             <ProfileInfo>
               <ProfilePic
@@ -179,7 +185,7 @@ const OtherUserProfile = () => {
                 src={
                   data.profilePicture
                     ? `${process.env.BASE_SERVER_URL}/uploadImages/${data.profilePicture}`
-                    : fakeData.profilePic
+                    : "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png"
                 }
                 alt="Profile Pic"
               />
@@ -247,6 +253,7 @@ const Container = styled.div`
 
 const UserProfile = styled.div`
   overflow-y: auto;
+  width: 100%;
   scrollbar-width: none;
   &::-webkit-scrollbar {
     width: 0 !important;
@@ -255,6 +262,7 @@ const UserProfile = styled.div`
 
 const CoverPhotoContainer = styled.div`
   position: relative;
+  height: 240px;
 `;
 
 const CoverPhoto = styled.img`
@@ -319,7 +327,7 @@ const Button = styled.button`
 const Description = styled.div`
   display: flex;
   position: relative;
-  left: 14px;
+  left: 20px;
   align-items: center; /* Vertical alignment */
   justify-content: center;
 `;
@@ -328,6 +336,8 @@ const Info = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
+  left: -10px;
+  bottom: 2px;
   h1 {
     font-size: 20px;
   }
