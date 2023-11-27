@@ -69,5 +69,41 @@ router.post(
     }
   }
 );
+router.post(
+  "/upload-post-image/:userId",
+  upload.single("postImage"),
+  async (req, res) => {
+    try {
+      const userId = req.params.userId;
+      const user = await User.findById(userId);
+
+      if (!user) {
+        return res
+          .status(404)
+          .json({ success: false, error: "User not found" });
+      }
+
+      // Assuming your post object has some additional details (text, username, etc.)
+      const newPost = {
+        username: user.username,
+        text: req.body.text,
+        images: [req.file.filename],
+      };
+
+      // Push the new post to the posts array
+      user.posts.push(newPost);
+
+      // Save the updated user object
+      await user.save();
+
+      res.json({
+        success: true,
+        postImageUrl: `/uploadImages/${req.file.filename}`,
+      });
+    } catch (error) {
+      res.status(500).json({ success: false, error: "Internal Server Error" });
+    }
+  }
+);
 
 export default router;

@@ -3,8 +3,7 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import useFetch from "../hooks/useFetch";
 
-const token = localStorage.getItem("token");
-const userId = localStorage.getItem("userId");
+import PostUploadModal from "./PostUploadModal";
 
 const CreatePost = ({ onPostCreate }) => {
   const [text, setText] = useState("");
@@ -35,9 +34,12 @@ const CreatePost = ({ onPostCreate }) => {
         "Content-Type": "application/json",
       },
     });
-  }, [userId, data]);
+  }, [userId]);
 
   const { performFetch, isLoading } = useFetch("/posts/create", onReceived);
+  const token = localStorage.getItem("token");
+  const userId = localStorage.getItem("userId");
+  const [showModal, setShowModal] = useState(false);
 
   const handlePostCreate = () => {
     if (text.trim() !== "") {
@@ -52,6 +54,14 @@ const CreatePost = ({ onPostCreate }) => {
 
       performFetch(options);
     }
+  };
+
+  const openModal = () => {
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
   };
 
   return (
@@ -71,11 +81,26 @@ const CreatePost = ({ onPostCreate }) => {
           placeholder="What's on your mind?"
           value={text}
           onChange={(e) => setText(e.target.value)}
-        ></Text>
+        />
+
+        {showModal && <PostUploadModal onClose={closeModal} />}
       </TopArea>
-      <BottomArea>
-        <PostButton onClick={handlePostCreate}>Post</PostButton>
-      </BottomArea>
+      <ButtonContainer>
+        <IconContainer>
+          <img
+            width="60"
+            height="60"
+            src="https://cdn-icons-png.flaticon.com/512/1040/1040241.png"
+            style={{ marginLeft: "0.5rem", cursor: "pointer" }}
+            onClick={openModal}
+            alt="Add Photo Icon"
+          />
+          <span style={{ marginLeft: "0.5rem" }}> Photo</span>
+        </IconContainer>
+        <BottomArea>
+          <PostButton onClick={handlePostCreate}>Post</PostButton>
+        </BottomArea>
+      </ButtonContainer>
       {isLoading && <p>Loading...</p>}
     </Container>
   );
@@ -107,6 +132,28 @@ const TopArea = styled.div`
 const BottomArea = styled.div`
   display: flex;
   justify-content: flex-end;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+const IconContainer = styled.div`
+  margin-left: 8rem;
+  display: flex;
+  align-items: center;
+
+  img {
+    width: 60px;
+    height: 60px;
+    margin-right: 0.5rem;
+    cursor: pointer;
+  }
+
+  span {
+    font-size: 1rem;
+    color: white;
+  }
 `;
 
 const ProfilePic = styled.img`

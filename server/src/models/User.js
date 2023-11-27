@@ -22,7 +22,7 @@ const commentSchema = new mongoose.Schema({
 const postSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User", // Reference to the User model
+    ref: "User",
   },
   username: String,
   text: String,

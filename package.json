@@ -58,9 +58,11 @@
     "bcryptjs": "^2.4.3",
     "concurrently": "^6.4.0",
     "express-async-handler": "^1.2.0",
+    "install": "^0.13.0",
     "jsonwebtoken": "^9.0.2",
     "multer": "^1.4.5-lts.1",
     "node-fetch": "^3.3.2",
+    "npm": "^10.2.4",
     "prop-types": "^15.8.1",
     "react-toastify": "^9.1.3"
   }
