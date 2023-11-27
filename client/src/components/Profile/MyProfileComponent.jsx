@@ -4,13 +4,6 @@ import useFetch from "../../hooks/useFetch";
 import UsersPosts from "./UsersPosts";
 import { FaCamera } from "react-icons/fa";
 
-export const fakeData = {
-  profilePic:
-    "https://th.bing.com/th/id/OIP.yhqkR9B2hKbtwwZ8bPNbQQHaHw?w=200&h=209&c=7&r=0&o=5&dpr=1.3&pid=1.7",
-  coverPhoto:
-    "https://th.bing.com/th/id/OIP.Tn2c_lREpwhQGXrvQ3aRgwHaHa?pid=ImgDet&w=200&h=200&c=7&dpr=1,3",
-};
-
 const MyProfileComponent = () => {
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
@@ -88,11 +81,11 @@ const MyProfileComponent = () => {
 
         if (response.ok) {
           const result = await response.json();
-          console.log("image results", result);
 
           document.getElementById(
             "profilePic"
           ).src = `${process.env.BASE_SERVER_URL}${result.profilePictureUrl}`;
+          performFetch();
         } else {
           console.error("Profile picture upload failed");
         }
@@ -126,8 +119,6 @@ const MyProfileComponent = () => {
           }
         );
 
-        console.log("Response status:", response.status);
-
         if (response.ok) {
           const result = await response.json();
 
@@ -160,7 +151,7 @@ const MyProfileComponent = () => {
                 src={
                   data.coverPicture && !error
                     ? `${process.env.BASE_SERVER_URL}/uploadImages/${data.coverPicture}`
-                    : "https://res.cloudinary.com/dtb1hpuil/image/upload/v1700775170/q5_rmntjh.jpg"
+                    : "https://via.placeholder.com/1000x240?text=Cover+Photo"
                 }
                 alt="Cover Photo"
               />
@@ -184,7 +175,7 @@ const MyProfileComponent = () => {
                   src={
                     data.profilePicture
                       ? `${process.env.BASE_SERVER_URL}/uploadImages/${data.profilePicture}`
-                      : fakeData.ProfilePic
+                      : "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png"
                   }
                   alt="Profile Pic"
                 />
@@ -209,7 +200,7 @@ const MyProfileComponent = () => {
             </ProfileInfo>
           </>
         )}
-        <UsersPosts />
+        <UsersPosts data={data} />
       </ScrollableContainer>
     </Container>
   );
@@ -335,6 +326,7 @@ const CoverPhoto = styled.img`
 `;
 
 const ProfilePicContainer = styled.div`
+  display: flex;
   position: relative;
 `;
 
@@ -356,7 +348,6 @@ const ProfilePic = styled.img`
 
 const ProfileInfo = styled.div`
   display: flex;
-  align-items: center;
 
   h1 {
     font-size: 17px;
