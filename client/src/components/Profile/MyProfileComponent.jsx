@@ -93,7 +93,6 @@ const MyProfileComponent = () => {
 
         if (response.ok) {
           const result = await response.json();
-          console.log("image results", result);
 
           document.getElementById(
             "profilePic"
@@ -130,8 +129,6 @@ const MyProfileComponent = () => {
             body: formData,
           }
         );
-
-        console.log("Response status:", response.status);
 
         if (response.ok) {
           const result = await response.json();

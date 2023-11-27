@@ -27,7 +27,6 @@ const OtherUserProfile = () => {
   };
 
   const onComplete = () => {
-    console.log("action completed");
     setRerenderFlag((prevFlag) => !prevFlag);
   };
 

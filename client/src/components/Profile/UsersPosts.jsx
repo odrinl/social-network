@@ -39,11 +39,7 @@ const UsersPosts = () => {
     performFetch(options);
   };
 
-  const onPostCreate = () => {
-    fetchPosts();
-  };
-
-  const onPostDelete = () => {
+  const onPostChanged = () => {
     fetchPosts();
   };
 
@@ -60,7 +56,7 @@ const UsersPosts = () => {
   return (
     <Container>
       <PostsContainer>
-        <CreatePost onPostCreate={onPostCreate} />
+        <CreatePost onPostCreate={onPostChanged} />
         {isLoading ? (
           <p>Loading...</p>
         ) : error ? (
@@ -70,7 +66,7 @@ const UsersPosts = () => {
             <Post
               key={post._id}
               post={post}
-              onPostDelete={onPostDelete}
+              onPostChanged={onPostChanged}
               isOwner={isOwner(post)}
             />
           ))

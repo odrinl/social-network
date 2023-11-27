@@ -20,7 +20,6 @@ const MyProfileSideSection = () => {
   const onSuccess = (response) => {
     setData(response.user);
   };
-  console.log();
 
   const { isLoading, error, performFetch, cancelFetch } = useFetch(
     `/users/${userId}`,

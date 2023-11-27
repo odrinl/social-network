@@ -17,7 +17,6 @@ const CreatePost = ({ onPostCreate }) => {
   const onSuccess = (response) => {
     setData(response.user);
   };
-  console.log(data);
 
   const { performFetch: performData, cancelData } = useFetch(
     `/users/${userId}`,
@@ -112,7 +111,6 @@ const BottomArea = styled.div`
 
 const ProfilePic = styled.img`
   position: relative;
-  left: 5px;
   width: 100px;
   height: 90px;
   border-radius: 50%;
