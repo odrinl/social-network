@@ -65,4 +65,42 @@ router.post(
     res.status(500).send({ success: false, error: "Internal Server Error" });
   }
 );
+router.post(
+  "/upload-post-image/:userId",
+  upload.single("postImage"),
+  async (req, res) => {
+    try {
+      const userId = req.params.userId;
+      const user = await User.findById(userId);
+
+      if (!user) {
+        return res
+          .status(404)
+          .json({ success: false, error: "User not found" });
+      }
+
+      // Assuming your post object has some additional details (text, username, etc.)
+      const newPost = {
+        username: user.username, // Include the username in the post
+        text: req.body.text, // Include the post text
+        images: [req.file.filename], // Save the filename in the images array
+      };
+
+      // Push the new post to the posts array
+      user.posts.push(newPost);
+
+      // Save the updated user object
+      await user.save();
+
+      res.json({
+        success: true,
+        postImageUrl: `/uploadImages/${req.file.filename}`,
+      });
+    } catch (error) {
+      console.error("Error uploading post image:", error);
+      res.status(500).json({ success: false, error: "Internal Server Error" });
+    }
+  }
+);
+
 export default router;

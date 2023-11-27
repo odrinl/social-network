@@ -115,6 +115,7 @@ const Post = ({ post, onPostChanged, isOwner }) => {
   };
 
   const handleSaveChanges = () => {
+    console.log("Post creation initiated");
     if (!postContent) {
       alert("Text field cannot be empty");
       return;
@@ -213,7 +214,15 @@ const Post = ({ post, onPostChanged, isOwner }) => {
           onChange={(e) => setPostContent(e.target.value)}
         ></Text>
       ) : (
-        <PostText>{post.text}</PostText>
+        <>
+          <PostText>{post.text}</PostText>
+          {post.images && post.images.length > 0 && (
+            <PostImage
+              src={`${process.env.BASE_SERVER_URL}/uploadImages/${post.images[0]}`}
+              alt="Post Image"
+            />
+          )}
+        </>
       )}
       <PostFooter>
         {isEditMode && (
@@ -271,6 +280,20 @@ const ProfilePic = styled.img`
   margin-right: 1.5rem;
   margin-bottom: 1rem;
   object-fit: cover;
+`;
+
+const PostImage = styled.img`
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 15px;
+  margin-top: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  filter: grayscale(20%);
+
+  &:hover {
+    filter: grayscale(0%);
+  }
 `;
 
 const ButtonContainer = styled.div`

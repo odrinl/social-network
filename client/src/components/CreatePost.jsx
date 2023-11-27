@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import useFetch from "../hooks/useFetch";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUpload } from "@fortawesome/free-solid-svg-icons";
+import PostUploadModal from "./PostUploadModal";
 
 const CreatePost = ({ onPostCreate }) => {
   const [text, setText] = useState("");
@@ -13,6 +16,7 @@ const CreatePost = ({ onPostCreate }) => {
   const { performFetch, isLoading } = useFetch("/posts/create", onReceived);
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
+  const [showModal, setShowModal] = useState(false);
 
   const handlePostCreate = () => {
     if (text.trim() !== "") {
@@ -29,6 +33,14 @@ const CreatePost = ({ onPostCreate }) => {
     }
   };
 
+  const openModal = () => {
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <Container>
       <TopArea>
@@ -41,7 +53,14 @@ const CreatePost = ({ onPostCreate }) => {
           placeholder="What's on your mind?"
           value={text}
           onChange={(e) => setText(e.target.value)}
-        ></Text>
+        />
+
+        <FontAwesomeIcon
+          icon={faUpload}
+          style={{ marginLeft: "0.5rem", cursor: "pointer" }}
+          onClick={openModal}
+        />
+        {showModal && <PostUploadModal onClose={closeModal} />}
       </TopArea>
       <BottomArea>
         <PostButton onClick={handlePostCreate}>Post</PostButton>

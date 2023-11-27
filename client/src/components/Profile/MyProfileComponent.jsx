@@ -9,6 +9,7 @@ export const fakeData = {
     "https://th.bing.com/th/id/OIP.yhqkR9B2hKbtwwZ8bPNbQQHaHw?w=200&h=209&c=7&r=0&o=5&dpr=1.3&pid=1.7",
   coverPhoto:
     "https://th.bing.com/th/id/OIP.Tn2c_lREpwhQGXrvQ3aRgwHaHa?pid=ImgDet&w=200&h=200&c=7&dpr=1,3",
+  username: "robert",
 };
 
 const placeholderCoverPhoto =
