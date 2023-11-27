@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import useFetch from "../../../hooks/useFetch";
-import { fakeData } from "../MyProfileComponent";
 import OtherUsersPosts from "./OtherUsersPosts";
 
 const OtherUserProfile = () => {
@@ -170,7 +169,12 @@ const OtherUserProfile = () => {
         {!dataLoading && !dataError && (
           <>
             <CoverPhotoContainer>
-              <CoverPhoto src={fakeData.coverPhoto} alt="Cover Photo" />
+              <CoverPhoto
+                src={
+                  "https://th.bing.com/th/id/OIP.Tn2c_lREpwhQGXrvQ3aRgwHaHa?pid=ImgDet&w=200&h=200&c=7&dpr=1,3"
+                }
+                alt="Cover Photo"
+              />
             </CoverPhotoContainer>
             <ProfileInfo>
               <ProfilePic
@@ -178,7 +182,7 @@ const OtherUserProfile = () => {
                 src={
                   data.profilePicture
                     ? `${process.env.BASE_SERVER_URL}/uploadImages/${data.profilePicture}`
-                    : fakeData.profilePic
+                    : "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png"
                 }
                 alt="Profile Pic"
               />

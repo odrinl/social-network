@@ -4,18 +4,6 @@ import useFetch from "../../hooks/useFetch";
 import UsersPosts from "./UsersPosts";
 import { FaCamera } from "react-icons/fa";
 
-export const fakeData = {
-  profilePic:
-    "https://th.bing.com/th/id/OIP.yhqkR9B2hKbtwwZ8bPNbQQHaHw?w=200&h=209&c=7&r=0&o=5&dpr=1.3&pid=1.7",
-  coverPhoto:
-    "https://th.bing.com/th/id/OIP.Tn2c_lREpwhQGXrvQ3aRgwHaHa?pid=ImgDet&w=200&h=200&c=7&dpr=1,3",
-};
-
-const placeholderProfilePic =
-  "https://via.placeholder.com/140?text=Profile+Pic";
-const placeholderCoverPhoto =
-  "https://via.placeholder.com/1000x240?text=Cover+Photo";
-
 const MyProfileComponent = () => {
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
