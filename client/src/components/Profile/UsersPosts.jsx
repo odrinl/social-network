@@ -5,7 +5,7 @@ import useFetch from "../../hooks/useFetch";
 import CreatePost from "../CreatePost";
 import Post from "../Post";
 
-const UsersPosts = () => {
+const UsersPosts = (data) => {
   const [posts, setPosts] = useState([]);
 
   const token = localStorage.getItem("token");
@@ -39,11 +39,7 @@ const UsersPosts = () => {
     performFetch(options);
   };
 
-  const onPostCreate = () => {
-    fetchPosts();
-  };
-
-  const onPostDelete = () => {
+  const onPostChanged = () => {
     fetchPosts();
   };
 
@@ -60,7 +56,7 @@ const UsersPosts = () => {
   return (
     <Container>
       <PostsContainer>
-        <CreatePost onPostCreate={onPostCreate} />
+        <CreatePost onPostCreate={onPostChanged} />
         {isLoading ? (
           <p>Loading...</p>
         ) : error ? (
@@ -68,9 +64,10 @@ const UsersPosts = () => {
         ) : (
           posts.map((post) => (
             <Post
+              userData={data}
               key={post._id}
               post={post}
-              onPostDelete={onPostDelete}
+              onPostChanged={onPostChanged}
               isOwner={isOwner(post)}
             />
           ))

@@ -2,15 +2,6 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import useFetch from "../hooks/useFetch";
 
-export const fakeData = {
-  username: "Sophie",
-  friends: 2,
-  profilePic:
-    "https://th.bing.com/th/id/OIP.vQcH6uRqJd1SIpce-41uUgHaLH?w=146&h=219&c=7&r=0&o=5&dpr=1.3&pid=1.7",
-  coverPhoto:
-    "https://th.bing.com/th?id=OIP.zcvn4QV1z5E7vQOFDLP6UQHaC2&w=350&h=134&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2",
-};
-
 const MyProfileSideSection = () => {
   const [data, setData] = useState({});
 
@@ -20,7 +11,6 @@ const MyProfileSideSection = () => {
   const onSuccess = (response) => {
     setData(response.user);
   };
-  console.log();
 
   const { isLoading, error, performFetch, cancelFetch } = useFetch(
     `/users/${userId}`,
@@ -49,7 +39,7 @@ const MyProfileSideSection = () => {
           src={
             data.profilePicture
               ? `${process.env.BASE_SERVER_URL}/uploadImages/${data.profilePicture}`
-              : fakeData.profilePic
+              : "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png"
           }
           alt="Profile Pic"
         />
