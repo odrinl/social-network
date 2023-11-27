@@ -11,7 +11,6 @@ export const fakeData = {
     "https://th.bing.com/th/id/OIP.Tn2c_lREpwhQGXrvQ3aRgwHaHa?pid=ImgDet&w=200&h=200&c=7&dpr=1,3",
 };
 
-
 const MyProfileComponent = () => {
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");

@@ -171,7 +171,7 @@ const OtherUserProfile = () => {
         {!dataLoading && !dataError && (
           <>
             <CoverPhotoContainer>
-            <CoverPhoto
+              <CoverPhoto
                 id="profilePic"
                 src={
                   data.coverPicture
