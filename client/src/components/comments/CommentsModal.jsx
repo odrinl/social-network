@@ -69,7 +69,6 @@ const CommentsModal = ({ post, onPostChanged, isOwner, onClose }) => {
   }, []);
 
   useEffect(() => {
-    console.log("Component mounted or userId changed:", userId);
     performFetch({
       method: "GET",
       headers: {
@@ -77,17 +76,16 @@ const CommentsModal = ({ post, onPostChanged, isOwner, onClose }) => {
         "Content-Type": "application/json",
       },
     });
-  }, [userId, post.username]); // Include post.username in the dependency array
+  }, [userId]);
 
   useEffect(() => {
-    console.log("Likes data changed:", likesData);
     performGetLikesFetch();
     return () => {
       cancelDeleteFetch();
       cancelEditFetch();
       cancelGetLikesFetch();
     };
-  }, [userId, post._id]);
+  }, [userId]);
 
   useEffect(() => {
     const newHasLikedPost =
@@ -243,8 +241,7 @@ const CommentsModal = ({ post, onPostChanged, isOwner, onClose }) => {
               alt="Profile Pic"
             />
             <UserName>
-              <strong>{post.username}</strong>
-
+              <StyledUsername>{post.username}</StyledUsername>
               <Time>
                 <TimeAgo date={post.timestamp} />
               </Time>
@@ -335,7 +332,7 @@ const CommentsModal = ({ post, onPostChanged, isOwner, onClose }) => {
                   />
                   <CommentContent>
                     <CommentHeader>
-                      <CommentUserName>{comment.user.username}</CommentUserName>
+                      <CommentUserName>{comment.username}</CommentUserName>
                       <CommentTime>
                         <TimeAgo date={comment.timestamp} />
                       </CommentTime>
@@ -398,8 +395,8 @@ const ModalContent = styled.div`
 `;
 
 const ScrollableContainer = styled.div`
-  height: 600px;
-  width: 610px;
+  height: 500px;
+  width: 600px;
 
   overflow-y: auto;
   &::-webkit-scrollbar {
@@ -417,7 +414,7 @@ const ScrollableContainer = styled.div`
   }
 
   @media (max-width: 768px) {
-    height: 600px;
+    height: 500px;
     width: 380px;
   }
 `;
@@ -628,7 +625,7 @@ const CommentProfilePic = styled.img`
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  margin-right: 1rem;
+  margin-right: 0.1rem;
 `;
 
 const CommentContent = styled.div`
@@ -659,14 +656,19 @@ const CommentText = styled.p`
   color: #1c1e21;
   word-wrap: break-word;
   background-color: #e2e2e2;
-  border-radius: 10px;
-  padding: 0.5rem;
+  border-radius: 0 11px 11px 11px;
+  padding: 0.6rem;
   margin: 0;
+  border: 1px solid #fff;
+  box-shadow: 0 0 10px rgba(27, 131, 166, 0.2);
 `;
 
 const UserName = styled.div`
   font-size: 1.2rem;
   flex-grow: 1;
+`;
+const StyledUsername = styled.strong`
+  font-weight: bold;
 `;
 
 const Time = styled.p`
