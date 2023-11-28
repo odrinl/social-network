@@ -40,7 +40,6 @@ const CreatePost = ({ onPostCreate }) => {
   }, [userId]);
 
   const { performFetch, isLoading } = useFetch("/posts/create", onReceived);
-  
 
   const handlePostCreate = () => {
     if (text.trim() !== "") {
