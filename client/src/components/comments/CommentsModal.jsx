@@ -400,7 +400,7 @@ const ScrollableContainer = styled.div`
 
   overflow-y: auto;
   &::-webkit-scrollbar {
-    width: 0em;
+    width: 0rem;
   }
   &::-webkit-scrollbar-thumb {
     background: #8c8c8c;
@@ -414,8 +414,8 @@ const ScrollableContainer = styled.div`
   }
 
   @media (max-width: 768px) {
-    height: 500px;
-    width: 380px;
+    height: 700px;
+    width: 100%;
   }
 `;
 
@@ -483,7 +483,7 @@ const buttonStyles = css`
 const LikeButton = styled.button`
   ${buttonStyles}
   background-color: ${({ $hasLiked }) => ($hasLiked ? "#05445e" : "#788292")};
-  color: ${({ $hasLiked }) => ($hasLiked ? "#fff" : "#555")};
+  color: ${({ $hasLiked }) => ($hasLiked ? "#fff" : "white")};
 
   &:hover {
     background-color: ${({ $hasLiked }) => ($hasLiked ? "#045a6b" : "#4caf50")};
@@ -498,7 +498,7 @@ const LikeButton = styled.button`
 const UnlikeButton = styled.button`
   ${buttonStyles}
   background-color: ${({ $hasLiked }) => ($hasLiked ? "#045a6b" : "#788292")};
-  color: ${({ $hasLiked }) => ($hasLiked ? "#fff" : "#555")};
+  color: ${({ $hasLiked }) => ($hasLiked ? "#fff" : "white")};
 
   &:hover {
     background-color: ${({ $hasLiked }) => ($hasLiked ? "#045a6b" : "#3eacfa")};
@@ -520,7 +520,7 @@ const CommentsButton = styled.button`
 
   @media (max-width: 768px) {
     font-size: 1.2rem;
-    padding: 0.6rem;
+    padding: 0.4rem;
   }
 `;
 
@@ -590,9 +590,9 @@ const CloseButton = styled.button`
   opacity: 1;
   margin-left: 1.5rem;
   font-size: 1.3rem;
-  border: 2px solid #788292;
+  border: 1px solid #788292;
   border-radius: 50%;
-  padding: 0.6rem;
+  padding: 0.3rem;
   display: flex;
   align-items: center;
   justify-content: center;

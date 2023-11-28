@@ -465,7 +465,7 @@ const CommentsButton = styled.button`
 
   @media (max-width: 768px) {
     font-size: 1.2rem;
-    padding: 0.6rem;
+    padding: 0.4rem;
   }
 `;
 
