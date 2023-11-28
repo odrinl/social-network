@@ -174,7 +174,7 @@ const Post = ({ post, onPostChanged, isOwner, userData }) => {
 
   Post.propTypes = {
     post: PropTypes.object.isRequired,
-    userData: PropTypes.object.isRequired,
+    userData: PropTypes.object,
     onPostChanged: PropTypes.func,
     isOwner: PropTypes.bool.isRequired,
   };

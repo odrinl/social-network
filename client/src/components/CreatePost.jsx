@@ -6,6 +6,9 @@ import useFetch from "../hooks/useFetch";
 import PostUploadModal from "./PostUploadModal";
 
 const CreatePost = ({ onPostCreate }) => {
+  const token = localStorage.getItem("token");
+  const userId = localStorage.getItem("userId");
+  const [showModal, setShowModal] = useState(false);
   const [text, setText] = useState("");
   const [data, setData] = useState({});
   const onReceived = (response) => {
@@ -37,9 +40,6 @@ const CreatePost = ({ onPostCreate }) => {
   }, [userId]);
 
   const { performFetch, isLoading } = useFetch("/posts/create", onReceived);
-  const token = localStorage.getItem("token");
-  const userId = localStorage.getItem("userId");
-  const [showModal, setShowModal] = useState(false);
 
   const handlePostCreate = () => {
     if (text.trim() !== "") {
