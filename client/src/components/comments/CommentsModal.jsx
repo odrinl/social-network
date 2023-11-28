@@ -1,27 +1,59 @@
 import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
-import { FaComments, FaPaperPlane, FaThumbsUp } from "react-icons/fa";
+import { FaComments, FaPaperPlane, FaThumbsUp, FaTimes } from "react-icons/fa";
 import PropTypes from "prop-types";
 import TimeAgo from "react-timeago";
-import useFetch from "../hooks/useFetch";
-import CommentsModal from "./comments/CommentsModal";
+import useFetch from "../../hooks/useFetch";
 
-const Post = ({ post, onPostChanged, isOwner }) => {
-  const [likesData, setLikesData] = useState({ likes: [] });
-  const [hasLikedPost, setHasLikedPost] = useState(false);
-
+const CommentsModal = ({ post, onPostChanged, isOwner, onClose }) => {
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
 
   const [data, setData] = useState({});
   const [isEditMode, setIsEditMode] = useState(false);
   const [postContent, setPostContent] = useState(post.text);
-
+  const [likesData, setLikesData] = useState({ likes: [] });
+  const [hasLikedPost, setHasLikedPost] = useState(false);
   const [commentText, setCommentText] = useState("");
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const comments = post.comments || [];
 
-  const [isCommentInputVisible, setIsCommentInputVisible] = useState(false);
+  // Function to handle comment input change
+  const handleCommentInputChange = (e) => {
+    setCommentText(e.target.value);
+  };
+
+  // Function to handle submitting a comment
+  const handleCommentSubmit = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.BASE_SERVER_URL}/api/posts/${post._id}/comment`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            userId: userId,
+            postId: post._id,
+            text: commentText,
+          }),
+        }
+      );
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log("Comment submitted:", result.comment);
+
+        setCommentText("");
+      } else {
+        console.error("Error submitting comment:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error submitting comment:", error.message);
+    }
+  };
 
   const onSuccess = (response) => {
     setData(response.user);
@@ -37,6 +69,7 @@ const Post = ({ post, onPostChanged, isOwner }) => {
   }, []);
 
   useEffect(() => {
+    console.log("Component mounted or userId changed:", userId);
     performFetch({
       method: "GET",
       headers: {
@@ -44,16 +77,17 @@ const Post = ({ post, onPostChanged, isOwner }) => {
         "Content-Type": "application/json",
       },
     });
-  }, []);
+  }, [userId, post.username]); // Include post.username in the dependency array
 
   useEffect(() => {
+    console.log("Likes data changed:", likesData);
     performGetLikesFetch();
     return () => {
       cancelDeleteFetch();
       cancelEditFetch();
       cancelGetLikesFetch();
     };
-  }, [userId]);
+  }, [userId, post._id]);
 
   useEffect(() => {
     const newHasLikedPost =
@@ -64,7 +98,7 @@ const Post = ({ post, onPostChanged, isOwner }) => {
     if (newHasLikedPost !== hasLikedPost) {
       setHasLikedPost(newHasLikedPost);
     }
-  }, [likesData, userId, hasLikedPost]);
+  }, [hasLikedPost, userId]);
 
   const toggleEditMode = () => {
     setIsEditMode(!isEditMode);
@@ -100,17 +134,6 @@ const Post = ({ post, onPostChanged, isOwner }) => {
     performFetch: performGetLikesFetch,
     cancelFetch: cancelGetLikesFetch,
   } = useFetch(`/posts/${post._id}/likes`, setLikesData);
-
-  const handleCommentIconClick = () => {
-    setIsCommentInputVisible(!isCommentInputVisible);
-  };
-  const handleCommentCountClick = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
 
   const handlePostDelete = () => {
     const isConfirmed = window.confirm(
@@ -170,6 +193,7 @@ const Post = ({ post, onPostChanged, isOwner }) => {
       };
 
       performLikeFetch(options);
+      performGetLikesFetch();
     }
   };
 
@@ -185,146 +209,145 @@ const Post = ({ post, onPostChanged, isOwner }) => {
       };
 
       performUnlikeFetch(options);
+
+      performGetLikesFetch();
     }
   };
 
-  // Function to handle comment input change
-  const handleCommentInputChange = (e) => {
-    setCommentText(e.target.value);
-  };
-
-  // Function to handle submitting a comment
-  const handleCommentSubmit = async () => {
-    try {
-      const response = await fetch(
-        `${process.env.BASE_SERVER_URL}/api/posts/${post._id}/comment`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            userId: userId,
-            postId: post._id,
-            text: commentText,
-          }),
-        }
-      );
-
-      if (response.ok) {
-        const result = await response.json();
-        console.log("Comment submitted:", result.comment);
-
-        onPostChanged();
-        setCommentText("");
-      } else {
-        console.error("Error submitting comment:", response.statusText);
-      }
-    } catch (error) {
-      console.error("Error submitting comment:", error.message);
-    }
-  };
-
-  Post.propTypes = {
+  CommentsModal.propTypes = {
     post: PropTypes.object.isRequired,
     userData: PropTypes.object.isRequired,
     onPostChanged: PropTypes.func,
-    isOwner: PropTypes.bool.isRequired,
+    isOwner: PropTypes.func,
+    onClose: PropTypes.func.isRequired,
   };
 
   return (
     <Container>
-      <PostTitle>
-        <ProfilePic
-          id="profilePic"
-          src={
-            data.profilePicture
-              ? `${process.env.BASE_SERVER_URL}/uploadImages/${data.profilePicture}`
-              : "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png"
-          }
-          alt="Profile Pic"
-        />
-        <UserName>
-          <strong>{post.username}</strong>
-
-          <Time>
-            <TimeAgo date={post.timestamp} />
-          </Time>
-        </UserName>
-        {isOwner && (
-          <>
-            {isEditMode ? (
-              <CancelButton onClick={toggleEditMode}>Cancel</CancelButton>
-            ) : (
-              <EditButton onClick={toggleEditMode}>Edit</EditButton>
-            )}
-            <DeleteButton onClick={handlePostDelete}>Delete</DeleteButton>
-          </>
-        )}
-      </PostTitle>
-      {isEditMode ? (
-        <Text
-          value={postContent}
-          onChange={(e) => setPostContent(e.target.value)}
-        ></Text>
-      ) : (
-        <>
-          <PostText>{post.text}</PostText>
-          {post.images && post.images.length > 0 && (
-            <PostImage
-              src={`${process.env.BASE_SERVER_URL}/uploadImages/${post.images[0]}`}
-              alt="Post Image"
+      <ModalContent>
+        <ScrollableContainer>
+          <CommentsTitleContainer>
+            <CommentsTitle>{post.username} Post</CommentsTitle>
+            <CloseButton onClick={onClose}>
+              <FaTimes />
+            </CloseButton>
+          </CommentsTitleContainer>
+          <PostTitle>
+            <ProfilePic
+              id="profilePic"
+              src={
+                data.profilePicture
+                  ? `${process.env.BASE_SERVER_URL}/uploadImages/${data.profilePicture}`
+                  : "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png"
+              }
+              alt="Profile Pic"
             />
-          )}
-        </>
-      )}
-      <PostFooter>
-        {isEditMode && (
-          <SaveChangesButton onClick={handleSaveChanges}>
-            Save Changes
-          </SaveChangesButton>
-        )}
-        {likesData &&
-        likesData.likes &&
-        likesData.likes.length !== undefined ? (
-          <>
-            <LikeCount>{post.likes.length} Likes</LikeCount>
+            <UserName>
+              <strong>{post.username}</strong>
 
-            <CommentCount onClick={handleCommentCountClick}>
-              {post.comments.length} comments
-            </CommentCount>
-          </>
-        ) : (
-          <>
-            <LikeCount> 0 Likes</LikeCount>
-
-            <CommentCount>0 Comments</CommentCount>
-          </>
-        )}
-
-        {userId && post && post._id && (
-          <ButtonContainer>
-            {hasLikedPost ? (
-              <UnlikeButton
-                onClick={handleUnlikeClick}
-                $hasLiked={hasLikedPost}
-              >
-                <FaThumbsUp />
-              </UnlikeButton>
-            ) : (
-              <LikeButton onClick={handleLikeClick} $hasLiked={hasLikedPost}>
-                <FaThumbsUp />
-              </LikeButton>
+              <Time>
+                <TimeAgo date={post.timestamp} />
+              </Time>
+            </UserName>
+            {isOwner && (
+              <>
+                {isEditMode ? (
+                  <CancelButton onClick={toggleEditMode}>Cancel</CancelButton>
+                ) : (
+                  <EditButton onClick={toggleEditMode}>Edit</EditButton>
+                )}
+                <DeleteButton onClick={handlePostDelete}>Delete</DeleteButton>
+              </>
             )}
-            <CommentsButton onClick={handleCommentIconClick}>
-              <FaComments />
-            </CommentsButton>
-          </ButtonContainer>
-        )}
-      </PostFooter>
+          </PostTitle>
+          {isEditMode ? (
+            <Text
+              value={postContent}
+              onChange={(e) => setPostContent(e.target.value)}
+            ></Text>
+          ) : (
+            <>
+              <PostText>{post.text}</PostText>
+              {post.images && post.images.length > 0 && (
+                <PostImage
+                  src={`${process.env.BASE_SERVER_URL}/uploadImages/${post.images[0]}`}
+                  alt="Post Image"
+                />
+              )}
+            </>
+          )}
+          <PostFooter>
+            {isEditMode && (
+              <SaveChangesButton onClick={handleSaveChanges}>
+                Save Changes
+              </SaveChangesButton>
+            )}
+            {likesData &&
+            likesData.likes &&
+            likesData.likes.length !== undefined ? (
+              <>
+                <LikeCount>{likesData.likes.length} Likes</LikeCount>
 
-      {isCommentInputVisible && (
+                <CommentCount>{post.comments.length} comments</CommentCount>
+              </>
+            ) : (
+              <>
+                <LikeCount> 0 Likes</LikeCount>
+
+                <CommentCount>0 Comments</CommentCount>
+              </>
+            )}
+
+            {userId && post && post._id && (
+              <ButtonContainer>
+                {hasLikedPost ? (
+                  <UnlikeButton
+                    onClick={handleUnlikeClick}
+                    $hasLiked={hasLikedPost}
+                  >
+                    <FaThumbsUp />
+                  </UnlikeButton>
+                ) : (
+                  <LikeButton
+                    onClick={handleLikeClick}
+                    $hasLiked={hasLikedPost}
+                  >
+                    <FaThumbsUp />
+                  </LikeButton>
+                )}
+                <CommentsButton>
+                  <FaComments />
+                </CommentsButton>
+              </ButtonContainer>
+            )}
+          </PostFooter>
+          <ConmentListContainer>
+            <CommentList>
+              {comments.map((comment) => (
+                <Comment key={comment.id}>
+                  <CommentProfilePic
+                    src={
+                      data.profilePicture
+                        ? `${process.env.BASE_SERVER_URL}/uploadImages/${data.profilePicture}`
+                        : "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png"
+                    }
+                    alt="Profile Pic"
+                  />
+                  <CommentContent>
+                    <CommentHeader>
+                      <CommentUserName>{comment.user.username}</CommentUserName>
+                      <CommentTime>
+                        <TimeAgo date={comment.timestamp} />
+                      </CommentTime>
+                    </CommentHeader>
+                    <CommentText>{comment.text}</CommentText>
+                  </CommentContent>
+                </Comment>
+              ))}
+            </CommentList>
+          </ConmentListContainer>
+        </ScrollableContainer>
+
         <CommentInputContainer>
           <CommentPic
             src={
@@ -343,25 +366,60 @@ const Post = ({ post, onPostChanged, isOwner }) => {
             <FaPaperPlane />
           </SendButton>
         </CommentInputContainer>
-      )}
-
-      {isModalOpen && (
-        <CommentsModal
-          post={post}
-          comments={post.comments}
-          onClose={handleCloseModal}
-        />
-      )}
+      </ModalContent>
     </Container>
   );
 };
+
 const Container = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+`;
+
+const ModalContent = styled.div`
   border: 1px solid #d4f1f4;
   background-color: #ffffff;
   border-radius: 0.5rem;
-  padding: 1.5rem 0.4rem 0.5rem 0.4rem;
+  padding: 1.7rem 0.6rem 0.7rem 0.6rem;
   margin-bottom: 1rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  @media (max-width: 768px) {
+    height: 100%;
+    width: 100%;
+  }
+`;
+
+const ScrollableContainer = styled.div`
+  height: 600px;
+  width: 610px;
+
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 0em;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #8c8c8c;
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555555;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  @media (max-width: 768px) {
+    height: 600px;
+    width: 380px;
+  }
 `;
 
 const PostTitle = styled.div`
@@ -428,7 +486,7 @@ const buttonStyles = css`
 const LikeButton = styled.button`
   ${buttonStyles}
   background-color: ${({ $hasLiked }) => ($hasLiked ? "#05445e" : "#788292")};
-  color: ${({ $hasLiked }) => ($hasLiked ? "#fff" : "white")};
+  color: ${({ $hasLiked }) => ($hasLiked ? "#fff" : "#555")};
 
   &:hover {
     background-color: ${({ $hasLiked }) => ($hasLiked ? "#045a6b" : "#4caf50")};
@@ -443,7 +501,7 @@ const LikeButton = styled.button`
 const UnlikeButton = styled.button`
   ${buttonStyles}
   background-color: ${({ $hasLiked }) => ($hasLiked ? "#045a6b" : "#788292")};
-  color: ${({ $hasLiked }) => ($hasLiked ? "#fff" : "white")};
+  color: ${({ $hasLiked }) => ($hasLiked ? "#fff" : "#555")};
 
   &:hover {
     background-color: ${({ $hasLiked }) => ($hasLiked ? "#045a6b" : "#3eacfa")};
@@ -473,12 +531,10 @@ const LikeCount = styled.div`
   color: #788292;
   font-size: 1rem;
   @media (max-width: 768px) {
-    margin-right: 6rem;
   }
 `;
 
 const CommentCount = styled.span`
-  margin: 8px 0;
   padding: 8px;
   border-radius: 8px;
   background-color: #fff;
@@ -488,6 +544,8 @@ const CommentCount = styled.span`
   &:hover {
     background-color: #d4f1f4;
   }
+  @media (max-width: 768px) {
+  }
 `;
 
 const CommentInputContainer = styled.div`
@@ -495,6 +553,9 @@ const CommentInputContainer = styled.div`
   align-items: center;
   margin-top: 2rem;
   margin-bottom: 1rem;
+
+  @media (max-width: 768px) {
+  }
 `;
 
 const CommentInput = styled.input`
@@ -514,6 +575,93 @@ const SendButton = styled.button`
   padding: 0.5rem;
   cursor: pointer;
   margin-left: 0.5rem;
+`;
+
+const ConmentListContainer = styled.div`
+  margin-top: 1rem;
+`;
+
+const CommentsTitleContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+`;
+
+const CloseButton = styled.button`
+  cursor: pointer;
+  opacity: 1;
+  margin-left: 1.5rem;
+  font-size: 1.3rem;
+  border: 2px solid #788292;
+  border-radius: 50%;
+  padding: 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+
+  &:hover {
+    color: #1c1e21;
+  }
+`;
+
+const CommentsTitle = styled.h2`
+  font-size: 2rem;
+  color: #1c1e21;
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
+`;
+
+const CommentList = styled.ul`
+  list-style: none;
+  padding: 0;
+`;
+
+const Comment = styled.li`
+  display: flex;
+  margin-bottom: 1rem;
+`;
+
+const CommentProfilePic = styled.img`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 1rem;
+`;
+
+const CommentContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-left: 1rem;
+`;
+
+const CommentHeader = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.3rem;
+`;
+
+const CommentUserName = styled.span`
+  font-weight: bold;
+  margin-right: 0.5rem;
+`;
+
+const CommentTime = styled.span`
+  font-size: 0.8rem;
+  color: #606770;
+`;
+
+const CommentText = styled.p`
+  font-size: 1rem;
+  line-height: 1.4;
+  color: #1c1e21;
+  word-wrap: break-word;
+  background-color: #e2e2e2;
+  border-radius: 10px;
+  padding: 0.5rem;
+  margin: 0;
 `;
 
 const UserName = styled.div`
@@ -596,4 +744,4 @@ const Text = styled.textarea`
   padding: 0.5rem;
 `;
 
-export default Post;
+export default CommentsModal;

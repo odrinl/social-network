@@ -84,8 +84,8 @@ const ProfilePicContainer = styled.div`
 const ProfilePic = styled.img`
   position: relative;
   left: 5px;
-  width: 150px;
-  height: 150px;
+  width: 120px;
+  height: 120px;
   border-radius: 30%;
   border: 5px solid #fff;
   object-fit: cover;

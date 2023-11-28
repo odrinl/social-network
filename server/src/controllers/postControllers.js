@@ -298,23 +298,57 @@ export const editPost = asyncHandler(async (req, res) => {
 
 export const commentPost = asyncHandler(async (req, res) => {
   const { userId, postId, text } = req.body;
-  // Find the user by ID
+
+  if (!mongoose.Types.ObjectId.isValid(postId)) {
+    return res.status(400).json({ success: false, message: "Invalid postId" });
+  }
+
   const user = await User.findById(userId);
 
   if (!user) {
-    res.status(404).json({ success: false, message: "User not found" });
-    return;
+    return res.status(404).json({ success: false, message: "User not found" });
   }
 
-  // Find the post within the user's posts
   const post = user.posts.id(postId);
 
   if (!post) {
-    res.status(404).json({ success: false, message: "Post not found" });
-    return;
+    // If the post is not found in the user's posts, find the user who owns the post
+    const postOwner = await User.findOne({ "posts._id": postId });
+
+    if (!postOwner) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Post owner not found" });
+    }
+
+    // Find the post within the owner's posts
+    const postInOwner = postOwner.posts.id(postId);
+
+    if (!postInOwner) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Post not found" });
+    }
+
+    // Create a new comment
+    const newComment = {
+      user: userId,
+      username: user.username,
+      text,
+      timestamp: new Date(),
+    };
+
+    postInOwner.comments.push(newComment);
+
+    await postOwner.save();
+
+    return res.status(201).json({
+      success: true,
+      message: "Comment added successfully",
+      comment: { ...newComment },
+    });
   }
 
-  // Create a new comment
   const newComment = {
     user: userId,
     username: user.username,
@@ -322,10 +356,8 @@ export const commentPost = asyncHandler(async (req, res) => {
     timestamp: new Date(),
   };
 
-  // Add the comment to the post
   post.comments.push(newComment);
 
-  // Save the changes to the user document
   await user.save();
 
   res.status(201).json({
@@ -333,8 +365,6 @@ export const commentPost = asyncHandler(async (req, res) => {
     message: "Comment added successfully",
     comment: { ...newComment },
   });
-
-  res.status(500).json({ success: false, message: "Internal Server Error" });
 });
 
 export const getPostComments = asyncHandler(async (req, res) => {

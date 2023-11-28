@@ -205,6 +205,7 @@ const GlobalStyle = createGlobalStyle`
     overflow: hidden; 
   }
 `;
+
 const ModalContent = styled.div`
   background: white;
   padding: 20px;
@@ -249,6 +250,10 @@ const ProfileImage = styled.img`
   object-fit: cover;
   box-shadow: 0 0 10px rgba(27, 131, 166, 0.6);
   margin-right: 0.5rem;
+  @media (max-width: 768px) {
+    width: 70px;
+    height: 70px;
+  }
 `;
 
 const Username = styled.div`
