@@ -1,8 +1,10 @@
-![20231213_010322](https://github.com/odrinl/diploma-project-social-network/assets/83685230/52e6d7b6-a848-4252-91df-824ae9e9bb8f)
+![20231213_010322](https://github.com/odrinl/social-network/assets/83685230/05b00d78-2a5b-4788-be7c-dd52eb77a804)
+
 
 Profile | Post
 --- | ---
-![1000006697](https://github.com/odrinl/diploma-project-social-network/assets/83685230/6eee7efc-e767-491f-8937-678b7281a0c6) | ![1000006695](https://github.com/odrinl/diploma-project-social-network/assets/83685230/2a19c95d-6e8b-48dd-9c7b-bfd16525c12f)
+![1000006697](https://github.com/odrinl/social-network/assets/83685230/85437058-e437-49b5-98d8-36ca1954aa6d) | ![1000006695](https://github.com/odrinl/social-network/assets/83685230/4f818203-f49c-4bd5-80f6-a5ea09be3f14)
+
 
 
 # Class 44 final project
