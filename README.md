@@ -1,12 +1,19 @@
-`TODO: Add a nice screenshot of the app!`
+![20231213_010322](https://github.com/odrinl/diploma-project-social-network/assets/83685230/52e6d7b6-a848-4252-91df-824ae9e9bb8f)
 
-# Class XX final project
+Profile | Post
+--- | ---
+![1000006697](https://github.com/odrinl/diploma-project-social-network/assets/83685230/6eee7efc-e767-491f-8937-678b7281a0c6) | ![1000006695](https://github.com/odrinl/diploma-project-social-network/assets/83685230/2a19c95d-6e8b-48dd-9c7b-bfd16525c12f)
+
+
+# Class 44 final project
 
 This is the final project for the HackYourFuture curriculum we did as a class using the MERN stack by following the agile methodology with our team and a group of mentors. A quick guide to what we built:
 
-> TODO: Add short description of the app
+"Aziel Net is a social network designed for refugees.
+It is a special online environment, where you can make friends, access valuable resources, and unlock your empowerment.
+At Aziel Net, we believe in fostering friendships and providing opportunities for everyone to thrive."
 
-`[Click here for the Demo version](TODO: add link)`
+[Click here for the Demo version](https://c44-group-a-574c03ac3629.herokuapp.com/)
 
 ## 1. Setup
 
